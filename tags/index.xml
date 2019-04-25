@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Succurity Blog</title>
-    <link>http://blog.succurity.com/tags/</link>
-    <description>Recent content in Tags on Succurity Blog</description>
+    <title>Tags on Silverlake&#39;s Succurity Blog</title>
+    <link>https://blog.succurity.com/tags/</link>
+    <description>Recent content in Tags on Silverlake&#39;s Succurity Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="http://blog.succurity.com/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.succurity.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>
