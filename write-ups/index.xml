@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Silverlake&#39;s Succurity Blog</title>
-    <link>https://blog.succurity.com/</link>
-    <description>Recent content on Silverlake&#39;s Succurity Blog</description>
+    <title>Write-ups on Silverlake&#39;s Succurity Blog</title>
+    <link>https://blog.succurity.com/write-ups/</link>
+    <description>Recent content in Write-ups on Silverlake&#39;s Succurity Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 26 Apr 2019 23:31:29 +0200</lastBuildDate>
     
-	<atom:link href="https://blog.succurity.com/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.succurity.com/write-ups/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,15 +19,6 @@
       <guid>https://blog.succurity.com/write-ups/hello-world-ctf/</guid>
       <description>#HELLO WORLD CTF EDITION
 Which CTF are you doing?</description>
-    </item>
-    
-    <item>
-      <title>Hello World</title>
-      <link>https://blog.succurity.com/posts/hello-world/</link>
-      <pubDate>Thu, 25 Apr 2019 22:30:51 +0200</pubDate>
-      
-      <guid>https://blog.succurity.com/posts/hello-world/</guid>
-      <description>Hello World Hello world</description>
     </item>
     
   </channel>
