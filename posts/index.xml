@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Silverlake&#39;s Succurity Blog</title>
-    <link>https://blog.succurity.com/</link>
-    <description>Recent content on Silverlake&#39;s Succurity Blog</description>
+    <title>Posts on Silverlake&#39;s Succurity Blog</title>
+    <link>https://blog.succurity.com/posts/</link>
+    <description>Recent content in Posts on Silverlake&#39;s Succurity Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 25 Apr 2019 22:30:51 +0200</lastBuildDate>
     
-	<atom:link href="https://blog.succurity.com/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.succurity.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
