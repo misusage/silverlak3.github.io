@@ -14,6 +14,11 @@
   </url>
   
   <url>
+    <loc>https://blog.succurity.com/write-ups/hello-world-ctf/</loc>
+    <lastmod>2019-04-26T23:31:29+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.succurity.com/post/</loc>
     <lastmod>2019-04-26T23:31:29+02:00</lastmod>
     <priority>0</priority>
@@ -21,6 +26,12 @@
   
   <url>
     <loc>https://blog.succurity.com/</loc>
+    <lastmod>2019-04-26T23:31:29+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.succurity.com/write-ups/</loc>
     <lastmod>2019-04-26T23:31:29+02:00</lastmod>
     <priority>0</priority>
   </url>
@@ -34,6 +45,17 @@
   <url>
     <loc>https://blog.succurity.com/2019/04/hello-world/</loc>
     <lastmod>2019-04-25T22:30:51+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.succurity.com/posts/hello-world/</loc>
+    <lastmod>2019-04-25T22:30:51+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.succurity.com/posts/</loc>
+    <lastmod>2019-04-25T22:30:51+02:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
