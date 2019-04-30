@@ -6,7 +6,7 @@
     <description>Recent content in write-ups on Silverlake&#39;s Succurity Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 26 Apr 2019 23:31:29 +0200</lastBuildDate>
+    <lastBuildDate>Sat, 27 Apr 2019 23:31:29 +0200</lastBuildDate>
     
 	<atom:link href="https://blog.succurity.com/categories/write-ups/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Hello World CTF</title>
       <link>https://blog.succurity.com/2019/04/hello-world-ctf/</link>
-      <pubDate>Fri, 26 Apr 2019 23:31:29 +0200</pubDate>
+      <pubDate>Sat, 27 Apr 2019 23:31:29 +0200</pubDate>
       
       <guid>https://blog.succurity.com/2019/04/hello-world-ctf/</guid>
       <description>Just a simple Hello World Page.</description>
