@@ -3,8 +3,66 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.succurity.com/categories/about-me/</loc>
+    <lastmod>2019-05-01T16:14:58+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.succurity.com/2019/05/about-me/</loc>
+    <lastmod>2019-05-01T16:14:58+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.succurity.com/tags/about-me/</loc>
+    <lastmod>2019-05-01T16:14:58+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.succurity.com/categories/</loc>
-    <lastmod>2019-04-27T23:31:29+02:00</lastmod>
+    <lastmod>2019-05-01T16:14:58+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.succurity.com/post/</loc>
+    <lastmod>2019-05-01T16:14:58+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.succurity.com/</loc>
+    <lastmod>2019-05-01T16:14:58+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.succurity.com/tags/</loc>
+    <lastmod>2019-05-01T16:14:58+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.succurity.com/categories/oscp/</loc>
+    <lastmod>2019-05-01T16:14:05+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.succurity.com/2019/05/oscp-guide/</loc>
+    <lastmod>2019-05-01T16:14:05+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.succurity.com/tags/tag1/</loc>
+    <lastmod>2019-05-01T16:14:05+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.succurity.com/tags/tag2/</loc>
+    <lastmod>2019-05-01T16:14:05+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -14,13 +72,7 @@
   </url>
   
   <url>
-    <loc>https://blog.succurity.com/post/</loc>
-    <lastmod>2019-04-27T23:31:29+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.succurity.com/</loc>
+    <loc>https://blog.succurity.com/tags/setup/</loc>
     <lastmod>2019-04-27T23:31:29+02:00</lastmod>
     <priority>0</priority>
   </url>
@@ -39,11 +91,6 @@
   <url>
     <loc>https://blog.succurity.com/categories/posts/</loc>
     <lastmod>2019-04-25T22:30:51+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.succurity.com/tags/</loc>
     <priority>0</priority>
   </url>
   

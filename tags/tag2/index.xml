@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tag2 on Silverlake&#39;s Succurity Blog</title>
+    <link>https://blog.succurity.com/tags/tag2/</link>
+    <description>Recent content in tag2 on Silverlake&#39;s Succurity Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 01 May 2019 16:14:05 +0200</lastBuildDate>
+    
+	<atom:link href="https://blog.succurity.com/tags/tag2/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>OSCP Guide</title>
+      <link>https://blog.succurity.com/2019/05/oscp-guide/</link>
+      <pubDate>Wed, 01 May 2019 16:14:05 +0200</pubDate>
+      
+      <guid>https://blog.succurity.com/2019/05/oscp-guide/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
