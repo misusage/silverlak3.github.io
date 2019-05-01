@@ -6,18 +6,20 @@
     <description>Recent content in About Me on Silverlake&#39;s Succurity Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 May 2019 16:14:58 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 01 May 2019 18:33:33 +0200</lastBuildDate>
     
 	<atom:link href="https://blog.succurity.com/categories/about-me/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>About Me</title>
-      <link>https://blog.succurity.com/2019/05/about-me/</link>
-      <pubDate>Wed, 01 May 2019 16:14:58 +0200</pubDate>
+      <link>https://blog.succurity.com/page/about/</link>
+      <pubDate>Wed, 01 May 2019 18:33:33 +0200</pubDate>
       
-      <guid>https://blog.succurity.com/2019/05/about-me/</guid>
-      <description></description>
+      <guid>https://blog.succurity.com/page/about/</guid>
+      <description> Hello
+Certs  OSCP
+Info </description>
     </item>
     
   </channel>
