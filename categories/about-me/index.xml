@@ -17,10 +17,8 @@
       <pubDate>Wed, 01 May 2019 18:33:33 +0200</pubDate>
       
       <guid>https://blog.succurity.com/page/about/</guid>
-      <description>Hello! My name is Rafael Munoz and I am a lifelong security student. As you can see by this blog, I like to soak up as much of the offensive security knowledge as I can.
-About This Blog Credit where credit is due so thanks to @kakawait for this beautiful theme you see here. This blog is built using Hugo and is hosted on GitHub.io.
-Certs  OSCP
-Contact Me  - emailrafa0[at]gmail.</description>
+      <description>Hello! My name is Rafael Munoz and I am a lifelong security student. I&amp;rsquo;ve created this blog to help me document all the cool things I learn in security, as well as share a little bit of my life with you.
+About This Blog Credit where credit is due so thanks to @kakawait for this beautiful theme you see here. This blog is built using Hugo and is hosted on GitHub.</description>
     </item>
     
   </channel>
