@@ -1,3 +1,7 @@
 .post-header-cover .post-header .post-title {
-  text-shadow: 0 0 50px rgba(0,0,0,1) !important;
+  text-shadow: 0 0 15px rgba(0,0,0,0.8) !important;
+}
+
+.post-header-cover .post-header {
+  background: linear-gradient(rgba(0,0,0,0.01),rgba(0,0,0,0.3),rgba(0,0,0,0.01));
 }

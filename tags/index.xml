@@ -21,20 +21,11 @@
     </item>
     
     <item>
-      <title>tag1</title>
-      <link>https://blog.succurity.com/tags/tag1/</link>
+      <title>Offensive Security</title>
+      <link>https://blog.succurity.com/tags/offensive-security/</link>
       <pubDate>Wed, 01 May 2019 16:14:05 +0200</pubDate>
       
-      <guid>https://blog.succurity.com/tags/tag1/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>tag2</title>
-      <link>https://blog.succurity.com/tags/tag2/</link>
-      <pubDate>Wed, 01 May 2019 16:14:05 +0200</pubDate>
-      
-      <guid>https://blog.succurity.com/tags/tag2/</guid>
+      <guid>https://blog.succurity.com/tags/offensive-security/</guid>
       <description></description>
     </item>
     
