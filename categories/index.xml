@@ -21,11 +21,11 @@
     </item>
     
     <item>
-      <title>OSCP</title>
-      <link>https://blog.succurity.com/categories/oscp/</link>
+      <title>Offsec</title>
+      <link>https://blog.succurity.com/categories/offsec/</link>
       <pubDate>Wed, 01 May 2019 16:14:05 +0200</pubDate>
       
-      <guid>https://blog.succurity.com/categories/oscp/</guid>
+      <guid>https://blog.succurity.com/categories/offsec/</guid>
       <description></description>
     </item>
     
@@ -35,6 +35,15 @@
       <pubDate>Sat, 27 Apr 2019 23:31:29 +0200</pubDate>
       
       <guid>https://blog.succurity.com/categories/posts/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>write-ups</title>
+      <link>https://blog.succurity.com/categories/write-ups/</link>
+      <pubDate>Sat, 27 Apr 2019 23:31:29 +0200</pubDate>
+      
+      <guid>https://blog.succurity.com/categories/write-ups/</guid>
       <description></description>
     </item>
     
