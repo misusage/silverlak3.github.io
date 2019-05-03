@@ -12,11 +12,11 @@
     
     
     <item>
-      <title>C Shells for Routers/Gateways</title>
-      <link>https://blog.succurity.com/2019/05/c-shells-for-routers/gateways/</link>
+      <title>C Shells for Routers &amp; Gateways</title>
+      <link>https://blog.succurity.com/2019/05/c-shells-for-routers-gateways/</link>
       <pubDate>Thu, 02 May 2019 20:24:45 +0200</pubDate>
       
-      <guid>https://blog.succurity.com/2019/05/c-shells-for-routers/gateways/</guid>
+      <guid>https://blog.succurity.com/2019/05/c-shells-for-routers-gateways/</guid>
       <description>&lt;p&gt;Today at work, we made these two C Shells for embedded devices that run busybox. One is a bind shell and the other is a reverse shell.&lt;/p&gt;</description>
     </item>
     
@@ -26,7 +26,7 @@
       <pubDate>Wed, 01 May 2019 16:14:05 +0200</pubDate>
       
       <guid>https://blog.succurity.com/2019/05/pentesting-field-guide/</guid>
-      <description>&lt;p&gt;Updated: 05-01-2019&lt;/p&gt;</description>
+      <description>&lt;p&gt;Updated: 05-03-2019&lt;/p&gt;</description>
     </item>
     
     <item>

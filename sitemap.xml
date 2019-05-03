@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://blog.succurity.com/2019/05/c-shells-for-routers/gateways/</loc>
+    <loc>https://blog.succurity.com/2019/05/c-shells-for-routers-gateways/</loc>
     <lastmod>2019-05-02T20:24:45+02:00</lastmod>
   </url>
   
@@ -86,6 +86,12 @@
   
   <url>
     <loc>https://blog.succurity.com/categories/offsec/</loc>
+    <lastmod>2019-05-01T16:14:05+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.succurity.com/tags/pentesting/</loc>
     <lastmod>2019-05-01T16:14:05+02:00</lastmod>
     <priority>0</priority>
   </url>
