@@ -79,11 +79,6 @@
   </url>
   
   <url>
-    <loc>https://blog.succurity.com/2019/05/oscp-field-guide/</loc>
-    <lastmod>2019-05-01T16:14:05+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.succurity.com/tags/offensive-security/</loc>
     <lastmod>2019-05-01T16:14:05+02:00</lastmod>
     <priority>0</priority>
@@ -93,6 +88,11 @@
     <loc>https://blog.succurity.com/categories/offsec/</loc>
     <lastmod>2019-05-01T16:14:05+02:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.succurity.com/2019/05/pentesting-field-guide/</loc>
+    <lastmod>2019-05-01T16:14:05+02:00</lastmod>
   </url>
   
   <url>
