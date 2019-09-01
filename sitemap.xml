@@ -3,27 +3,57 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.succurity.com/categories/</loc>
+    <lastmod>2019-09-01T15:12:55-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.succurity.com/tags/offensive-security/</loc>
+    <lastmod>2019-09-01T15:12:55-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.succurity.com/categories/offsec/</loc>
+    <lastmod>2019-09-01T15:12:55-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.succurity.com/post/</loc>
+    <lastmod>2019-09-01T15:12:55-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.succurity.com/tags/proxmark3/</loc>
+    <lastmod>2019-09-01T15:12:55-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.succurity.com/tags/rfid/</loc>
+    <lastmod>2019-09-01T15:12:55-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.succurity.com/2019/09/rfid-hacking-primer/</loc>
+    <lastmod>2019-09-01T15:12:55-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.succurity.com/</loc>
+    <lastmod>2019-09-01T15:12:55-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.succurity.com/tags/</loc>
+    <lastmod>2019-09-01T15:12:55-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.succurity.com/2019/05/c-shells-for-routers-gateways/</loc>
     <lastmod>2019-05-02T20:24:45+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.succurity.com/categories/</loc>
-    <lastmod>2019-05-02T20:24:45+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.succurity.com/post/</loc>
-    <lastmod>2019-05-02T20:24:45+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.succurity.com/categories/posts/</loc>
-    <lastmod>2019-05-02T20:24:45+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.succurity.com/</loc>
     <lastmod>2019-05-02T20:24:45+02:00</lastmod>
   </url>
   
@@ -34,11 +64,6 @@
   
   <url>
     <loc>https://blog.succurity.com/tags/shells/</loc>
-    <lastmod>2019-05-02T20:24:45+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.succurity.com/tags/</loc>
     <lastmod>2019-05-02T20:24:45+02:00</lastmod>
   </url>
   
@@ -60,16 +85,6 @@
   <url>
     <loc>https://blog.succurity.com/page/</loc>
     <lastmod>2019-05-01T18:33:33+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.succurity.com/tags/offensive-security/</loc>
-    <lastmod>2019-05-01T16:14:05+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.succurity.com/categories/offsec/</loc>
-    <lastmod>2019-05-01T16:14:05+02:00</lastmod>
   </url>
   
   <url>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Proxmark3 on Sage&#39;s Succurity Blog</title>
+    <link>https://blog.succurity.com/tags/proxmark3/</link>
+    <description>Recent content in Proxmark3 on Sage&#39;s Succurity Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 01 Sep 2019 15:12:55 -0700</lastBuildDate>
+    
+	<atom:link href="https://blog.succurity.com/tags/proxmark3/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>RFID Hacking Primer</title>
+      <link>https://blog.succurity.com/2019/09/rfid-hacking-primer/</link>
+      <pubDate>Sun, 01 Sep 2019 15:12:55 -0700</pubDate>
+      
+      <guid>https://blog.succurity.com/2019/09/rfid-hacking-primer/</guid>
+      <description>RFID Hacking.</description>
+    </item>
+    
+  </channel>
+</rss>
