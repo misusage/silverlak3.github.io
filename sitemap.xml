@@ -8,6 +8,11 @@
   </url>
   
   <url>
+    <loc>https://blog.succurity.com/2019/09/intro-to-rfid-hacking/</loc>
+    <lastmod>2019-09-01T15:12:55-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.succurity.com/tags/offensive-security/</loc>
     <lastmod>2019-09-01T15:12:55-07:00</lastmod>
   </url>
@@ -28,12 +33,7 @@
   </url>
   
   <url>
-    <loc>https://blog.succurity.com/tags/rfid/</loc>
-    <lastmod>2019-09-01T15:12:55-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.succurity.com/2019/09/rfid-hacking-primer/</loc>
+    <loc>https://blog.succurity.com/tags/rfid-pentesting/</loc>
     <lastmod>2019-09-01T15:12:55-07:00</lastmod>
   </url>
   
