@@ -372,6 +372,39 @@
 
 <p>You get two re-writable cards, one high-frequency and another one low. You also get a USB cable, a guitar pick to open the Proxmark3 case, replacement screws along with a tiny screwdriver, a Big SIM card adapter and the Proxmark3 itself. Keep in mind that you can always buy different types of writable cards but these work with the most commonly used card technologies (in my opinion).</p>
 
+<p>The Proxmark3 RDV4 itself:
+
+
+ 
+  
+  
+  
+  
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+<div class="figure fig-100 center" >
+  
+    <a class="fancybox" href="https://blog.succurity.com/images/rfid-primer/20190902_184941.jpg" title="The Proxmark3 RDV4 without the plastic cover on." data-fancybox-group="">
+  
+    <img class="fig-img" src="https://blog.succurity.com/images/rfid-primer/20190902_184941.jpg"  alt="The Proxmark3 RDV4 without the plastic cover on.">
+  
+    </a>
+  
+   
+    <span class="caption">The Proxmark3 RDV4 without the plastic cover on.</span>
+  
+</div>
+</p>
+
 <p>If I remember correctly, the RFID kit cost me $340 USD. Yeah, its a bit cheaper on their website but at the convenience of buying it with cash minus shipping &amp; taxes. Sooner or later I&rsquo;ll end up buying the BlueShark attachment which adds bluetooth and a battery for offline attacks.</p>
 
 <p>Why the RDV4? Well, the RDV4 kit is the latest version of the Proxmark3 made in collaboration with <a href="https://twitter.com/herrmann1001">@iceman</a>, ProxGrind &amp; other outstanding people that are <em>the</em> RFID security experts.</p>
@@ -428,7 +461,7 @@ root@kali# ./proxmark3 /dev/ttyACM0
 
 <p>If you&rsquo;re like me, then your device won&rsquo;t work out of the box. I was so sad to have my PM3 not work, especially after spending so much money on it and it being fresh out of the box. After trying to debug the error messages I got, it turned out my device had outdated firmware on it and that firmware wasn&rsquo;t compatible with the latest version of the client. To make things a tiny bit worse, the new firmware wouldn&rsquo;t flash due to my device also having an outdated version of the bootloader.</p>
 
-<p>I did end up updating my PM3 successfully. As before, I followed the commands from the repo&rsquo;s <a href="https://github.com/Proxmark/proxmark3/wiki/flashing">wiki</a>. Note, this is the sum of me googling stuff to troubleshoot my new-yet-not-working PM3. It&rsquo;s not hard to do but I really didn&rsquo;t want to end up with an expensive brick on my table.</p>
+<p>I did, however, end up updating my PM3 successfully. As before, I followed the commands from the repo&rsquo;s <a href="https://github.com/Proxmark/proxmark3/wiki/flashing">wiki</a>. Note, this is the sum of me googling stuff to troubleshoot my new-yet-not-working PM3. It&rsquo;s not hard to do but I really didn&rsquo;t want to end up with an expensive brick on my table.</p>
 
 <p>First, make sure the repo is up to date:</p>
 
@@ -465,7 +498,7 @@ root@kali# git pull
 
 <h2 id="rfid-background-knowledge">RFID Background Knowledge.</h2>
 
-<p>Before I start going over how to clone badges, there&rsquo;s some prerequisite RFID information you must know about. Don&rsquo;t be a script kiddie and run commands without knowing what they are doing! I know it seems like fun cloning a badge but it&rsquo;s important to understand what is going on and what it is exactly what the commands are doing.</p>
+<p>Before I start going over how to clone RFID cards and badges, there&rsquo;s some prerequisite information you must know about. Don&rsquo;t be a script kiddie and run commands without knowing what they are doing! I know cloning a badge seems like fun but it&rsquo;s important to understand what is going on and what it is exactly what the commands are doing.</p>
 
 <p>more to come later. Sorry busy with work&hellip;</p>
               
