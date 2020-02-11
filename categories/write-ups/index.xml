@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>write-ups on Sage&#39;s Succurity Blog</title>
-    <link>https://blog.succurity.com/categories/write-ups/</link>
+    <link>https://succurity.com/categories/write-ups/</link>
     <description>Recent content in write-ups on Sage&#39;s Succurity Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 27 Apr 2019 23:31:29 +0200</lastBuildDate>
     
-	<atom:link href="https://blog.succurity.com/categories/write-ups/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://succurity.com/categories/write-ups/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Hello World: CTF Edition</title>
-      <link>https://blog.succurity.com/2019/04/hello-world-ctf-edition/</link>
+      <link>https://succurity.com/2019/04/hello-world-ctf-edition/</link>
       <pubDate>Sat, 27 Apr 2019 23:31:29 +0200</pubDate>
       
-      <guid>https://blog.succurity.com/2019/04/hello-world-ctf-edition/</guid>
+      <guid>https://succurity.com/2019/04/hello-world-ctf-edition/</guid>
       <description>&lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;

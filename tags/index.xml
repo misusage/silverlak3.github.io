@@ -2,93 +2,93 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Sage&#39;s Succurity Blog</title>
-    <link>https://blog.succurity.com/tags/</link>
+    <link>https://succurity.com/tags/</link>
     <description>Recent content in Tags on Sage&#39;s Succurity Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 01 Sep 2019 15:12:55 -0700</lastBuildDate>
     
-	<atom:link href="https://blog.succurity.com/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://succurity.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Offensive Security</title>
-      <link>https://blog.succurity.com/tags/offensive-security/</link>
+      <link>https://succurity.com/tags/offensive-security/</link>
       <pubDate>Sun, 01 Sep 2019 15:12:55 -0700</pubDate>
       
-      <guid>https://blog.succurity.com/tags/offensive-security/</guid>
+      <guid>https://succurity.com/tags/offensive-security/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Proxmark3</title>
-      <link>https://blog.succurity.com/tags/proxmark3/</link>
+      <link>https://succurity.com/tags/proxmark3/</link>
       <pubDate>Sun, 01 Sep 2019 15:12:55 -0700</pubDate>
       
-      <guid>https://blog.succurity.com/tags/proxmark3/</guid>
+      <guid>https://succurity.com/tags/proxmark3/</guid>
       <description></description>
     </item>
     
     <item>
       <title>RFID Pentesting</title>
-      <link>https://blog.succurity.com/tags/rfid-pentesting/</link>
+      <link>https://succurity.com/tags/rfid-pentesting/</link>
       <pubDate>Sun, 01 Sep 2019 15:12:55 -0700</pubDate>
       
-      <guid>https://blog.succurity.com/tags/rfid-pentesting/</guid>
+      <guid>https://succurity.com/tags/rfid-pentesting/</guid>
       <description></description>
     </item>
     
     <item>
       <title>security</title>
-      <link>https://blog.succurity.com/tags/security/</link>
+      <link>https://succurity.com/tags/security/</link>
       <pubDate>Thu, 02 May 2019 20:24:45 +0200</pubDate>
       
-      <guid>https://blog.succurity.com/tags/security/</guid>
+      <guid>https://succurity.com/tags/security/</guid>
       <description></description>
     </item>
     
     <item>
       <title>shells</title>
-      <link>https://blog.succurity.com/tags/shells/</link>
+      <link>https://succurity.com/tags/shells/</link>
       <pubDate>Thu, 02 May 2019 20:24:45 +0200</pubDate>
       
-      <guid>https://blog.succurity.com/tags/shells/</guid>
+      <guid>https://succurity.com/tags/shells/</guid>
       <description></description>
     </item>
     
     <item>
       <title>About-Me</title>
-      <link>https://blog.succurity.com/tags/about-me/</link>
+      <link>https://succurity.com/tags/about-me/</link>
       <pubDate>Wed, 01 May 2019 18:33:33 +0200</pubDate>
       
-      <guid>https://blog.succurity.com/tags/about-me/</guid>
+      <guid>https://succurity.com/tags/about-me/</guid>
       <description></description>
     </item>
     
     <item>
       <title>OSCP</title>
-      <link>https://blog.succurity.com/tags/oscp/</link>
+      <link>https://succurity.com/tags/oscp/</link>
       <pubDate>Wed, 01 May 2019 16:14:05 +0200</pubDate>
       
-      <guid>https://blog.succurity.com/tags/oscp/</guid>
+      <guid>https://succurity.com/tags/oscp/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Pentesting</title>
-      <link>https://blog.succurity.com/tags/pentesting/</link>
+      <link>https://succurity.com/tags/pentesting/</link>
       <pubDate>Wed, 01 May 2019 16:14:05 +0200</pubDate>
       
-      <guid>https://blog.succurity.com/tags/pentesting/</guid>
+      <guid>https://succurity.com/tags/pentesting/</guid>
       <description></description>
     </item>
     
     <item>
       <title>setup</title>
-      <link>https://blog.succurity.com/tags/setup/</link>
+      <link>https://succurity.com/tags/setup/</link>
       <pubDate>Sat, 27 Apr 2019 23:31:29 +0200</pubDate>
       
-      <guid>https://blog.succurity.com/tags/setup/</guid>
+      <guid>https://succurity.com/tags/setup/</guid>
       <description></description>
     </item>
     

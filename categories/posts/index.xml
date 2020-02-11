@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>posts on Sage&#39;s Succurity Blog</title>
-    <link>https://blog.succurity.com/categories/posts/</link>
+    <link>https://succurity.com/categories/posts/</link>
     <description>Recent content in posts on Sage&#39;s Succurity Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 02 May 2019 20:24:45 +0200</lastBuildDate>
     
-	<atom:link href="https://blog.succurity.com/categories/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://succurity.com/categories/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>C Shells for Routers &amp; Gateways</title>
-      <link>https://blog.succurity.com/2019/05/c-shells-for-routers-gateways/</link>
+      <link>https://succurity.com/2019/05/c-shells-for-routers-gateways/</link>
       <pubDate>Thu, 02 May 2019 20:24:45 +0200</pubDate>
       
-      <guid>https://blog.succurity.com/2019/05/c-shells-for-routers-gateways/</guid>
+      <guid>https://succurity.com/2019/05/c-shells-for-routers-gateways/</guid>
       <description>&lt;p&gt;Today at work, we made these two C Shells for embedded devices that run busybox. One is a bind shell and the other is a reverse shell.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Hello World: CTF Edition</title>
-      <link>https://blog.succurity.com/2019/04/hello-world-ctf-edition/</link>
+      <link>https://succurity.com/2019/04/hello-world-ctf-edition/</link>
       <pubDate>Sat, 27 Apr 2019 23:31:29 +0200</pubDate>
       
-      <guid>https://blog.succurity.com/2019/04/hello-world-ctf-edition/</guid>
+      <guid>https://succurity.com/2019/04/hello-world-ctf-edition/</guid>
       <description>&lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
