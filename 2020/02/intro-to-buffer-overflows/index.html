@@ -702,10 +702,10 @@ From here there are two things you can do to the find the bad characters, the ma
 <li>-f - Sets what the output format should be. In this case, its python.</li>
 <li>-b - Sets what the bad characters are.</li>
 <li>-o - Sets the name of the output file.</li>
-<li>&ndash;platform - Your target platform.</li>
+<li>--platform - Your target platform.</li>
 <li>LHOST= - Your ip of your local machine. AKA, where you would want to receive the incoming shell.</li>
 <li>LPORT= - The port where that shell will come into.</li>
-<li>-a - Sets the architecture, either 32-bit(x86) or 64-bit(x64). If you don&rsquo;t include this, it will default to 32-bit.</li>
+<li>-a - Sets the architecture, either 32-bit(x86) or 64-bit(x64).</li>
 <li>-e - Sets the encoder. Tries to encode the data so its not so easily caught by AV products. If you don&rsquo;t include this, it will pick the best one for you, if possible.</li>
 </ul>
 
@@ -823,12 +823,13 @@ except:
 <p>Start a local netcat listener on the port we specified in our shellcode: <code>nc -lvnp 443</code> and execute the poc.py script. If you did everything correctly, you should get a shell. A simple <code>whoami</code> shows us that our shell is running as System! Since I am running netcat on Mac OSX, the netcat command will be a little different for me: <code>nc -l 443</code> but the end result is always the same.
 <img src="https://succurity.com/images/Offsec/BufferOverflow/twelv.png" alt="Reverse Shell" /></p>
 
-<p>That&rsquo;s pretty much it for now. Once you receive your reverse shell, you can celebrate. Go pick another vulnerable software on Exploit-DB and keep on practicing!</p>
+<p>That&rsquo;s pretty much it for now. Once you receive your reverse shell, you can celebrate. Go pick another vulnerable software on Exploit-DB and keep on practicing! And as always, feedback is greatly appreciated.</p>
 
 <h1 id="references">References</h1>
 
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Shellcode">Wikipedia - Shellcode</a></li>
+<li><a href="https://www.exploit-db.com/exploits/638">Exploit-DB - SLMail 5.5 Exploit</a></li>
 </ul>
 
 <h1 id="mona-cheatsheet">Mona Cheatsheet</h1>
