@@ -6,17 +6,44 @@
     <description>Recent content in Tags on Sage&#39;s Succurity Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 01 Sep 2019 15:12:55 -0700</lastBuildDate>
+    <lastBuildDate>Sun, 16 Feb 2020 11:46:59 -0800</lastBuildDate>
     
 	<atom:link href="https://succurity.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Buffer Overflows</title>
+      <link>https://succurity.com/tags/buffer-overflows/</link>
+      <pubDate>Sun, 16 Feb 2020 11:46:59 -0800</pubDate>
+      
+      <guid>https://succurity.com/tags/buffer-overflows/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Offensive Security</title>
       <link>https://succurity.com/tags/offensive-security/</link>
-      <pubDate>Sun, 01 Sep 2019 15:12:55 -0700</pubDate>
+      <pubDate>Sun, 16 Feb 2020 11:46:59 -0800</pubDate>
       
       <guid>https://succurity.com/tags/offensive-security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OSCP</title>
+      <link>https://succurity.com/tags/oscp/</link>
+      <pubDate>Sun, 16 Feb 2020 11:46:59 -0800</pubDate>
+      
+      <guid>https://succurity.com/tags/oscp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Pentesting</title>
+      <link>https://succurity.com/tags/pentesting/</link>
+      <pubDate>Sun, 16 Feb 2020 11:46:59 -0800</pubDate>
+      
+      <guid>https://succurity.com/tags/pentesting/</guid>
       <description></description>
     </item>
     
@@ -62,24 +89,6 @@
       <pubDate>Wed, 01 May 2019 18:33:33 +0200</pubDate>
       
       <guid>https://succurity.com/tags/about-me/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>OSCP</title>
-      <link>https://succurity.com/tags/oscp/</link>
-      <pubDate>Wed, 01 May 2019 16:14:05 +0200</pubDate>
-      
-      <guid>https://succurity.com/tags/oscp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Pentesting</title>
-      <link>https://succurity.com/tags/pentesting/</link>
-      <pubDate>Wed, 01 May 2019 16:14:05 +0200</pubDate>
-      
-      <guid>https://succurity.com/tags/pentesting/</guid>
       <description></description>
     </item>
     

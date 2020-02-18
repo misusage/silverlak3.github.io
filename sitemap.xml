@@ -3,27 +3,57 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://succurity.com/categories/</loc>
-    <lastmod>2019-09-01T15:12:55-07:00</lastmod>
+    <loc>https://succurity.com/tags/buffer-overflows/</loc>
+    <lastmod>2020-02-16T11:46:59-08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://succurity.com/2019/09/intro-to-rfid-hacking/</loc>
-    <lastmod>2019-09-01T15:12:55-07:00</lastmod>
+    <loc>https://succurity.com/categories/</loc>
+    <lastmod>2020-02-16T11:46:59-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://succurity.com/2020/02/intro-to-buffer-overflows/</loc>
+    <lastmod>2020-02-16T11:46:59-08:00</lastmod>
   </url>
   
   <url>
     <loc>https://succurity.com/tags/offensive-security/</loc>
-    <lastmod>2019-09-01T15:12:55-07:00</lastmod>
+    <lastmod>2020-02-16T11:46:59-08:00</lastmod>
   </url>
   
   <url>
     <loc>https://succurity.com/categories/offsec/</loc>
-    <lastmod>2019-09-01T15:12:55-07:00</lastmod>
+    <lastmod>2020-02-16T11:46:59-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://succurity.com/tags/oscp/</loc>
+    <lastmod>2020-02-16T11:46:59-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://succurity.com/tags/pentesting/</loc>
+    <lastmod>2020-02-16T11:46:59-08:00</lastmod>
   </url>
   
   <url>
     <loc>https://succurity.com/post/</loc>
+    <lastmod>2020-02-16T11:46:59-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://succurity.com/</loc>
+    <lastmod>2020-02-16T11:46:59-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://succurity.com/tags/</loc>
+    <lastmod>2020-02-16T11:46:59-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://succurity.com/2019/09/intro-to-rfid-hacking/</loc>
     <lastmod>2019-09-01T15:12:55-07:00</lastmod>
   </url>
   
@@ -34,16 +64,6 @@
   
   <url>
     <loc>https://succurity.com/tags/rfid-pentesting/</loc>
-    <lastmod>2019-09-01T15:12:55-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://succurity.com/</loc>
-    <lastmod>2019-09-01T15:12:55-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://succurity.com/tags/</loc>
     <lastmod>2019-09-01T15:12:55-07:00</lastmod>
   </url>
   
@@ -85,16 +105,6 @@
   <url>
     <loc>https://succurity.com/page/</loc>
     <lastmod>2019-05-01T18:33:33+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://succurity.com/tags/oscp/</loc>
-    <lastmod>2019-05-01T16:14:05+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://succurity.com/tags/pentesting/</loc>
-    <lastmod>2019-05-01T16:14:05+02:00</lastmod>
   </url>
   
   <url>
