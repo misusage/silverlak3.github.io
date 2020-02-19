@@ -548,7 +548,7 @@ except:
 <p>Or do <code>!mona findmsp</code>:
 <img src="https://succurity.com/images/Offsec/BufferOverflow/eight.png" alt="EIP Value - findmsp" /></p>
 
-<p>Voila! <code>2606 bytes</code> is the size of the buffer. Awesome. So if we would to throw 2605 bytes at the PASS parameter, the app wouldn&rsquo;t crash, but after adding one more byte, it would. Another useful tip to know, which will come in handy later, is that the ESP (stack pointer) is at 2610 bytes. Why is this important well&hellip;</p>
+<p>Voila! <code>2606 bytes</code> is the size of the buffer. Another useful tip to know, which will come in handy later, is that the ESP (stack pointer) is at 2610 bytes. Why is this important well&hellip;</p>
 
 <h1 id="the-importance-of-controlling-registers">The Importance of Controlling Registers.</h1>
 
