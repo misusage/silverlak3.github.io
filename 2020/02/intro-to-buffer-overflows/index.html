@@ -713,6 +713,10 @@ From here there are two things you can do to the find the bad characters, the ma
 
 <p>One last thing. We are almost done writing our poc exploit code. We just need to include a small NOP sled right after our jmp esp address but before the shellcode. Why? Because we can use the NOP sled to make the target address <em>&ldquo;bigger&rdquo;</em>. A NOP instruction <code>\x90</code> simply does absolutely nothing. That means that the jump can land anywhere in the NOP instruction set instead of landing exactly at the beginning of the shellcode. With the NOP sled, the execution will skip until it lands at the beginning of the shellcode. Let&rsquo;s add 16 bytes of NOPS. Coded, this is what it would look like: <code>NOP = &quot;\x90&quot; * 16</code></p>
 
+<blockquote>
+<p>The NOP slide, or NOP sled, is a simple technique to cope with accuracy issue. When the attacker guesses the address of his shell code with some possible jitter, then the attacker puts a lot of nop opcodes (or similarly harmless opcodes) before his shell code; thus, it suffices that the CPU jumps somewhere in the sled in order to make it, ultimately, reach the shell code. - <strong>Redacted from <a href="https://security.stackexchange.com/questions/40298/stack-buffer-overflow-confusion">Stack Overflow</a></strong></p>
+</blockquote>
+
 <h1 id="putting-it-all-together">Putting it All Together</h1>
 
 <p>The JMP ESP instruction address was <code>0x5F4A358F</code>. As mentioned before, in order for this to work, it needs to put it in little endian, or in reverse order. The end result will look like this: <code>\x8F\x35\x4A\x5F</code></p>
@@ -829,12 +833,21 @@ except:
 
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Shellcode">Wikipedia - Shellcode</a></li>
+<li><a href="https://en.wikipedia.org/wiki/NOP_slide">Wikipedia - NOP Slide</a></li>
 <li><a href="https://www.exploit-db.com/exploits/638">Exploit-DB - SLMail 5.5 Exploit</a></li>
 </ul>
 
 <h1 id="mona-cheatsheet">Mona Cheatsheet</h1>
 
-<p>Coming Soon&hellip;</p>
+<p>A quick mona reference:</p>
+
+<ul>
+<li>Set the working folder: <code>!mona config -set workingfolder C:\BufferOverflow\%p</code></li>
+<li>Create a pattern : <code>!mona pc 3000</code></li>
+<li>Find the patter offset: <code>!mona pattern_offset 0xSOMEVALUE</code></li>
+<li>Create a byte array to find bad chars: <code>!mona bytearray</code> or <code>!mona findmsp</code></li>
+<li>Find a JMP ESP instruction: <code>!mona modules</code> &amp; <code>!mona find -s &quot;\xff\xe4&quot; -m SOME.DLL</code> or <code>!mona JMP -r ESP</code></li>
+</ul>
               
             </div>
           </div>
