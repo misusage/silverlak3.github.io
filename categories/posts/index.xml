@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>posts on Sage&#39;s Succurity Blog</title>
@@ -18,37 +18,6 @@
       
       <guid>https://succurity.com/2019/05/c-shells-for-routers-gateways/</guid>
       <description>&lt;p&gt;Today at work, we made these two C Shells for embedded devices that run busybox. One is a bind shell and the other is a reverse shell.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Hello World: CTF Edition</title>
-      <link>https://succurity.com/2019/04/hello-world-ctf-edition/</link>
-      <pubDate>Sat, 27 Apr 2019 23:31:29 +0200</pubDate>
-      
-      <guid>https://succurity.com/2019/04/hello-world-ctf-edition/</guid>
-      <description>&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th align=&#34;center&#34;&gt;Event&lt;/th&gt;
-&lt;th align=&#34;center&#34;&gt;Challenge&lt;/th&gt;
-&lt;th align=&#34;center&#34;&gt;Category&lt;/th&gt;
-&lt;th align=&#34;center&#34;&gt;Points&lt;/th&gt;
-&lt;th align=&#34;center&#34;&gt;Solves&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td align=&#34;center&#34;&gt;some-ctf&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;welcome&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;web&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;100&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;122&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;!--toc--&gt;</description>
     </item>
     
   </channel>

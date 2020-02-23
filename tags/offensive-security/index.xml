@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Offensive Security on Sage&#39;s Succurity Blog</title>
@@ -6,10 +6,20 @@
     <description>Recent content in Offensive Security on Sage&#39;s Succurity Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 16 Feb 2020 11:46:59 -0800</lastBuildDate>
+    <lastBuildDate>Sat, 22 Feb 2020 16:33:58 -0800</lastBuildDate>
     
 	<atom:link href="https://succurity.com/tags/offensive-security/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Pentesting Field Guide</title>
+      <link>https://succurity.com/2020/02/pentesting-field-guide/</link>
+      <pubDate>Sat, 22 Feb 2020 16:33:58 -0800</pubDate>
+      
+      <guid>https://succurity.com/2020/02/pentesting-field-guide/</guid>
+      <description>&lt;hr&gt;
+&lt;p&gt;As an OSCP student, I frequently searched the web for notes, tips, advice, or anything that would help me learn the necessary skills to pass the exam. This &lt;em&gt;field guide&lt;/em&gt; started off as that, a collection of gathered OSCP notes from around the web, but as I learn more, this post serves as a place to document everything.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Intro to Buffer Overflows</title>
@@ -27,17 +37,6 @@
       
       <guid>https://succurity.com/2019/09/intro-to-rfid-hacking/</guid>
       <description>&lt;p&gt;This primer is for those that are interested in RFID pentesting. If you don&amp;rsquo;t know where to start or if you are looking into RFID &amp;ldquo;hacking&amp;rdquo;, I hope you can take something away from all of this. I am in no way an expert and I am still learning as much as I can about this technology.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Pentesting Field Guide</title>
-      <link>https://succurity.com/2019/05/pentesting-field-guide/</link>
-      <pubDate>Wed, 01 May 2019 16:14:05 +0200</pubDate>
-      
-      <guid>https://succurity.com/2019/05/pentesting-field-guide/</guid>
-      <description>&lt;p&gt;Updated: 07-22-2019&lt;/p&gt;
-
-&lt;p&gt;As an OSCP student, I frequently searched the web for notes, tips, advice, or anything that would help me learn the necessary skills to pass the exam. This &lt;em&gt;field guide&lt;/em&gt; started off as that, a collection of gathered OSCP notes from around the web, but as I learn more, this post serves as a place to document everything.&lt;/p&gt;</description>
     </item>
     
   </channel>

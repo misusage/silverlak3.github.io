@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Sage&#39;s Succurity Blog</title>
@@ -6,10 +6,20 @@
     <description>Recent content on Sage&#39;s Succurity Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 16 Feb 2020 11:46:59 -0800</lastBuildDate>
+    <lastBuildDate>Sat, 22 Feb 2020 16:33:58 -0800</lastBuildDate>
     
 	<atom:link href="https://succurity.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Pentesting Field Guide</title>
+      <link>https://succurity.com/2020/02/pentesting-field-guide/</link>
+      <pubDate>Sat, 22 Feb 2020 16:33:58 -0800</pubDate>
+      
+      <guid>https://succurity.com/2020/02/pentesting-field-guide/</guid>
+      <description>&lt;hr&gt;
+&lt;p&gt;As an OSCP student, I frequently searched the web for notes, tips, advice, or anything that would help me learn the necessary skills to pass the exam. This &lt;em&gt;field guide&lt;/em&gt; started off as that, a collection of gathered OSCP notes from around the web, but as I learn more, this post serves as a place to document everything.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Intro to Buffer Overflows</title>
@@ -46,48 +56,6 @@
       <guid>https://succurity.com/page/about/</guid>
       <description>Hello! My name is Rafael Munoz and I am a lifelong security student. I&amp;rsquo;ve created this blog to help me document all the cool things I learn in security, as well as share a little bit of my life with you.
 About This Blog Credit where credit is due so thanks to @kakawait for this beautiful theme you see here. This blog is built using Hugo and is hosted on GitHub.</description>
-    </item>
-    
-    <item>
-      <title>Pentesting Field Guide</title>
-      <link>https://succurity.com/2019/05/pentesting-field-guide/</link>
-      <pubDate>Wed, 01 May 2019 16:14:05 +0200</pubDate>
-      
-      <guid>https://succurity.com/2019/05/pentesting-field-guide/</guid>
-      <description>&lt;p&gt;Updated: 07-22-2019&lt;/p&gt;
-
-&lt;p&gt;As an OSCP student, I frequently searched the web for notes, tips, advice, or anything that would help me learn the necessary skills to pass the exam. This &lt;em&gt;field guide&lt;/em&gt; started off as that, a collection of gathered OSCP notes from around the web, but as I learn more, this post serves as a place to document everything.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Hello World: CTF Edition</title>
-      <link>https://succurity.com/2019/04/hello-world-ctf-edition/</link>
-      <pubDate>Sat, 27 Apr 2019 23:31:29 +0200</pubDate>
-      
-      <guid>https://succurity.com/2019/04/hello-world-ctf-edition/</guid>
-      <description>&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th align=&#34;center&#34;&gt;Event&lt;/th&gt;
-&lt;th align=&#34;center&#34;&gt;Challenge&lt;/th&gt;
-&lt;th align=&#34;center&#34;&gt;Category&lt;/th&gt;
-&lt;th align=&#34;center&#34;&gt;Points&lt;/th&gt;
-&lt;th align=&#34;center&#34;&gt;Solves&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td align=&#34;center&#34;&gt;some-ctf&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;welcome&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;web&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;100&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;122&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;!--toc--&gt;</description>
     </item>
     
   </channel>
