@@ -2,10 +2,30 @@
 <html lang="en-us">
   <head>
     
+    <script type="application/ld+json">
+
+{  
+  "@context":"http://schema.org",
+  "@type":"Website",
+  "@id":"https:\/\/succurity.com\/",
+  "author": {
+    "@type": "Person",
+    "name": "Sage",
+    
+    "image": "https://succurity.com/images/me.jpg"
+    
+  },
+  "name":"Sage\x27s Succurity Blog",
+  "description":"\x3cp\x3eSLMail is an awesome choice of software to easily practice creating and exploiting buffer overflows. If you need to practice Buffer Overflows for your OSCP, then hopefully this tutorial can help you.\x3c\/p\x3e",
+  "url":"https:\/\/succurity.com\/2020\/02\/intro-to-buffer-overflows\/",
+  "keywords":"[security]"
+}
+
+</script>
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.65.2 with theme Tranquilpeak 0.4.7-BETA">
+<meta name="generator" content="Hugo 0.68.3 with theme Tranquilpeak 0.5.3-BETA">
 <meta name="author" content="Sage">
 <meta name="keywords" content="security">
 <meta name="description" content="SLMail is an awesome choice of software to easily practice creating and exploiting buffer overflows. If you need to practice Buffer Overflows for your OSCP, then hopefully this tutorial can help you.">
@@ -59,15 +79,15 @@
 
 
 
+  <meta property="og:image" content="https://succurity.com/images/me.jpg">
+  <meta property="twitter:image" content="https://succurity.com/images/me.jpg">
+
+
+
 
   <meta property="og:image" content="https://succurity.com/images/Offsec/BufferOverflow/banner.png">
   <meta property="twitter:image" content="https://succurity.com/images/Offsec/BufferOverflow/banner.png">
 
-
-
-
-  <meta property="og:image" content="https://succurity.com/images/me.jpg">
-  <meta property="twitter:image" content="https://succurity.com/images/me.jpg">
 
 
     <title>Intro to Buffer Overflows</title>
@@ -80,12 +100,12 @@
     <link rel="canonical" href="https://succurity.com/2020/02/intro-to-buffer-overflows/">
 
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     
-    <link rel="stylesheet" href="https://succurity.com/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    <link rel="stylesheet" href="https://succurity.com/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
     
     
       
@@ -104,12 +124,12 @@
       <header id="header" data-behavior="5">
   <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
   <div class="header-title">
-    <a class="header-title-link" href="https://succurity.com/">Sage&#39;s Succurity Blog</a>
+    <a class="header-title-link" href="https://succurity.com/" aria-label="Go to homepage">Sage&#39;s Succurity Blog</a>
   </div>
   
     
       <a class="header-right-picture "
-         href="https://succurity.com/#about">
+         href="https://succurity.com/#about" aria-label="Open the link: /#about">
     
     
     
@@ -125,7 +145,7 @@
   <div class="sidebar-container">
     
       <div class="sidebar-profile">
-        <a href="https://succurity.com/#about">
+        <a href="https://succurity.com/#about" aria-label="Read more about the author">
           <img class="sidebar-profile-picture" src="https://succurity.com/images/me.jpg" alt="Author&#39;s picture" />
         </a>
         <h4 class="sidebar-profile-name">Sage</h4>
@@ -138,7 +158,7 @@
       
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="https://succurity.com/">
+      <a class="sidebar-button-link " href="https://succurity.com/" title="Home">
     
       <i class="sidebar-button-icon fa fa-lg fa-home"></i>
       
@@ -148,7 +168,7 @@
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="https://succurity.com/categories/write-ups/">
+      <a class="sidebar-button-link " href="https://succurity.com/categories/write-ups/" title="Writeups">
     
       <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
       
@@ -158,7 +178,7 @@
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="https://succurity.com/tags">
+      <a class="sidebar-button-link " href="https://succurity.com/tags" title="Tags">
     
       <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
       
@@ -168,7 +188,7 @@
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="https://succurity.com/categories">
+      <a class="sidebar-button-link " href="https://succurity.com/categories" title="Categories">
     
       <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
       
@@ -178,7 +198,7 @@
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="https://succurity.com/page/about">
+      <a class="sidebar-button-link " href="https://succurity.com/page/about" title="About Me">
     
       <i class="sidebar-button-icon fa fa-lg fa-question"></i>
       
@@ -192,7 +212,7 @@
       
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="https://www.linkedin.com/in/rafasec/" target="_blank" rel="noopener">
+      <a class="sidebar-button-link " href="https://www.linkedin.com/in/rafasec/" target="_blank" rel="noopener" title="LinkedIn">
     
       <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
       
@@ -202,7 +222,7 @@
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="https://twitter.com/succurity_" target="_blank" rel="noopener">
+      <a class="sidebar-button-link " href="https://twitter.com/succurity_" target="_blank" rel="noopener" title="Twitter">
     
       <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
       
@@ -212,7 +232,7 @@
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="https://github.com/silverlak3" target="_blank" rel="noopener">
+      <a class="sidebar-button-link " href="https://github.com/silverlak3" target="_blank" rel="noopener" title="GitHub">
     
       <i class="sidebar-button-icon fa fa-lg fa-github"></i>
       
@@ -238,14 +258,14 @@
     
       <div class="post-header main-content-wrap text-left">
   
-    <h1 class="post-title" itemprop="headline">
+    <h1 class="post-title">
       Intro to Buffer Overflows
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2020-02-16T11:46:59-08:00">
+      <time datetime="2020-02-16T11:46:59-08:00">
         
   February 16, 2020
 
@@ -271,34 +291,13 @@
         class="hasCover
                hasCoverMetaIn
                ">
-        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+        <article class="post" id="top">
           
           
-          <div class="post-content markdown" itemprop="articleBody">
+          <div class="post-content markdown">
             <div class="main-content-wrap">
               <p>SLMail is an awesome choice of software to easily practice creating and exploiting buffer overflows. If you need to practice Buffer Overflows for your OSCP, then hopefully this tutorial can help you.</p>
-<h1 id="table-of-contents">Table of Contents</h1><nav id="TableOfContents">
-  <ul>
-    <li><a href="#setup">Setup</a></li>
-    <li><a href="#establishing-connectivity">Establishing Connectivity</a></li>
-    <li><a href="#fuzzing">Fuzzing</a></li>
-    <li><a href="#pattern-creation-with-mona">Pattern Creation with Mona</a></li>
-    <li><a href="#the-importance-of-controlling-registers">The Importance of Controlling Registers.</a></li>
-    <li><a href="#finding-a-jmp-esp-instruction">Finding a JMP ESP Instruction</a></li>
-    <li><a href="#finding-the-bad-chars">Finding the Bad Chars</a>
-      <ul>
-        <li><a href="#manual-way">Manual Way:</a></li>
-        <li><a href="#automatic-way">Automatic Way:</a></li>
-      </ul>
-    </li>
-    <li><a href="#generating-shellcode">Generating Shellcode</a></li>
-    <li><a href="#nop-sled">NOP Sled</a></li>
-    <li><a href="#putting-it-all-together">Putting it All Together</a></li>
-    <li><a href="#its-raining-shells">It&rsquo;s Raining Shells.</a></li>
-    <li><a href="#references">References</a></li>
-    <li><a href="#mona-cheatsheet">Mona Cheatsheet</a></li>
-  </ul>
-</nav>
+<!--toc-->
 <hr>
 <h2 id="setup">Setup</h2>
 <hr>
@@ -347,11 +346,11 @@
         <li class="tab active">python</li>
       
     </ul>
-  </figcaption> 
+  </figcaption>
   <div class="tabs-content">
     
       
-      <figure class="highlight language-python" style="display: block;">   
+      <figure class="highlight language-python python" style="display: block;">
         <table>
           <tbody>
             <tr>
@@ -359,7 +358,7 @@
                 <pre><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br><span>6</span><br><span>7</span><br><span>8</span><br><span>9</span><br><span>10</span><br><span>11</span><br><span>12</span><br><span>13</span><br><span>14</span><br><span>15</span><br><span>16</span><br><span>17</span><br><span>18</span><br></pre>
               </td>
               <td class="code">
-                <pre class="code-highlight language-python"><code class="python">#!/usr/bin/python
+                <pre class="code-highlight language-python python"><code class="python">#!/usr/bin/python
 
 import socket
 
@@ -384,7 +383,8 @@ except:
       </figure>
     
   </div>
-</figure></p>
+</figure>
+</p>
 <p>Don&rsquo;t forget to make it executable and run it.<br />
 <img src="https://succurity.com/images/Offsec/BufferOverflow/two.png" alt="Establishing Connectivity with our python script" /></p>
 <hr>
@@ -416,11 +416,11 @@ except:
         <li class="tab active">python</li>
       
     </ul>
-  </figcaption> 
+  </figcaption>
   <div class="tabs-content">
     
       
-      <figure class="highlight language-python" style="display: block;">   
+      <figure class="highlight language-python python" style="display: block;">
         <table>
           <tbody>
             <tr>
@@ -428,7 +428,7 @@ except:
                 <pre><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br><span>6</span><br><span>7</span><br><span>8</span><br><span>9</span><br><span>10</span><br><span>11</span><br><span>12</span><br><span>13</span><br><span>14</span><br><span>15</span><br><span>16</span><br><span>17</span><br><span>18</span><br><span>19</span><br><span>20</span><br></pre>
               </td>
               <td class="code">
-                <pre class="code-highlight language-python"><code class="python">#!/usr/bin/python
+                <pre class="code-highlight language-python python"><code class="python">#!/usr/bin/python
 
 import socket
 
@@ -456,6 +456,7 @@ except:
     
   </div>
 </figure>
+
 <p>Now let&rsquo;s open Immunity to start the debug process. Since SLMail is running as Administrator, we will have to do the same with Immunity. Right click on the desktop icon, click on <em>&ldquo;Run as administrator&rdquo;</em>, accept the UAC prompt, and now attach the SLmail.exe process under <em>File &gt; Attach</em>. Once it attaches, it will pause the process so hit <em>F9</em> or <em>Debug &gt; Run</em> to resume SLMail.</p>
 <p><img src="https://succurity.com/images/Offsec/BufferOverflow/three.png" alt="Attaching SLMail Process" /></p>
 <p>Make your modifications to the exploit template and launch your script. If you sent the 2000 A&rsquo;s, the app won&rsquo;t crash. The reason for this is that the exact size of the buffer that holds the PASS variable is unbeknownst to us, so we will have to keep throwing more A&rsquo;s at SLMail until it crashes. Increase it to 3000 and run it again. This time, it will crash. We know it has crashed because the EIP register will be filled with 41&rsquo;s and it will say &ldquo;Paused&rdquo; in the bottom right hand corner.</p>
@@ -495,11 +496,11 @@ except:
         <li class="tab active">python</li>
       
     </ul>
-  </figcaption> 
+  </figcaption>
   <div class="tabs-content">
     
       
-      <figure class="highlight language-python" style="display: block;">   
+      <figure class="highlight language-python python" style="display: block;">
         <table>
           <tbody>
             <tr>
@@ -507,7 +508,7 @@ except:
                 <pre><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br><span>6</span><br><span>7</span><br><span>8</span><br><span>9</span><br><span>10</span><br><span>11</span><br><span>12</span><br><span>13</span><br><span>14</span><br><span>15</span><br><span>16</span><br><span>17</span><br><span>18</span><br><span>19</span><br><span>20</span><br><span>21</span><br><span>22</span><br></pre>
               </td>
               <td class="code">
-                <pre class="code-highlight language-python"><code class="python">#!/usr/bin/python
+                <pre class="code-highlight language-python python"><code class="python">#!/usr/bin/python
 
 import socket
 
@@ -537,6 +538,7 @@ except:
     
   </div>
 </figure>
+
 <p>Now run the poc code. As before, the application should crash, but this time we will have a new value in the EIP register. In this case, the resulting value is <code>39694438</code>.<br />
 <img src="https://succurity.com/images/Offsec/BufferOverflow/six.png" alt="EIP Value" /></p>
 <p>Now let&rsquo;s use mona to find the pattern offset. There are two commands you can use: <code>!mona pattern_offset 0x39694438</code> which results in:<br />
@@ -594,11 +596,11 @@ then do: <code>!mona find -s &quot;\xff\xe4&quot; -m SLMFC.DLL</code>. FFE4 is t
         <li class="tab active">python</li>
       
     </ul>
-  </figcaption> 
+  </figcaption>
   <div class="tabs-content">
     
       
-      <figure class="highlight language-python" style="display: block;">   
+      <figure class="highlight language-python python" style="display: block;">
         <table>
           <tbody>
             <tr>
@@ -606,7 +608,7 @@ then do: <code>!mona find -s &quot;\xff\xe4&quot; -m SLMFC.DLL</code>. FFE4 is t
                 <pre><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br><span>6</span><br><span>7</span><br><span>8</span><br><span>9</span><br><span>10</span><br><span>11</span><br><span>12</span><br><span>13</span><br><span>14</span><br><span>15</span><br><span>16</span><br><span>17</span><br><span>18</span><br><span>19</span><br><span>20</span><br><span>21</span><br><span>22</span><br><span>23</span><br><span>24</span><br><span>25</span><br><span>26</span><br><span>27</span><br><span>28</span><br><span>29</span><br><span>30</span><br><span>31</span><br><span>32</span><br><span>33</span><br><span>34</span><br><span>35</span><br><span>36</span><br></pre>
               </td>
               <td class="code">
-                <pre class="code-highlight language-python"><code class="python">#!/usr/bin/python
+                <pre class="code-highlight language-python python"><code class="python">#!/usr/bin/python
 
 import socket
 
@@ -649,7 +651,8 @@ except:
       </figure>
     
   </div>
-</figure><br />
+</figure>
+<br />
 From here there are two things you can do to the find the bad characters, the manual way or the automatic way. I personally like the manual way since it forces me to look at the memory dump and look for the bad chars.</p>
 <hr>
 <h3 id="manual-way">Manual Way:</h3>
@@ -721,11 +724,11 @@ From here there are two things you can do to the find the bad characters, the ma
         <li class="tab active">python</li>
       
     </ul>
-  </figcaption> 
+  </figcaption>
   <div class="tabs-content">
     
       
-      <figure class="highlight language-python" style="display: block;">   
+      <figure class="highlight language-python python" style="display: block;">
         <table>
           <tbody>
             <tr>
@@ -733,7 +736,7 @@ From here there are two things you can do to the find the bad characters, the ma
                 <pre><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br><span>6</span><br><span>7</span><br><span>8</span><br><span>9</span><br><span>10</span><br><span>11</span><br><span>12</span><br><span>13</span><br><span>14</span><br><span>15</span><br><span>16</span><br><span>17</span><br><span>18</span><br><span>19</span><br><span>20</span><br><span>21</span><br><span>22</span><br><span>23</span><br><span>24</span><br><span>25</span><br><span>26</span><br><span>27</span><br><span>28</span><br><span>29</span><br><span>30</span><br><span>31</span><br><span>32</span><br><span>33</span><br><span>34</span><br><span>35</span><br><span>36</span><br><span>37</span><br><span>38</span><br><span>39</span><br><span>40</span><br><span>41</span><br><span>42</span><br><span>43</span><br><span>44</span><br><span>45</span><br><span>46</span><br><span>47</span><br><span>48</span><br><span>49</span><br><span>50</span><br><span>51</span><br><span>52</span><br><span>53</span><br><span>54</span><br></pre>
               </td>
               <td class="code">
-                <pre class="code-highlight language-python"><code class="python">#!/usr/bin/python
+                <pre class="code-highlight language-python python"><code class="python">#!/usr/bin/python
 
 import socket
 
@@ -795,6 +798,7 @@ except:
     
   </div>
 </figure>
+
 <hr>
 <h2 id="its-raining-shells">It&rsquo;s Raining Shells.</h2>
 <hr>
@@ -823,6 +827,8 @@ except:
 <li>Find a JMP ESP instruction: <code>!mona modules</code> &amp; <code>!mona find -s &quot;\xff\xe4&quot; -m SOME.DLL</code> or <code>!mona JMP -r ESP</code></li>
 </ul>
               
+
+
             </div>
           </div>
           <div id="post-footer" class="post-footer main-content-wrap">
@@ -845,159 +851,163 @@ except:
                 
               
             
-            <div class="post-actions-wrap">
-  
-      <nav >
-        <ul class="post-actions post-action-nav">
-          
-            <li class="post-action">
-              
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/2020/02/pentesting-field-guide/" data-tooltip="Pentesting Field Guide">
-              
-                  <i class="fa fa-angle-left"></i>
-                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
-                </a>
-            </li>
-            <li class="post-action">
-              
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/2019/09/intro-to-rfid-hacking/" data-tooltip="Intro to RFID Hacking">
-              
-                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
-                  <i class="fa fa-angle-right"></i>
-                </a>
-            </li>
-          
-        </ul>
-      </nav>
-    <ul class="post-actions post-action-share" >
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
       
-        <li class="post-action hide-lg hide-md hide-sm">
-          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
-            <i class="fa fa-share-alt"></i>
-          </a>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/2022/02/pentesting-field-guide/" data-tooltip="Pentesting Field Guide" aria-label="NEXT: Pentesting Field Guide">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
         </li>
-        
-          <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://succurity.com/2020/02/intro-to-buffer-overflows/">
-              <i class="fa fa-facebook-official"></i>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/2019/09/intro-to-rfid-hacking/" data-tooltip="Intro to RFID Hacking" aria-label="PREVIOUS: Intro to RFID Hacking">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
             </a>
-          </li>
-        
-          <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://succurity.com/2020/02/intro-to-buffer-overflows/">
-              <i class="fa fa-twitter"></i>
-            </a>
-          </li>
-        
+        </li>
       
-      
-      <li class="post-action">
-        
-          <a class="post-action-btn btn btn--default" href="#table-of-contents">
-        
-          <i class="fa fa-list"></i>
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://succurity.com/2020/02/intro-to-buffer-overflows/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fa-facebook-official" aria-hidden="true"></i>
         </a>
       </li>
-    </ul>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://succurity.com/2020/02/intro-to-buffer-overflows/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
   
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Table of Contents">
+      <i class="fa fa-list" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
 </div>
 
+
             
-              
-            
+  
+
+
           </div>
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 Sage. All Rights Reserved
+    &copy; 2022 Sage. All Rights Reserved
   </span>
 </footer>
 
       </div>
       <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
-        <div class="post-actions-wrap">
-  
-      <nav >
-        <ul class="post-actions post-action-nav">
-          
-            <li class="post-action">
-              
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/2020/02/pentesting-field-guide/" data-tooltip="Pentesting Field Guide">
-              
-                  <i class="fa fa-angle-left"></i>
-                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
-                </a>
-            </li>
-            <li class="post-action">
-              
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/2019/09/intro-to-rfid-hacking/" data-tooltip="Intro to RFID Hacking">
-              
-                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
-                  <i class="fa fa-angle-right"></i>
-                </a>
-            </li>
-          
-        </ul>
-      </nav>
-    <ul class="post-actions post-action-share" >
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
       
-        <li class="post-action hide-lg hide-md hide-sm">
-          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
-            <i class="fa fa-share-alt"></i>
-          </a>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/2022/02/pentesting-field-guide/" data-tooltip="Pentesting Field Guide" aria-label="NEXT: Pentesting Field Guide">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
         </li>
-        
-          <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://succurity.com/2020/02/intro-to-buffer-overflows/">
-              <i class="fa fa-facebook-official"></i>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/2019/09/intro-to-rfid-hacking/" data-tooltip="Intro to RFID Hacking" aria-label="PREVIOUS: Intro to RFID Hacking">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
             </a>
-          </li>
-        
-          <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://succurity.com/2020/02/intro-to-buffer-overflows/">
-              <i class="fa fa-twitter"></i>
-            </a>
-          </li>
-        
+        </li>
       
-      
-      <li class="post-action">
-        
-          <a class="post-action-btn btn btn--default" href="#table-of-contents">
-        
-          <i class="fa fa-list"></i>
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://succurity.com/2020/02/intro-to-buffer-overflows/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fa-facebook-official" aria-hidden="true"></i>
         </a>
       </li>
-    </ul>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://succurity.com/2020/02/intro-to-buffer-overflows/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
   
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Table of Contents">
+      <i class="fa fa-list" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
 </div>
 
+
       </div>
-      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
-  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsuccurity.com%2F2020%2F02%2Fintro-to-buffer-overflows%2F">
-          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsuccurity.com%2F2020%2F02%2Fintro-to-buffer-overflows%2F" aria-label="Share on Facebook">
+          <i class="fa-facebook-official" aria-hidden="true"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fsuccurity.com%2F2020%2F02%2Fintro-to-buffer-overflows%2F">
-          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fsuccurity.com%2F2020%2F02%2Fintro-to-buffer-overflows%2F" aria-label="Share on Twitter">
+          <i class="fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
         </a>
       </li>
     
   </ul>
 </div>
 <div id="share-options-mask" class="share-options-mask"></div>
+
+
     </div>
     
     <div id="about">
   <div id="about-card">
     <div id="about-btn-close">
-      <i class="fa fa-remove"></i>
+      <i class="fa fa-times"></i>
     </div>
     
       <img id="about-card-picture" src="https://succurity.com/images/me.jpg" alt="Author&#39;s picture" />
@@ -1015,7 +1025,7 @@ except:
     
     
       <div id="about-card-location">
-        <i class="fa fa-map-marker"></i>
+        <i class="fa fa-map-marker-alt"></i>
         <br/>
         California, US
       </div>
@@ -1035,33 +1045,14 @@ except:
 
 
     
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
-
-
-<script src="https://succurity.com/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
-<script lang="javascript">
-window.onload = updateMinWidth;
-window.onresize = updateMinWidth;
-document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
-function updateMinWidth() {
-  var sidebar = document.getElementById("sidebar");
-  var main = document.getElementById("main");
-  main.style.minWidth = "";
-  var w1 = getComputedStyle(main).getPropertyValue("min-width");
-  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
-  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
-  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
-}
-</script>
+<script src="https://succurity.com/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
 
 
-  
-    
-  
 
 
 
