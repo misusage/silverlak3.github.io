@@ -6,10 +6,19 @@
     <description>Recent content in security on Sage&#39;s Succurity Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 02 May 2019 20:24:45 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 28 Feb 2021 13:11:24 -0800</lastBuildDate>
     
 	<atom:link href="https://succurity.com/tags/security/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>HackTheBox | Mango Writeup</title>
+      <link>https://succurity.com/2021/02/hackthebox-mango-writeup/</link>
+      <pubDate>Sun, 28 Feb 2021 13:11:24 -0800</pubDate>
+      
+      <guid>https://succurity.com/2021/02/hackthebox-mango-writeup/</guid>
+      <description>&lt;p&gt;Mango. Oh man. Getting user access on this box was intense. I personally have weak web exploitation skills when it comes to web attacks, so this box did teach me alot. In terms of realism, this box was definitely real-world related and I can apply everything I learned to any future pentests I will do.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>C Shells for Routers &amp; Gateways</title>

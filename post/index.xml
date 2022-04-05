@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>HackTheBox | Mango Writeup</title>
+      <link>https://succurity.com/2021/02/hackthebox-mango-writeup/</link>
+      <pubDate>Sun, 28 Feb 2021 13:11:24 -0800</pubDate>
+      
+      <guid>https://succurity.com/2021/02/hackthebox-mango-writeup/</guid>
+      <description>&lt;p&gt;Mango. Oh man. Getting user access on this box was intense. I personally have weak web exploitation skills when it comes to web attacks, so this box did teach me alot. In terms of realism, this box was definitely real-world related and I can apply everything I learned to any future pentests I will do.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Intro to Buffer Overflows</title>
       <link>https://succurity.com/2020/02/intro-to-buffer-overflows/</link>
       <pubDate>Sun, 16 Feb 2020 11:46:59 -0800</pubDate>
