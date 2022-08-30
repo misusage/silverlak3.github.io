@@ -13,7 +13,7 @@
   </url>
   
   <url>
-    <loc>https://succurity.com/2022/04/dns-tunneling-with-iodine/</loc>
+    <loc>https://succurity.com/post/offsec/dns-tunneling/</loc>
     <lastmod>2022-04-05T15:36:17-07:00</lastmod>
   </url>
   
@@ -63,7 +63,7 @@
   </url>
   
   <url>
-    <loc>https://succurity.com/2022/02/pentesting-field-guide/</loc>
+    <loc>https://succurity.com/post/offsec/pentesting-field-guide/</loc>
     <lastmod>2022-02-22T16:33:58-08:00</lastmod>
   </url>
   
@@ -73,7 +73,7 @@
   </url>
   
   <url>
-    <loc>https://succurity.com/2021/02/hackthebox-mango-writeup/</loc>
+    <loc>https://succurity.com/post/write-ups/htb-mango/</loc>
     <lastmod>2021-02-28T13:11:24-08:00</lastmod>
   </url>
   
@@ -88,12 +88,12 @@
   </url>
   
   <url>
-    <loc>https://succurity.com/2020/02/intro-to-buffer-overflows/</loc>
+    <loc>https://succurity.com/post/offsec/intro-to-buffer-overflows/</loc>
     <lastmod>2020-02-16T11:46:59-08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://succurity.com/2019/09/intro-to-rfid-hacking/</loc>
+    <loc>https://succurity.com/post/rfid-hacking-primer/</loc>
     <lastmod>2019-09-01T15:12:55-07:00</lastmod>
   </url>
   
@@ -108,7 +108,7 @@
   </url>
   
   <url>
-    <loc>https://succurity.com/2019/05/c-shells-for-routers-gateways/</loc>
+    <loc>https://succurity.com/post/offsec/c-shells/</loc>
     <lastmod>2019-05-02T20:24:45+02:00</lastmod>
   </url>
   

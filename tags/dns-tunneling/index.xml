@@ -13,10 +13,10 @@
     
     <item>
       <title>DNS Tunneling with Iodine</title>
-      <link>https://succurity.com/2022/04/dns-tunneling-with-iodine/</link>
+      <link>https://succurity.com/post/offsec/dns-tunneling/</link>
       <pubDate>Tue, 05 Apr 2022 15:36:17 -0700</pubDate>
       
-      <guid>https://succurity.com/2022/04/dns-tunneling-with-iodine/</guid>
+      <guid>https://succurity.com/post/offsec/dns-tunneling/</guid>
       <description>Sometimes during pentest engagements in restricted networks, we might need access to the internet. Internet access could be used to exfil info or retrieve a tool or script. Because of the state of those networks, no data can leave the network boundry. Security is hard and although the internet can be blocked, DNS is sometimes overlooked and DNS queries could still work. This is were we can use DNS Tunneling to circumvent any blocks that have been put in place.</description>
     </item>
     

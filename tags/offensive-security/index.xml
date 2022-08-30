@@ -13,28 +13,28 @@
     
     <item>
       <title>Pentesting Field Guide</title>
-      <link>https://succurity.com/2022/02/pentesting-field-guide/</link>
+      <link>https://succurity.com/post/offsec/pentesting-field-guide/</link>
       <pubDate>Tue, 22 Feb 2022 16:33:58 -0800</pubDate>
       
-      <guid>https://succurity.com/2022/02/pentesting-field-guide/</guid>
+      <guid>https://succurity.com/post/offsec/pentesting-field-guide/</guid>
       <description>&lt;p&gt;As an OSCP student, I frequently searched the web for notes, tips, advice, or anything that would help me learn the necessary skills to pass the exam. This &lt;em&gt;field guide&lt;/em&gt; started off as that, a collection of gathered OSCP notes from around the web, but as I learn more, this post serves as a place to document everything.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Intro to Buffer Overflows</title>
-      <link>https://succurity.com/2020/02/intro-to-buffer-overflows/</link>
+      <link>https://succurity.com/post/offsec/intro-to-buffer-overflows/</link>
       <pubDate>Sun, 16 Feb 2020 11:46:59 -0800</pubDate>
       
-      <guid>https://succurity.com/2020/02/intro-to-buffer-overflows/</guid>
+      <guid>https://succurity.com/post/offsec/intro-to-buffer-overflows/</guid>
       <description>&lt;p&gt;SLMail is an awesome choice of software to easily practice creating and exploiting buffer overflows. If you need to practice Buffer Overflows for your OSCP, then hopefully this tutorial can help you.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Intro to RFID Hacking</title>
-      <link>https://succurity.com/2019/09/intro-to-rfid-hacking/</link>
+      <link>https://succurity.com/post/rfid-hacking-primer/</link>
       <pubDate>Sun, 01 Sep 2019 15:12:55 -0700</pubDate>
       
-      <guid>https://succurity.com/2019/09/intro-to-rfid-hacking/</guid>
+      <guid>https://succurity.com/post/rfid-hacking-primer/</guid>
       <description>&lt;p&gt;This primer is for those that are interested in RFID pentesting. If you don&amp;rsquo;t know where to start or if you are looking into RFID &amp;ldquo;hacking&amp;rdquo;, I hope you can take something away from all of this. I am in no way an expert and I am still learning as much as I can about this technology.&lt;/p&gt;</description>
     </item>
     

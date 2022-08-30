@@ -13,10 +13,10 @@
     
     <item>
       <title>Intro to Buffer Overflows</title>
-      <link>https://succurity.com/2020/02/intro-to-buffer-overflows/</link>
+      <link>https://succurity.com/post/offsec/intro-to-buffer-overflows/</link>
       <pubDate>Sun, 16 Feb 2020 11:46:59 -0800</pubDate>
       
-      <guid>https://succurity.com/2020/02/intro-to-buffer-overflows/</guid>
+      <guid>https://succurity.com/post/offsec/intro-to-buffer-overflows/</guid>
       <description>&lt;p&gt;SLMail is an awesome choice of software to easily practice creating and exploiting buffer overflows. If you need to practice Buffer Overflows for your OSCP, then hopefully this tutorial can help you.&lt;/p&gt;</description>
     </item>
     
