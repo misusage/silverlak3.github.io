@@ -4,7 +4,47 @@
   
   <url>
     <loc>https://succurity.com/categories/</loc>
-    <lastmod>2022-04-05T15:36:17-07:00</lastmod>
+    <lastmod>2022-08-29T16:33:58-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://succurity.com/tags/offensive-security/</loc>
+    <lastmod>2022-08-29T16:33:58-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://succurity.com/categories/offsec/</loc>
+    <lastmod>2022-08-29T16:33:58-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://succurity.com/tags/oscp/</loc>
+    <lastmod>2022-08-29T16:33:58-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://succurity.com/tags/pentesting/</loc>
+    <lastmod>2022-08-29T16:33:58-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://succurity.com/post/offsec/pentesting-field-guide/</loc>
+    <lastmod>2022-08-29T16:33:58-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://succurity.com/post/</loc>
+    <lastmod>2022-08-29T16:33:58-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://succurity.com/</loc>
+    <lastmod>2022-08-29T16:33:58-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://succurity.com/tags/</loc>
+    <lastmod>2022-08-29T16:33:58-08:00</lastmod>
   </url>
   
   <url>
@@ -18,27 +58,12 @@
   </url>
   
   <url>
-    <loc>https://succurity.com/post/</loc>
-    <lastmod>2022-04-05T15:36:17-07:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://succurity.com/categories/posts/</loc>
     <lastmod>2022-04-05T15:36:17-07:00</lastmod>
   </url>
   
   <url>
-    <loc>https://succurity.com/</loc>
-    <lastmod>2022-04-05T15:36:17-07:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://succurity.com/tags/security/</loc>
-    <lastmod>2022-04-05T15:36:17-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://succurity.com/tags/</loc>
     <lastmod>2022-04-05T15:36:17-07:00</lastmod>
   </url>
   
@@ -64,26 +89,6 @@
   
   <url>
     <loc>https://succurity.com/post/offsec/intro-to-buffer-overflows/</loc>
-    <lastmod>2020-02-16T11:46:59-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://succurity.com/tags/offensive-security/</loc>
-    <lastmod>2020-02-16T11:46:59-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://succurity.com/categories/offsec/</loc>
-    <lastmod>2020-02-16T11:46:59-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://succurity.com/tags/oscp/</loc>
-    <lastmod>2020-02-16T11:46:59-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://succurity.com/tags/pentesting/</loc>
     <lastmod>2020-02-16T11:46:59-08:00</lastmod>
   </url>
   
