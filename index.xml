@@ -21,15 +21,6 @@
     </item>
     
     <item>
-      <title>Pentesting Field Guide</title>
-      <link>https://succurity.com/post/offsec/pentesting-field-guide/</link>
-      <pubDate>Tue, 22 Feb 2022 16:33:58 -0800</pubDate>
-      
-      <guid>https://succurity.com/post/offsec/pentesting-field-guide/</guid>
-      <description>&lt;p&gt;As an OSCP student, I frequently searched the web for notes, tips, advice, or anything that would help me learn the necessary skills to pass the exam. This &lt;em&gt;field guide&lt;/em&gt; started off as that, a collection of gathered OSCP notes from around the web, but as I learn more, this post serves as a place to document everything.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
       <title>HackTheBox | Mango Writeup</title>
       <link>https://succurity.com/post/write-ups/htb-mango/</link>
       <pubDate>Sun, 28 Feb 2021 13:11:24 -0800</pubDate>

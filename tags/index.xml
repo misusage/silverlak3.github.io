@@ -30,9 +30,18 @@
     </item>
     
     <item>
+      <title>Buffer Overflows</title>
+      <link>https://succurity.com/tags/buffer-overflows/</link>
+      <pubDate>Sun, 16 Feb 2020 11:46:59 -0800</pubDate>
+      
+      <guid>https://succurity.com/tags/buffer-overflows/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Offensive Security</title>
       <link>https://succurity.com/tags/offensive-security/</link>
-      <pubDate>Tue, 22 Feb 2022 16:33:58 -0800</pubDate>
+      <pubDate>Sun, 16 Feb 2020 11:46:59 -0800</pubDate>
       
       <guid>https://succurity.com/tags/offensive-security/</guid>
       <description></description>
@@ -41,7 +50,7 @@
     <item>
       <title>OSCP</title>
       <link>https://succurity.com/tags/oscp/</link>
-      <pubDate>Tue, 22 Feb 2022 16:33:58 -0800</pubDate>
+      <pubDate>Sun, 16 Feb 2020 11:46:59 -0800</pubDate>
       
       <guid>https://succurity.com/tags/oscp/</guid>
       <description></description>
@@ -50,18 +59,9 @@
     <item>
       <title>Pentesting</title>
       <link>https://succurity.com/tags/pentesting/</link>
-      <pubDate>Tue, 22 Feb 2022 16:33:58 -0800</pubDate>
-      
-      <guid>https://succurity.com/tags/pentesting/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Buffer Overflows</title>
-      <link>https://succurity.com/tags/buffer-overflows/</link>
       <pubDate>Sun, 16 Feb 2020 11:46:59 -0800</pubDate>
       
-      <guid>https://succurity.com/tags/buffer-overflows/</guid>
+      <guid>https://succurity.com/tags/pentesting/</guid>
       <description></description>
     </item>
     

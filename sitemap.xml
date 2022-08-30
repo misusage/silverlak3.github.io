@@ -43,31 +43,6 @@
   </url>
   
   <url>
-    <loc>https://succurity.com/tags/offensive-security/</loc>
-    <lastmod>2022-02-22T16:33:58-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://succurity.com/categories/offsec/</loc>
-    <lastmod>2022-02-22T16:33:58-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://succurity.com/tags/oscp/</loc>
-    <lastmod>2022-02-22T16:33:58-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://succurity.com/tags/pentesting/</loc>
-    <lastmod>2022-02-22T16:33:58-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://succurity.com/post/offsec/pentesting-field-guide/</loc>
-    <lastmod>2022-02-22T16:33:58-08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://succurity.com/categories/hackthebox/</loc>
     <lastmod>2021-02-28T13:11:24-08:00</lastmod>
   </url>
@@ -89,6 +64,26 @@
   
   <url>
     <loc>https://succurity.com/post/offsec/intro-to-buffer-overflows/</loc>
+    <lastmod>2020-02-16T11:46:59-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://succurity.com/tags/offensive-security/</loc>
+    <lastmod>2020-02-16T11:46:59-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://succurity.com/categories/offsec/</loc>
+    <lastmod>2020-02-16T11:46:59-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://succurity.com/tags/oscp/</loc>
+    <lastmod>2020-02-16T11:46:59-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://succurity.com/tags/pentesting/</loc>
     <lastmod>2020-02-16T11:46:59-08:00</lastmod>
   </url>
   

@@ -21,15 +21,6 @@
     </item>
     
     <item>
-      <title>Offsec</title>
-      <link>https://succurity.com/categories/offsec/</link>
-      <pubDate>Tue, 22 Feb 2022 16:33:58 -0800</pubDate>
-      
-      <guid>https://succurity.com/categories/offsec/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>HackTheBox</title>
       <link>https://succurity.com/categories/hackthebox/</link>
       <pubDate>Sun, 28 Feb 2021 13:11:24 -0800</pubDate>
@@ -44,6 +35,15 @@
       <pubDate>Sun, 28 Feb 2021 13:11:24 -0800</pubDate>
       
       <guid>https://succurity.com/categories/write-ups/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Offsec</title>
+      <link>https://succurity.com/categories/offsec/</link>
+      <pubDate>Sun, 16 Feb 2020 11:46:59 -0800</pubDate>
+      
+      <guid>https://succurity.com/categories/offsec/</guid>
       <description></description>
     </item>
     
