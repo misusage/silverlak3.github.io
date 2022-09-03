@@ -413,7 +413,7 @@ $&gt; ld base64.o -o base64
 <p>R11 (Frame Pointer)- Keeps track of boundaries on the stack. The stack is an area of memory used for temporary storage.</p>
 </li>
 <li>
-<p>R12 (Intra Procedural Call) - This egister has a dedicated role only during function call but at other times, it may be used as a scratch register.</p>
+<p>R12 (Intra Procedural Call) - This register has a dedicated role only during function call but at other times, it may be used as a scratch register.</p>
 </li>
 <li>
 <p>R13 (Stack Pointer)- Points to the top of the stack.</p>
@@ -444,7 +444,7 @@ $&gt; ld base64.o -o base64
 <li>SUB - Subtracts stuff.</li>
 <li>B   - Branches or jumps to another section of code.</li>
 <li>CMP - Compares values. It updates the condition flags on the result, but does not place the result in any register.</li>
-<li>AND - does a bitwise AND operation.</li>
+<li>AND - Does a bitwise AND operation.</li>
 <li>ORR - Does a bitwise OR operation.</li>
 <li>MUL - Multiplies stuff.</li>
 <li>LSL - Does a logical shift left operation in the register. In other words, shifts the bits over to the direction that you specify in the register.</li>
@@ -467,7 +467,7 @@ Operand2     - Second (flexible) operand. Can be an immediate value (number) or 
 <p>Reading this from right to left, this instruction basically moves the data from register 1 and puts it into register 1. In reality, this does nothing. Basically a no-op.</p>
 <p>Now this one: <code>add r2,r3,r4</code> This is an addition instruction and is read from right to left. It takes the data from register 4, adds it with the data in register 3, and puts the end result into register 2.</p>
 <p>And this one: <code>sub r2,r3,r4</code> This is a subtraction instruction and is read from right to left. It takes the data from register 4, subtracts it FROM the data in register 3, and puts the end result into register 2. If you add an S to the instruction <code>SUBS</code>, then the result will also update the CPSR register.</p>
-<p>Good now this one: <code>ldr r2, [r0]</code>. As mentioned above, LDR is used to load something from memory into a register. The brackets tell the assembler that the contents in register 0 hold a memory address. It then goes and retrieves the value at that address and puts it in register 2.</p>
+<p>Good, now this one: <code>ldr r2, [r0]</code>. As mentioned above, LDR is used to load something from memory into a register. The brackets tell the assembler that the contents in register 0 hold a memory address. It then goes and retrieves the value at that address and puts it in register 2.</p>
 <p>Now for the inverse: <code>str r2, [r0]</code>. In this instruction, we take the data in register 2 and store it in the memory address we have signified in register 0.</p>
 <p>Finally: <code>cmp r1, r2</code>. In this instruction we are comparing the value in register 2 to the value in register 1. In theory, it subtracts the value of the operand on the right FROM the value of the operand on the left. This is the same as a SUBS instruction, except that the result is discarded.</p>
 <h3 id="labels">Labels</h3>
@@ -480,7 +480,9 @@ Operand2     - Second (flexible) operand. Can be an immediate value (number) or 
 <pre><code>int main() {
    int bigger = 0;
    int a = 2;
-   int b = 3;
+   int b = 1;
+   b = b + a;
+   b = b;
    if(a &lt; b) {
       bigger = b;
    }
@@ -493,20 +495,20 @@ Operand2     - Second (flexible) operand. Can be an immediate value (number) or 
 <pre><code>main: 
     mov r1, #2      &lt;--- This sets the decimal value of 2 into register 1. (Think: int A = 2)
     mov r2, #1      &lt;--- This sets the decimal value of 1 into register 2. (Think: int B = 1)
-    add r2, r2, r1  &lt;--- This adds the decimal value in register 1 with the value of register 2, and puts the result in register 2 (should now hold 3). Register 1 does not change. (Think: B = B + A or 3 = 1 + 2)
-    mov r2, r2      &lt;--- This moves the data in register 2 to register 2. In other words, this does nothing. (think: B = B)
-    cmp r1, r2      &lt;--- Now we compare the values in register 2 to that in register 1. This will set a flag in the CPSR register. 
-    blt somewhere   &lt;--- If the data in register 1 (int A) is less than the data in register 2 (int B), then jump to the label called somewhere. 
+    add r2, r2, r1  &lt;--- This adds the decimal value in r1 with the value of r2, and puts the result in r2 (should now hold 3). r1 does not change. (Think: B = B + A or 3 = 1 + 2)
+    mov r2, r2      &lt;--- This moves the data in r2 to r2. In other words, this does nothing. (think: B = B)
+    cmp r1, r2      &lt;--- Now we compare the values in r2 to that in r1. This will set a flag in the CPSR register. 
+    blt somewhere   &lt;--- If the data in r1 (int A) is less than the data in r2 (int B), then jump to the label called somewhere. 
                          /* In this case, A is less than B so it will jump over to somewhere. */
-    mov r0, r1      &lt;--- If it wasn't less than, then we would move the data from register 1 (#2) into register 0.
+    mov r0, r1      &lt;--- If it wasn't less than, then we would move the data from r1 (#2) into r0.
     b end           &lt;--- Now we branch over to the label end.
 
 somewhere:
-    mov r0, r2      &lt;--- Since we branched over to here, we would put the value of register 2 in register 0
+    mov r0, r2      &lt;--- Since we branched over to here, we would put the value of r2 in r0
     b end           &lt;--- Now we branch over to the label end.
 
 end: 
-    mov r7, #1      &lt;--- This puts a value of 1 into register 7. This is required for the system call 'exit'
+    mov r7, #1      &lt;--- This puts a value of 1 into r7. This is required for the system call 'exit'
     swi #0          &lt;--- This performs the linux syscall
     
 </code></pre><h3 id="system-calls">System Calls</h3>
