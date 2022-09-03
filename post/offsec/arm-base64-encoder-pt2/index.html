@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{  
+  "@context":"http://schema.org",
+  "@type":"Website",
+  "@id":"https:\/\/succurity.com\/",
+  "author": {
+    "@type": "Person",
+    "name": "Sage",
+    
+    "image": "https://succurity.com/images/me.jpg"
+    
+  },
+  "name":"Sage\x27s Succurity Blog",
+  "description":"\x3cp\x3eBack in college, one of my assignments was to code a Base64 encoder in ARM assembly. After many hours of study, I got it. First, Let\x26rsquo;s take a look at how ARM Assembly works.\x3c\/p\x3e",
+  "url":"https:\/\/succurity.com\/post\/offsec\/arm-base64-encoder-pt2\/",
+  "keywords":"[security, ARM, Base64]"
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.68.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Sage">
+<meta name="keywords" content="security, ARM, Base64">
+<meta name="description" content="Back in college, one of my assignments was to code a Base64 encoder in ARM assembly. After many hours of study, I got it. First, Let&rsquo;s take a look at how ARM Assembly works.">
+
+
+<meta property="og:description" content="Back in college, one of my assignments was to code a Base64 encoder in ARM assembly. After many hours of study, I got it. First, Let&rsquo;s take a look at how ARM Assembly works.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ARM Assembly Base64 Encoder: Part 2">
+<meta name="twitter:title" content="ARM Assembly Base64 Encoder: Part 2">
+<meta property="og:url" content="https://succurity.com/post/offsec/arm-base64-encoder-pt2/">
+<meta property="twitter:url" content="https://succurity.com/post/offsec/arm-base64-encoder-pt2/">
+<meta property="og:site_name" content="Sage&#39;s Succurity Blog">
+<meta property="og:description" content="Back in college, one of my assignments was to code a Base64 encoder in ARM assembly. After many hours of study, I got it. First, Let&rsquo;s take a look at how ARM Assembly works.">
+<meta name="twitter:description" content="Back in college, one of my assignments was to code a Base64 encoder in ARM assembly. After many hours of study, I got it. First, Let&rsquo;s take a look at how ARM Assembly works.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2022-09-01T14:25:27">
+  
+  
+    <meta property="article:modified_time" content="2022-09-01T14:25:27">
+  
+  
+  
+    
+      <meta property="article:section" content="posts">
+    
+  
+  
+    
+      <meta property="article:tag" content="security">
+    
+      <meta property="article:tag" content="ARM Assembly">
+    
+      <meta property="article:tag" content="Encoding">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://succurity.com/images/me.jpg">
+  <meta property="twitter:image" content="https://succurity.com/images/me.jpg">
+
+
+
+
+
+
+    <title>ARM Assembly Base64 Encoder: Part 2</title>
+
+    <link rel="icon" href="https://succurity.com/images/favicon.ico">
+    
+
+    
+
+    <link rel="canonical" href="https://succurity.com/post/offsec/arm-base64-encoder-pt2/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://succurity.com/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://succurity.com/" aria-label="Go to homepage">Sage&#39;s Succurity Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://twitter.com/misusage_" target="_blank" rel="noopener" aria-label="Open the link: https://twitter.com/misusage_">
+    
+    
+    
+      
+        <img class="header-picture" src="https://succurity.com/images/me.jpg" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://succurity.com/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://succurity.com/images/me.jpg" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Sage</h4>
+        
+          <h5 class="sidebar-profile-bio">Succurity through Obscurity usually isn&rsquo;t a good idea.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/categories/write-ups" title="CTF Writeups">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">CTF Writeups</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://succurity.com/page/about" title="About Me">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/silverlak3" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.linkedin.com/in/rafasec/" target="_blank" rel="noopener" title="LinkedIn">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-linkedin" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">LinkedIn</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/misusage_" target="_blank" rel="noopener" title="Twitter">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-twitter" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title">
+      ARM Assembly Base64 Encoder: Part 2
+    </h1>
+  
+  
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p>Back in college, one of my assignments was to code a Base64 encoder in ARM assembly. After many hours of study, I got it. First, Let&rsquo;s take a look at how ARM Assembly works.</p>
+<h1 id="table-of-contents">Table of Contents</h1>
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#lets-do-arm-stuff">Let&rsquo;s do ARM Stuff</a>
+          <ul>
+            <li><a href="#mnemonics">Mnemonics</a></li>
+            <li><a href="#registers">Registers</a></li>
+            <li><a href="#instructions">Instructions</a></li>
+            <li><a href="#operands">Operands</a></li>
+            <li><a href="#labels">Labels</a></li>
+            <li><a href="#branching">Branching</a></li>
+            <li><a href="#system-calls">System Calls</a></li>
+          </ul>
+        </li>
+        <li><a href="#arm-file-structure">ARM File Structure</a>
+          <ul>
+            <li><a href="#make-a-makefile">Make a Makefile</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+<hr>
+<h2 id="lets-do-arm-stuff">Let&rsquo;s do ARM Stuff</h2>
+<hr>
+<p>Before we get started, go read <a href="https://azeria-labs.com/writing-arm-assembly-part-1/">@azeria&rsquo;s ARM Tutorial</a>. She is amazing at explaining everything and I will be taking alot of info from her. I will also be skipping alot of useful information, so it is essential that you go take a look.</p>
+<p>Okay. Now to the hard part. First let&rsquo;s go over some Assembly basics then the ARM File Structure. ARM is an assembled language. It is essentially CPU instructions that are &ldquo;assembled&rdquo; up to machine code. Then, a linker is used to link all the parts of the program together for execution. C, C++, Java, for example are compiled languages. They are written at a high level and are compiled down to executable code. Python, for example, is an interpreted language. This means that the interpreter translates the program line by line.</p>
+<p>In other words, the difference between compiler and assembler is that a compiler is used to convert high-level programming language code down to machine language code. On the other hand, an assembler converts assembly level language code up to machine language code.</p>
+<p>TL;DR: Assembler &gt; Linker &gt; Executable Code.</p>
+<p>More commonly, one would write C code then use gcc to compile it down to an executable program:</p>
+<pre><code>gcc program.c -o program
+</code></pre><p>But this is assembly! So to assemble code, we write our Assembly source code in a file ending with the extension <code>.s</code>, then we can use the GNU Assembler from <a href="https://www.gnu.org/software/binutils/">GNU Binutils</a>.</p>
+<pre><code>$&gt; as base64.s -o base64.o
+$&gt; ld base64.o -o base64
+</code></pre><h3 id="mnemonics">Mnemonics</h3>
+<p>One step down from Assembly is the machine code. Basically, the binary values that a CPU reads to do anything.</p>
+<p><code>1101 1100 0101 0000 0010 1010 1101 0000 0110</code></p>
+<p>Do you know what that does? Of course not! Neither do I. Machine code is basically an electrical signal with an ON state (the 1&rsquo;s) and an OFF state (the 0&rsquo;s). We group these patterns of 0&rsquo;s and 1&rsquo;s into small groups. Since these small groups can repeat very often, we use mnemonics, or abbreviations to help us remember these patterns. In ARM, most mnemonics consist of three letters, such as <code>LDR</code> or <code>MOV</code> but you may see some with two letters <code>BL</code>. We can then write an assembly program with these instructions. These instructions also include operands after the mnemonics: <code>ADD R3,R2,R1</code>. The majority are read from right to left but that is not always the case! In this example: <code>ADD R3,R2,R1</code>, we add the value that is in Register 1 to the value that is in Register 2 and put it inside Register 3.</p>
+<p>What is R1, R2, R3? Well, let&rsquo;s talk about registers!</p>
+<h3 id="registers">Registers</h3>
+<p>The number of registers depends on the version of ARM we are talking about. In the case of ARMSim#, that program uses the ARM7TDMI instruction set which has 16 Registers. Each register is 32 bits in size. For the General Purpose registers, think of those like a mini storage area that can hold any type of data. You can put whatever you want in those.</p>
+<table>
+<thead>
+<tr>
+<th>Register</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R0</td>
+<td>General Purpose</td>
+</tr>
+<tr>
+<td>R1</td>
+<td>General Purpose</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>General Purpose</td>
+</tr>
+<tr>
+<td>R3</td>
+<td>General Purpose</td>
+</tr>
+<tr>
+<td>R4</td>
+<td>General Purpose</td>
+</tr>
+<tr>
+<td>R5</td>
+<td>General Purpose</td>
+</tr>
+<tr>
+<td>R6</td>
+<td>General Purpose</td>
+</tr>
+<tr>
+<td>R7</td>
+<td>General Purpose</td>
+</tr>
+<tr>
+<td>R8</td>
+<td>General Purpose</td>
+</tr>
+<tr>
+<td>R9</td>
+<td>General Purpose</td>
+</tr>
+<tr>
+<td>R10</td>
+<td>General Purpose</td>
+</tr>
+<tr>
+<td>R11 (fp)</td>
+<td>Frame Pointer</td>
+</tr>
+<tr>
+<td>R12 (ip)</td>
+<td>Intra Procedural Call</td>
+</tr>
+<tr>
+<td>R13 (sp)</td>
+<td>Stack Pointer</td>
+</tr>
+<tr>
+<td>R14 (lr)</td>
+<td>Link register</td>
+</tr>
+<tr>
+<td>R15 (pc)</td>
+<td>Program Counter / Instruction Pointer</td>
+</tr>
+<tr>
+<td>CPSR</td>
+<td>Current Program Status Register</td>
+</tr>
+</tbody>
+</table>
+
+ 
+  
+  
+  
+  
+    
+      
+    
+  
+    
+  
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://succurity.com/images/base64/registers.png"  alt="ARM Registers in ARMSim#">
+  
+   
+    <span class="caption">ARM Registers in ARMSim#</span>
+  
+</div>
+
+  <div style="clear:both;"></div>
+
+<ul>
+<li>
+<p>R0-R10 - Pretty much general purpose registers. However, R7 is used to store the syscall number when working with syscalls.</p>
+</li>
+<li>
+<p>R11 (Frame Pointer)- Keeps track of boundaries on the stack. The stack is an area of memory used for temporary storage.</p>
+</li>
+<li>
+<p>R12 (Intra Procedural Call) - This egister has a dedicated role only during function call but at other times, it may be used as a scratch register.</p>
+</li>
+<li>
+<p>R13 (Stack Pointer)- Points to the top of the stack.</p>
+</li>
+<li>
+<p>R14 (Link Register) - When a function is called, the LR holds the memory address of the next instruction from where the function call was made from, so the program knows where to return to.</p>
+</li>
+<li>
+<p>R15 (Program Counter / Instruction Pointer) - It stores the memory address of the next instruction to be executed.</p>
+</li>
+<li>
+<p>CPSR - See that picture above where it says CPSR Register, followed by Negative (N), Zero (Z), Carry (C),etc.. ? Well those are called Flags. These flags are set according to the value of the CPSR. THis is used when you want to do conditional execution or branching.</p>
+<ul>
+<li>N – Set when the result of an operation was <em>N</em>egative.</li>
+<li>Z – Set when the result of an operation was <em>Z</em>ero.</li>
+<li>C – Set when the operation resulted in a <em>C</em>arry.</li>
+<li>V – Set when the operation caused an o<em>v</em>erflow.</li>
+</ul>
+</li>
+</ul>
+<h3 id="instructions">Instructions</h3>
+<p>There are many different types of ARM instructions. I am not going to go over all of them, but feel free to look them up in the <a href="https://developer.arm.com/documentation/dui0068/b/ARM-Instruction-Reference">ARM instruction reference</a>. Here are a few:</p>
+<ul>
+<li>MOV - Moves data around.</li>
+<li>LDR - Loads data from a memory address.</li>
+<li>STR - Stores data from a register to a memory address.</li>
+<li>ADD - Adds stuff.</li>
+<li>SUB - Subtracts stuff.</li>
+<li>B   - Branches or jumps to another section of code.</li>
+<li>CMP - Compares values. It updates the condition flags on the result, but does not place the result in any register.</li>
+<li>AND - does a bitwise AND operation.</li>
+<li>ORR - Does a bitwise OR operation.</li>
+<li>MUL - Multiplies stuff.</li>
+<li>LSL - Does a logical shift left operation in the register. In other words, shifts the bits over to the direction that you specify in the register.</li>
+<li>LSR - Does a logical shift right operation in the register.</li>
+<li>ROR - Does a rotate to the right &gt; Do a barrel roll!</li>
+</ul>
+<p>and more&hellip;</p>
+<h3 id="operands">Operands</h3>
+<p>As mentioned in the <a href="https://developer.arm.com/documentation/dui0497/a/the-cortex-m0-instruction-set/about-the-instruction-descriptions/operands#:~:text=An%20instruction%20operand%20can%20be,specified%20before%20the%20other%20operands.">ARM Developer Guide</a>: An instruction operand can be an ARM register, a constant, or another instruction-specific parameter. Instructions act on the operands and often store the result in a destination register. When there is a destination register in the instruction, it is usually specified before the other operands.</p>
+<p>This is taken from <a href="https://azeria-labs.com/arm-instruction-set-part-3/">Azeria&rsquo;s page</a> as she explains it really well:</p>
+<pre><code>MNEMONIC{S}{condition} {Rd}, Operand1, Operand2
+
+MNEMONIC     - Short name (mnemonic) of the instruction
+{S}          - An optional suffix. If S is specified, the condition flags are updated on the result of the operation
+{condition}  - Condition that is needed to be met in order for the instruction to be executed
+{Rd}         - Register (destination) for storing the result of the instruction
+Operand1     - First operand. Either a register or an immediate value 
+Operand2     - Second (flexible) operand. Can be an immediate value (number) or a register with an optional shift
+</code></pre><p>Let&rsquo;s look at a few instructions, starting with:  <code>mov r1, r1</code></p>
+<p>Reading this from right to left, this instruction basically moves the data from register 1 and puts it into register 1. In reality, this does nothing. Basically a no-op.</p>
+<p>Now this one: <code>add r2,r3,r4</code> This is an addition instruction and is read from right to left. It takes the data from register 4, adds it with the data in register 3, and puts the end result into register 2.</p>
+<p>And this one: <code>sub r2,r3,r4</code> This is a subtraction instruction and is read from right to left. It takes the data from register 4, subtracts it FROM the data in register 3, and puts the end result into register 2. If you add an S to the instruction <code>SUBS</code>, then the result will also update the CPSR register.</p>
+<p>Good now this one: <code>ldr r2, [r0]</code>. As mentioned above, LDR is used to load something from memory into a register. The brackets tell the assembler that the contents in register 0 hold a memory address. It then goes and retrieves the value at that address and puts it in register 2.</p>
+<p>Now for the inverse: <code>str r2, [r0]</code>. In this instruction, we take the data in register 2 and store it in the memory address we have signified in register 0.</p>
+<p>Finally: <code>cmp r1, r2</code>. In this instruction we are comparing the value in register 2 to the value in register 1. In theory, it subtracts the value of the operand on the right FROM the value of the operand on the left. This is the same as a SUBS instruction, except that the result is discarded.</p>
+<h3 id="labels">Labels</h3>
+<p>A label in ARM assembly is simply a name given to the address of an instruction. A label can be any string that starts with a non-numeric value at the start of a line. In the example below, main is a label and can be used for branching. When called, the instruction will start at the first line underneath the label.</p>
+<pre><code>main: 
+    mov r1, r1 /* starts from here. */
+    mov r2, r3 /* comments look like this in ARM */
+</code></pre><h3 id="branching">Branching</h3>
+<p>Branching (think of it like jumping in x86) takes you to another section of code. It allows you to bypass a set or sequence of instructions and execute a different set of instructions. Branches can also take conditionals. For example, the ARM instruction <code>B</code> is standard for branch and can be modified like this: <code>BLT</code> or branch if less than. Take a look at this pseudocode:</p>
+<pre><code>int main() {
+   int bigger = 0;
+   int a = 2;
+   int b = 3;
+   if(a &lt; b) {
+      bigger = b;
+   }
+   else {
+      bigger = a;
+   }
+   exit
+}
+</code></pre><p>Now the same code but in ARM:</p>
+<pre><code>main: 
+    mov r1, #2      &lt;--- This sets the decimal value of 2 into register 1. (Think: int A = 2)
+    mov r2, #1      &lt;--- This sets the decimal value of 1 into register 2. (Think: int B = 1)
+    add r2, r2, r1  &lt;--- This adds the decimal value in register 1 with the value of register 2, and puts the result in register 2 (should now hold 3). Register 1 does not change. (Think: B = B + A or 3 = 1 + 2)
+    mov r2, r2      &lt;--- This moves the data in register 2 to register 2. In other words, this does nothing. (think: B = B)
+    cmp r1, r2      &lt;--- Now we compare the values in register 2 to that in register 1. This will set a flag in the CPSR register. 
+    blt somewhere   &lt;--- If the data in register 1 (int A) is less than the data in register 2 (int B), then jump to the label called somewhere. 
+                         /* In this case, A is less than B so it will jump over to somewhere. */
+    mov r0, r1      &lt;--- If it wasn't less than, then we would move the data from register 1 (#2) into register 0.
+    b end           &lt;--- Now we branch over to the label end.
+
+somewhere:
+    mov r0, r2      &lt;--- Since we branched over to here, we would put the value of register 2 in register 0
+    b end           &lt;--- Now we branch over to the label end.
+
+end: 
+    mov r7, #1      &lt;--- This puts a value of 1 into register 7. This is required for the system call 'exit'
+    swi #0          &lt;--- This performs the linux syscall
+    
+</code></pre><h3 id="system-calls">System Calls</h3>
+
+ 
+  
+  
+  
+  
+    
+      
+    
+  
+    
+  
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://succurity.com/images/base64/syscall.png"  alt="System Calls">
+  
+   
+    <span class="caption">System Calls</span>
+  
+</div>
+
+  <div style="clear:both;"></div>
+
+<p>The system call provides an interface to the operating system services, like reading a file or printing to the terminal. Where can you find a list of all the system calls? On your raspberry pi itself! Located here: <code>/usr/include/arm-linux-gnueabihf/asm/unistd-common.h</code></p>
+<blockquote>
+<p>Now, coming to Raspberry Pi, which is a Broadcom SOC,BCM 2835,based on ARM Processor. Every System Call is having an Index in the System Call Table. The Index is an Integer value which is passed to the Register R7, in case of ARM Platform. The registers, R0, R1 and R2 are used to pass the arguments of the System Call. The instruction, SWI, which is now being used as SVC, which is a Supervisor Call, used to jump to the Privileged Mode, to invoke the Kernel. The number embedded with SVC #num, is used to refer to the Handler.</p>
+</blockquote>
+<p>If you want to read more on system calls, check out <a href="http://blogsmayan.blogspot.com/p/adding-simple-system-call.html">this blog</a>.</p>
+<h2 id="arm-file-structure">ARM File Structure</h2>
+<p>Take a look at this helloworld.s ARM program. This actually runs on a Raspberry Pi 3. So if you have one, feel free to copy the code and assemble/run it.</p>
+
+
+  
+  
+  
+  
+  
+
+
+  
+    
+  
+  
+
+<figure class="codeblock codeblock--tabbed">
+  <figcaption>
+    
+      <span>helloworld.s</span>
+    
+    <ul class="tabs">
+      
+        <li class="tab active">armasm</li>
+      
+    </ul>
+  </figcaption>
+  <div class="tabs-content">
+    
+      
+      <figure class="highlight language-armasm armasm" style="display: block;">
+        <table>
+          <tbody>
+            <tr>
+              <td class="gutter">
+                <pre><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br><span>6</span><br><span>7</span><br><span>8</span><br><span>9</span><br><span>10</span><br><span>11</span><br><span>12</span><br><span>13</span><br><span>14</span><br><span>15</span><br><span>16</span><br><span>17</span><br><span>18</span><br><span>19</span><br><span>20</span><br><span>21</span><br><span>22</span><br><span>23</span><br><span>24</span><br><span>25</span><br><span>26</span><br><span>27</span><br><span>28</span><br><span>29</span><br><span>30</span><br><span>31</span><br><span>32</span><br><span>33</span><br><span>34</span><br><span>35</span><br></pre>
+              </td>
+              <td class="code">
+                <pre class="code-highlight language-armasm armasm"><code class="armasm">/* -- helloworld.s */
+/* This is a comment. */
+.data
+.align
+	helloWorldString: .asciz &#34;Hello World\n&#34;
+	emptyLabel:
+
+.equ sizeVar1, emptyLabel - helloWorldString
+/* This calculates the difference between the emptyLabel address and the
+   helloWorldString address. The result will be 13 since Hello is 5, World is 5
+   and 3 from the space, the back slash and the n. It will then alias this value
+   into a label called sizeVar1. We need this because we need to tell the syscall 
+   how many chars to print.*/
+
+.text
+
+.global _start /* This is kinda like an alias and is our entry point. It must be global.*/
+
+_start:				            /* This is where the program starts */
+	mov r0, #1		            /* Setting #1 into r0 */
+	ldr r1, =helloWorldString   /* Takes the address of the where helloworld is and puts it in r1 */
+	mov r2, #sizeVar1  	        /* This tells the syscall how many chars to print. 13 in this case. */
+	b print
+
+print: 
+	mov r7, #4      /* This is the system call to write */
+	swi #0
+
+	b exit
+
+exit:
+	mov r7, #1      /* This is the system call to exit */
+	swi #0
+
+.end</code></pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </figure>
+    
+  </div>
+</figure>
+
+<p>Let&rsquo;s recap that code starting with a few directives. At the top, we have a <code>.data</code> section. This is where you put stuff that you want to be automatically initialized by the system before it calls the entry point of your program.</p>
+<ul>
+<li>
+<p>Right below <code>.data</code> we have <code>.align</code>. This causes the assembler to pad the binary with bytes of zero value, in data sections, or NOP instructions in code, ensuring the next location will be on a word boundary. <code>.align n</code> gives 2^n alignment on ARM cores.</p>
+</li>
+<li>
+<p>The next area is labeled <code>.text</code>. This section is used to keep the actual code or instructions. We use a <code>.global _start</code> to tell the assembler where our program will be starting. <code>.global</code> Tells the assembler that symbol is to be made globally visible to other source files and to the linker.</p>
+</li>
+<li>
+<p><code>.ascii &quot;&lt;string&gt;&quot;</code> Inserts the string literal into the object file exactly as specified, without a NUL character to terminate. Multiple strings can be specified using commas as separators.</p>
+</li>
+<li>
+<p><code>.asciz &quot;&lt;string&gt;&quot;</code> Like .ascii above but ends the string with a null byte.</p>
+</li>
+<li>
+<p><code>.set</code> or <code>.equ</code> in this case, sets the value of a symbol to an expresion. Think if it like an alias in linux.</p>
+</li>
+</ul>
+<p>You can find more info on ARM directives <a href="https://developer.arm.com/documentation/den0013/d/Introduction-to-Assembly-Language/Introduction-to-the-GNU-Assembler/Assembler-directives">here</a>.</p>
+<p>Now let&rsquo;s assemble the code and run it through the linker.</p>
+<pre><code>as -o hello.o hello.s
+ld -o hello hello.o
+</code></pre><h3 id="make-a-makefile">Make a Makefile</h3>
+<p>How about making a Makefile so we don&rsquo;t have to assemble and link everytime? Create a new file with the following:</p>
+
+
+  
+  
+  
+  
+  
+
+
+  
+    
+  
+  
+
+<figure class="codeblock codeblock--tabbed">
+  <figcaption>
+    
+      <span>Makefile</span>
+    
+    <ul class="tabs">
+      
+        <li class="tab active">makefile</li>
+      
+    </ul>
+  </figcaption>
+  <div class="tabs-content">
+    
+      
+      <figure class="highlight language-makefile makefile" style="display: block;">
+        <table>
+          <tbody>
+            <tr>
+              <td class="gutter">
+                <pre><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br><span>6</span><br><span>7</span><br><span>8</span><br><span>9</span><br></pre>
+              </td>
+              <td class="code">
+                <pre class="code-highlight language-makefile makefile"><code class="makefile"># Makefile
+
+all: helloworld
+
+helloworld: helloworld.o
+    ld -o $@ $&#43;
+
+helloworld.o: helloworld.s
+    as -o $@ $&lt;</code></pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </figure>
+    
+  </div>
+</figure>
+
+<p>With the Makefile, all we do is type make in the terminal and it will assemble and link the program for us.</p>
+<pre><code>sage@pi:~ $ make
+as -o helloworld.o helloworld.s
+ld -o helloworld helloworld.o
+</code></pre><p>Now lets run our program!</p>
+<pre><code>sage@pi:~ $ ./helloworld 
+Hello World
+</code></pre><p>That&rsquo;s it! We now have hello world successfully executing on our Raspberry Pi!</p>
+<!-- raw HTML omitted -->
+<p>Continued in Part 3, coming soon&hellip;</p>
+<hr>
+<p>Credits:</p>
+<ul>
+<li><a href="https://azeria-labs.com/writing-arm-assembly-part-1/">Azeria Labs</a></li>
+<li><a href="https://thinkingeek.com/arm-assembler-raspberry-pi/">Think In Geek - ARM Assember in Raspberry Pi</a></li>
+<li><a href="https://opensource.com/article/20/10/arm6-assembly-language">Opensource - ARM6 Assembly</a></li>
+<li><a href="http://blogsmayan.blogspot.com/p/adding-simple-system-call.html">Blogsmayan Blogspot - System Calls</a></li>
+</ul>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://succurity.com/tags/security/">security</a>
+
+  <a class="tag tag--primary tag--small" href="https://succurity.com/tags/arm-assembly/">ARM Assembly</a>
+
+  <a class="tag tag--primary tag--small" href="https://succurity.com/tags/encoding/">Encoding</a>
+
+                  </div>
+                
+              
+            
+            
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/succurity.com\/post\/offsec\/arm-base64-encoder-pt2\/';
+        
+          this.page.identifier = '\/post\/offsec\/arm-base64-encoder-pt2\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = '';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2022 <a href="https://twitter.com/misusage_">Sage</a>. Made with <3. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Farm-base64-encoder-pt2%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Farm-base64-encoder-pt2%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://wa.me/?text=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Farm-base64-encoder-pt2%2F" aria-label="Share on Whatsapp">
+          <i class="fab fa-whatsapp" aria-hidden="true"></i><span>Share on Whatsapp</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Farm-base64-encoder-pt2%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Farm-base64-encoder-pt2%2F" aria-label="Share on Hacker News">
+          <i class="fab fa-hacker-news" aria-hidden="true"></i><span>Share on Hacker News</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://succurity.com/images/me.jpg" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Sage</h4>
+    
+      <div id="about-card-bio">Succurity through Obscurity usually isn&rsquo;t a good idea.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Offensive Security
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        California, US
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      
+      <div id="cover" style="background-image:url('https://succurity.com/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://succurity.com/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-pX0JuBB3qAgRNbbF0q/GITuhEhb2HbqPum96R1WXQvqOpAxu16RCAJ/c3jC/zHIdmJ5F7tN+o59R+R7kLPBSkw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/armasm.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-M8ItxdQvsDiH+PgvvOLo3qCXYiKT9DRhhzUjsBmONqMvk9HLzpYjWnQKg0je6WaZ7shmnSFrnptz9ery9pAsKg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/x86asm.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-0cUNDGddrU+KpwDdczYskJ7AUc5H5zwASXzFB0UT74/WSP7RvuXzalAX1Iy90Avk7y02tuM3nKV1ODnNuunsgQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/arduino.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-6uPEB+tN2jnZQ8gHNkW4ZiJbXUa7gIL21dsIS3UPAJyzRfDCLmm1hFGJmZ/l8RwBPeCiKTOg9BNCB+Bp9btrmA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/c.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-HhumF7+woGiAuk8LFmeLWrR6ZOmEVKfdZOuIAfbyKYIIagPDI+3PkHT5yHNuSbuXbdcSSuA9iOgyFw1QAyF5Sw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/makefile.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

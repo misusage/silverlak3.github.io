@@ -6,10 +6,28 @@
     <description>Recent content in security on Sage&#39;s Succurity Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 05 Apr 2022 15:36:17 -0700</lastBuildDate>
+    <lastBuildDate>Thu, 01 Sep 2022 14:25:27 -0700</lastBuildDate>
     
 	<atom:link href="https://succurity.com/tags/security/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ARM Assembly Base64 Encoder: Part 2</title>
+      <link>https://succurity.com/post/offsec/arm-base64-encoder-pt2/</link>
+      <pubDate>Thu, 01 Sep 2022 14:25:27 -0700</pubDate>
+      
+      <guid>https://succurity.com/post/offsec/arm-base64-encoder-pt2/</guid>
+      <description>&lt;p&gt;Back in college, one of my assignments was to code a Base64 encoder in ARM assembly. After many hours of study, I got it. First, Let&amp;rsquo;s take a look at how ARM Assembly works.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ARM Assembly Base64 Encoder: Part 1</title>
+      <link>https://succurity.com/post/offsec/arm-base64-converter/</link>
+      <pubDate>Wed, 31 Aug 2022 13:25:27 -0700</pubDate>
+      
+      <guid>https://succurity.com/post/offsec/arm-base64-converter/</guid>
+      <description>&lt;p&gt;In this three part series, I will first go over Base64 Encoding, then in Part 2, talk about ARM Assembly and finally in part 3, code up a Base64 encoder.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>DNS Tunneling with Iodine</title>
