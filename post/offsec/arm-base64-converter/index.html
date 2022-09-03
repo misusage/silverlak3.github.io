@@ -277,7 +277,7 @@
 </nav>
 
 <p>Back in school, we used a program called <a href="https://webhome.cs.uvic.ca/~nigelh/ARMSim-V2.1/index.html">ARMSim#</a> to learn ARM assembly with the ARM7TDMI instruction set. That software runs on Windows and includes both, an assembler and a linker.</p>
-<p>Lately, I wanted to refresh my ARM knowledge but this time, I wanted to code ARM directly on ARM based hardware. You could possibly emulate a home router with QEMU but setting that up is more complex. Previously for practice, I did have a root shell on a home router that was manufactured by a company I used to work for, which used the ARM7L CPU. Since home routers are somewhat locked from factory, getting a root shell is pretty much non-existent without some vulnerability that would give you that remote shell access. So, since Raspberry Pi&rsquo;s are much more accessible and easier to work with, a Raspberry Pi will have to do. I will be using a Raspberry Pi 3 which technically has a 64-bit ARM8 CPU but ARM is backwards compatible and can run in 32-bit mode.</p>
+<p>Lately, I wanted to refresh my ARM knowledge but this time, I wanted to code ARM directly on ARM based hardware. You could possibly emulate a home router with QEMU but setting that up is a bit more complex. Previously for practice, I did have a root shell on a home router that was manufactured by a company I used to work for, which used the ARM7L CPU. Since home routers are somewhat locked from factory, getting a root shell is pretty much non-existent without some vulnerability that would give you that remote shell access. So, since Raspberry Pi&rsquo;s are much more accessible and easier to work with, a Raspberry Pi will have to do. I will be using a Raspberry Pi 3 which technically has a 64-bit ARM8 CPU but ARM is backwards compatible and can run in 32-bit mode.</p>
 <hr>
 <h2 id="the-base64-encoding-process">The Base64 Encoding Process</h2>
 <hr>
@@ -314,7 +314,6 @@
 Binary:  01001000   01100101   01101100
 
 Result: 010010000110010101101100
-
 </code></pre><p>Now that we have 24 bits, Base64 encoding will divide the binary data up to six-bit chunks and map them to a base64 character according to the table Base64 table which we will look at in just a moment. For now lets separate the 24-bits into those 6-bit chunks.</p>
 <pre><code>010010000110010101101100
 
