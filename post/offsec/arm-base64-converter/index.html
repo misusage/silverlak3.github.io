@@ -360,8 +360,8 @@ Value:   S        G        V        s
 <hr>
 <h3 id="padding-base64">Padding Base64</h3>
 <hr>
-<p>What about padding? Padding is needed when the number of characters to be encoded does not come with a multiple of six bits, therefore zeros will be used to complete the last six-bit sequence.</p>
-<p><strong>IMPORTANT NOTE: The first 16 bits (going from left to right) will get converted no matter what. If the second set of 6 bits are all zero&rsquo;s , that still gets converted.</strong></p>
+<p>What about padding? Padding is needed when the number of characters to be encoded does not come with a multiple of six bits, therefore zeros will be used to complete the last bit sequence.</p>
+<p><strong>IMPORTANT NOTE: The first 12 bits (going from left to right) will get converted no matter what. If the second set of 6 bits are all zero&rsquo;s , that still gets converted.</strong></p>
 <h3 id="padding-with-two-equal-signs">Padding with TWO equal signs.</h3>
 <p>Let&rsquo;s convert the single lowercase letter of <code>a</code>.</p>
 <p>a is 97 in decimal and <code>01100001</code> in binary. We end up with only 8 bits, which is not evenly divisible by six.</p>
